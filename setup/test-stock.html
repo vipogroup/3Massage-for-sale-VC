@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>VIPO — בדיקת מלאי</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 520px; margin: 24px auto; padding: 0 16px; }
+    .ok { color: #15803d; } .err { color: #dc2626; } .box { background: #f8fafc; padding: 14px; border-radius: 10px; margin: 12px 0; }
+    button { padding: 12px 16px; border: none; border-radius: 10px; background: #2563eb; color: #fff; font-weight: 700; cursor: pointer; width: 100%; margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <h1>בדיקת חיבור מלאי</h1>
+  <div id="out" class="box">טוען config…</div>
+  <button type="button" id="retest">בדוק שוב</button>
+  <button type="button" id="testOrder" style="background:#25d366;margin-top:8px;">בדיקת הזמנה (מוריד 1 מהמלאי)</button>
+  <script>
+    let cfg = null;
+    async function run(testOrder) {
+      const out = document.getElementById('out');
+      out.textContent = 'בודק…';
+      try {
+        const c = await fetch('../config.json?_=' + Date.now()).then(r => r.json());
+        cfg = c;
+        const url = c.orderApi && c.orderApi.url;
+        if (!c.orderApi || !c.orderApi.enabled || !url) {
+          out.innerHTML = '<span class="err">orderApi לא מופעל ב-config.json</span>';
+          return;
+        }
+        if (testOrder) {
+          const res = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify({ action: 'order', name: 'בדיקה', phone: '0500000000', city: 'בדיקה', note: 'בדיקת מערכת', product: c.productName })
+          });
+          const data = await res.json();
+          out.innerHTML = data.ok
+            ? `<span class="ok">הזמנת בדיקה הצליחה!</span><br>נמכרו: ${data.soldUnits}/${data.totalUnits} · נותרו: ${data.remaining}`
+            : `<span class="err">שגיאה: ${data.error || JSON.stringify(data)}</span>`;
+          return;
+        }
+        const sep = url.includes('?') ? '&' : '?';
+        const res = await fetch(url + sep + 'action=stock&_=' + Date.now());
+        const text = await res.text();
+        let data;
+        try { data = JSON.parse(text); } catch (e) {
+          out.innerHTML = `<span class="err">תשובה לא תקינה (${res.status})</span><br><small>${text.slice(0,200)}</small>`;
+          return;
+        }
+        if (data.totalUnits != null) {
+          out.innerHTML = `<span class="ok">מחובר!</span><br>נמכרו: <b>${data.soldUnits}</b> / ${data.totalUnits}<br>נותרו: <b>${data.remaining ?? (data.totalUnits - data.soldUnits)}</b>`;
+        } else {
+          out.innerHTML = `<span class="err">${JSON.stringify(data)}</span>`;
+        }
+      } catch (e) {
+        out.innerHTML = `<span class="err">${e.message}</span><br><small>אם 404 — העתק שוב את כתובת Web App מ-Apps Script ל-config.json</small>`;
+      }
+    }
+    document.getElementById('retest').onclick = () => run(false);
+    document.getElementById('testOrder').onclick = () => { if (confirm('זה יוריד 1 מהמלאי. להמשיך?')) run(true); };
+    run(false);
+  </script>
+</body>
+</html>

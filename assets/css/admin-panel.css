@@ -1,0 +1,199 @@
+/* פאנל מנהל — מלאי חי */
+#adminOverlay {
+    position: fixed;
+    inset: 0;
+    z-index: 10050;
+    background: rgba(15, 23, 42, 0.55);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 12px;
+    padding-bottom: max(12px, env(safe-area-inset-bottom));
+}
+
+#adminOverlay[hidden] {
+    display: none !important;
+}
+
+body.admin-open {
+    overflow: hidden;
+}
+
+.admin-sheet {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    background: #fff;
+    border-radius: 16px 16px 12px 12px;
+    padding: 20px 18px 24px;
+    box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.18);
+    color: #111;
+    max-height: 90dvh;
+    overflow-y: auto;
+}
+
+.admin-sheet h2 {
+    margin: 0 0 14px;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.admin-close {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: #f1f5f9;
+    border-radius: 50%;
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
+    color: #334155;
+}
+
+.admin-lead {
+    margin: 0 0 10px;
+    color: #475569;
+}
+
+.admin-input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.admin-input-num {
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.15rem;
+    margin-bottom: 0;
+}
+
+.admin-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 16px;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    background: #fff;
+    color: #111;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.admin-btn-primary {
+    width: 100%;
+    background: #2563eb;
+    border-color: #2563eb;
+    color: #fff;
+}
+
+.admin-btn-save {
+    margin-top: 14px;
+}
+
+.admin-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.admin-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.admin-stat {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 10px 8px;
+    text-align: center;
+}
+
+.admin-stat-label {
+    display: block;
+    font-size: 0.72rem;
+    color: #64748b;
+    margin-bottom: 6px;
+}
+
+.admin-stat-value {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #dc2626;
+}
+
+.admin-quick {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.admin-quick-label {
+    font-size: 0.9rem;
+    color: #475569;
+    width: 100%;
+}
+
+.admin-key-row {
+    margin-bottom: 4px;
+}
+
+.admin-key-row label {
+    display: block;
+    font-size: 0.85rem;
+    color: #64748b;
+    margin-bottom: 6px;
+}
+
+.admin-setup {
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 14px;
+    font-size: 0.85rem;
+    line-height: 1.5;
+}
+
+.admin-setup ol {
+    margin: 8px 0 0;
+    padding-right: 18px;
+}
+
+.admin-setup code {
+    font-size: 0.8rem;
+    background: #fef3c7;
+    padding: 1px 4px;
+    border-radius: 4px;
+}
+
+.admin-status {
+    min-height: 1.2em;
+    margin: 10px 0 0;
+    font-size: 0.85rem;
+    color: #64748b;
+}
+
+.admin-status.is-ok {
+    color: #15803d;
+}
+
+.admin-status.is-error {
+    color: #dc2626;
+}
+
+.admin-status.is-info {
+    color: #2563eb;
+}

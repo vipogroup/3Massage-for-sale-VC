@@ -22,6 +22,7 @@ function checkForConfigFile() {
         .then(config => {
             console.log('קובץ config.json נטען בהצלחה:', config);
             loadProductData(config);
+            document.dispatchEvent(new CustomEvent('vipo:config-loaded', { detail: config }));
         })
         .catch(error => {
             console.log(error.message);
@@ -287,6 +288,15 @@ function loadProductSpec(specFile) {
 }
 
 /**
+ * פורמט מחיר לתצוגה
+ */
+function formatPrice(amount, currency = '₪') {
+    const n = Number(amount);
+    if (Number.isNaN(n)) return '';
+    return `${currency}${n.toLocaleString('he-IL')}`;
+}
+
+/**
  * מעדכן את פרטי המוצר בדף
  */
 function updateProductDetails(config) {
@@ -310,32 +320,58 @@ function updateProductDetails(config) {
     }
     
     // עדכון מחירים
-    if (config.price) {
-        const originalPriceElements = document.querySelectorAll('.original-price');
-        originalPriceElements.forEach(el => {
-            el.textContent = `${config.price}${config.currency || '₪'}`;
+    const currency = config.currency || '₪';
+    if (config.price != null) {
+        const formatted = formatPrice(config.price, currency);
+        document.querySelectorAll('.original-price').forEach(el => {
+            el.textContent = formatted;
+        });
+        document.querySelectorAll('.sticky-cta-price .was').forEach(el => {
+            el.textContent = formatted;
         });
     }
-    
-    if (config.discountPrice) {
-        const currentPriceElements = document.querySelectorAll('.current-price');
-        currentPriceElements.forEach(el => {
-            el.textContent = `${config.discountPrice}${config.currency || '₪'}`;
+
+    if (config.discountPrice != null) {
+        const formatted = formatPrice(config.discountPrice, currency);
+        document.querySelectorAll('.current-price').forEach(el => {
+            el.textContent = formatted;
+        });
+        document.querySelectorAll('.sticky-cta-price .now').forEach(el => {
+            el.textContent = formatted;
+        });
+        document.querySelectorAll('.urgency-price-now').forEach(el => {
+            el.textContent = formatted;
         });
     }
-    
-    // עדכון מספר משתתפים
-    if (config.participants) {
-        const participantsElements = document.querySelectorAll('.participants-count');
-        participantsElements.forEach(el => {
-            el.textContent = config.participants;
-        });
-        
-        // עדכון הערה על המחיר הנוכחי
-        const priceNoteElement = document.querySelector('.price-note strong');
-        if (priceNoteElement) {
-            priceNoteElement.textContent = config.participants;
+
+    if (config.price != null && config.discountPrice != null) {
+        const savings = Number(config.price) - Number(config.discountPrice);
+        if (savings > 0) {
+            document.querySelectorAll('.discount-badge').forEach(el => {
+                el.textContent = `−${formatPrice(savings, currency)}`;
+            });
         }
+    }
+
+    if (config.priceAfterArrival != null) {
+        const after = formatPrice(config.priceAfterArrival, currency);
+        document.querySelectorAll('.lp-price-note strong, .urgency-price-after').forEach(el => {
+            el.textContent = after;
+        });
+    }
+    
+    // עדכון מלאי / FOMO — orderApi (Google) > stockLive (JSONBin) > config.json
+    if (typeof StockApi !== 'undefined') {
+        StockApi.init(config, updateStockFomo);
+    } else if (typeof StockLive !== 'undefined') {
+        StockLive.init(config, updateStockFomo);
+    } else if (config.totalUnits != null && config.soldUnits != null) {
+        updateStockFomo(config.totalUnits, config.soldUnits);
+    } else if (config.participants) {
+        const participantsElements = document.querySelectorAll('.participants-count span');
+        participantsElements.forEach(el => {
+            el.textContent = `${config.participants} אנשים כבר רכשו`;
+        });
     }
     
     // עדכון תאריך סיום
@@ -354,6 +390,31 @@ function updateProductDetails(config) {
         }
     }
 }
+
+/**
+ * מעדכן את בלוק המלאי / FOMO
+ */
+function updateStockFomo(totalUnits, soldUnits) {
+    const remaining = Math.max(0, totalUnits - soldUnits);
+    const pct = totalUnits > 0 ? (soldUnits / totalUnits) * 100 : 0;
+
+    document.querySelectorAll('.stock-sold-count').forEach(el => {
+        el.textContent = soldUnits;
+    });
+    document.querySelectorAll('.stock-left-count').forEach(el => {
+        el.textContent = remaining;
+    });
+    document.querySelectorAll('.stock-total-count').forEach(el => {
+        el.textContent = totalUnits;
+    });
+
+    const bar = document.getElementById('stockBar');
+    if (bar) {
+        bar.style.width = `${pct.toFixed(1)}%`;
+    }
+}
+
+window.updateStockFomo = updateStockFomo;
 
 /**
  * מעדכן את שעון הספירה לאחור

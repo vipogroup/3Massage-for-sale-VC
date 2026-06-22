@@ -1,12 +1,31 @@
 {
   "productName": "כורסת עיסוי ביתית VC",
   "productDescription": "כורסת עיסוי ביתית מקצועית VC - חוויית עיסוי מקצועית בנוחות הבית שלך",
-  "price": 6490,
-  "discountPrice": 3990,
+  "price": 12000,
+  "discountPrice": 2900,
+  "priceAfterArrival": 3500,
   "currency": "₪",
+  "warrantyYears": 1,
+  "warrantyExtensionPerYear": 500,
   "endDate": "2025-12-31T23:59:59",
   "imagesFolder": "product-images",
   "specFile": "product-spec.html",
-  "participants": 32,
-  "contactPhone": "0587009938"
+  "participants": 25,
+  "totalUnits": 54,
+  "soldUnits": 25,
+  "stockLive": {
+    "enabled": false,
+    "binId": "",
+    "readKey": "",
+    "adminPin": "8426"
+  },
+  "orderApi": {
+    "enabled": true,
+    "url": "https://script.google.com/macros/s/AKfycbxtWO3xllFPKTNIaB5tcC0iTZ7y0kOH7CT9HcWIxBnSTPZOVdixWfNoofoXtAfWFKZN/exec",
+    "sheetId": "1zu6rf_ZklwrYwqC_mwzFjsknavedQX_dKC3EuwnEEVs"
+  },
+  "contactPhone": "0587009938",
+  "shipment": {
+    "currentStage": "shipped"
+  }
 }

@@ -1,0 +1,250 @@
+/* דף קטלוג תמונות — מסלול מכולה */
+.sg-page {
+    background: #fff;
+    color: #111;
+    padding-bottom: 32px;
+}
+
+.sg-hero {
+    padding: 16px 0 8px;
+    text-align: center;
+}
+
+.sg-hero h1 {
+    font-size: 1.35rem;
+    font-weight: 800;
+    margin: 0 0 6px;
+}
+
+.sg-hero p {
+    margin: 0;
+    color: #64748b;
+    font-size: 0.92rem;
+}
+
+.sg-track {
+    margin: 20px 0 28px;
+    padding: 16px 12px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+}
+
+.sg-track-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.sg-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    position: relative;
+    padding-bottom: 18px;
+}
+
+.sg-step:last-child {
+    padding-bottom: 0;
+}
+
+.sg-step:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    right: 17px;
+    top: 36px;
+    bottom: 0;
+    width: 2px;
+    background: #e2e8f0;
+}
+
+.sg-step.is-done:not(:last-child)::before {
+    background: #22c55e;
+}
+
+.sg-step-icon {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e2e8f0;
+    color: #64748b;
+    font-size: 0.85rem;
+    z-index: 1;
+}
+
+.sg-step.is-done .sg-step-icon {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.sg-step.is-current .sg-step-icon {
+    background: #2563eb;
+    color: #fff;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.2);
+}
+
+.sg-step.is-future .sg-step-icon {
+    background: #f1f5f9;
+    color: #94a3b8;
+}
+
+.sg-step-body {
+    flex: 1;
+    min-width: 0;
+    padding-top: 6px;
+}
+
+.sg-step-label {
+    font-weight: 700;
+    font-size: 0.95rem;
+}
+
+.sg-step.is-current .sg-step-label {
+    color: #2563eb;
+}
+
+.sg-step-meta {
+    font-size: 0.8rem;
+    color: #64748b;
+    margin-top: 2px;
+}
+
+.sg-section {
+    margin-bottom: 28px;
+}
+
+.sg-section-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.sg-section-head h2 {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 700;
+}
+
+.sg-section-head .sg-count {
+    margin-right: auto;
+    font-size: 0.8rem;
+    color: #64748b;
+}
+
+.sg-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+}
+
+@media (min-width: 576px) {
+    .sg-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+    }
+}
+
+.sg-thumb {
+    display: block;
+    aspect-ratio: 1;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+    background: #f1f5f9;
+    padding: 0;
+    cursor: pointer;
+}
+
+.sg-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.2s;
+}
+
+.sg-thumb:hover img {
+    transform: scale(1.03);
+}
+
+.sg-empty {
+    text-align: center;
+    padding: 24px 12px;
+    color: #94a3b8;
+    font-size: 0.9rem;
+    background: #f8fafc;
+    border-radius: 10px;
+    border: 1px dashed #cbd5e1;
+}
+
+.sg-cta {
+    text-align: center;
+    margin-top: 24px;
+}
+
+.sg-cta .btn {
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#sgLightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 10060;
+    background: rgba(0, 0, 0, 0.92);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+}
+
+#sgLightbox[hidden] {
+    display: none !important;
+}
+
+#sgLightbox img {
+    max-width: 100%;
+    max-height: 90dvh;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.sg-lightbox-close {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.sg-back-product {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+}

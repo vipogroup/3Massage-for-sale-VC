@@ -1,0 +1,163 @@
+/* טופס הזמנה → וואטסאפ */
+#orderOverlay {
+    position: fixed;
+    inset: 0;
+    z-index: 10040;
+    background: rgba(15, 23, 42, 0.55);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 12px;
+    padding-bottom: max(12px, env(safe-area-inset-bottom));
+}
+
+#orderOverlay[hidden] {
+    display: none !important;
+}
+
+body.order-open {
+    overflow: hidden;
+}
+
+.order-sheet {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    background: #fff;
+    border-radius: 16px 16px 12px 12px;
+    padding: 20px 18px 22px;
+    box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.18);
+    color: #111;
+    max-height: 92dvh;
+    overflow-y: auto;
+}
+
+.order-sheet h2 {
+    margin: 0 0 6px;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.order-lead {
+    margin: 0 0 8px;
+    color: #475569;
+    font-size: 0.92rem;
+}
+
+.order-api-note {
+    margin: 0 0 14px;
+    font-size: 0.82rem;
+    color: #15803d;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 8px;
+    padding: 8px 10px;
+    line-height: 1.4;
+}
+
+.order-api-note.is-muted {
+    color: #92400e;
+    background: #fffbeb;
+    border-color: #fde68a;
+}
+
+.order-api-note.is-warn {
+    color: #b91c1c;
+    background: #fef2f2;
+    border-color: #fecaca;
+}
+
+.order-close {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: #f1f5f9;
+    border-radius: 50%;
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
+    color: #334155;
+}
+
+.order-sheet label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: #334155;
+}
+
+.order-input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 11px 13px;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    font-size: 1rem;
+    margin-bottom: 12px;
+}
+
+.order-textarea {
+    resize: vertical;
+    min-height: 64px;
+}
+
+.order-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 14px 16px;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.order-btn-primary {
+    background: #25d366;
+    color: #fff;
+}
+
+.order-btn-primary:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+.order-form-status {
+    min-height: 1.2em;
+    margin: 10px 0 0;
+    font-size: 0.85rem;
+    color: #64748b;
+}
+
+.order-form-status.is-ok {
+    color: #15803d;
+}
+
+.order-form-status.is-error {
+    color: #dc2626;
+}
+
+.order-form-status.is-info {
+    color: #2563eb;
+}
+
+.order-fine {
+    margin: 10px 0 0;
+    font-size: 0.75rem;
+    color: #94a3b8;
+    text-align: center;
+    line-height: 1.4;
+}
+
+.join-group-btn.is-sold-out {
+    opacity: 0.55;
+    pointer-events: none;
+    filter: grayscale(0.4);
+}
