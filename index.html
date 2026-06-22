@@ -34,9 +34,9 @@
         <div class="container">
             <div class="row py-3 align-items-center">
                 <div class="col-2 text-start">
-                    <a href="https://vipogroup.github.io/vipo-products/" class="back-button" aria-label="חזרה לדף הקודם">
+                    <button type="button" class="back-button back-button--inactive" aria-label="חזרה" disabled>
                         <i class="fas fa-arrow-right"></i>
-                    </a>
+                    </button>
                 </div>
                 <div class="col-8 text-center">
                     <a href="https://vipocatalog.github.io/LTD/?lang=he" target="_blank" class="btn btn-lg logo-btn animate__animated animate__fadeIn">
@@ -64,7 +64,7 @@
                         <div class="main-image-container">
                             <img id="mainImage" src="assets/images/1.webp" alt="כורסת עיסוי VC">
                             <div class="gallery-badge">
-                                <i class="fas fa-images"></i> 7 תמונות
+                                <i class="fas fa-images"></i> 3 תמונות
                             </div>
                         </div>
                     </div>
@@ -114,20 +114,8 @@
                         <div class="thumbnail" data-src="assets/images/3.webp">
                             <img src="assets/images/3.webp" alt="תמונה 3">
                         </div>
-                        <div class="thumbnail" data-src="assets/images/4.webp">
-                            <img src="assets/images/4.webp" alt="תמונה 4">
-                        </div>
-                        <div class="thumbnail" data-src="assets/images/5.webp">
-                            <img src="assets/images/5.webp" alt="תמונה 5">
-                        </div>
-                        <div class="thumbnail" data-src="assets/images/6.webp">
-                            <img src="assets/images/6.webp" alt="תמונה 6">
-                        </div>
-                        <div class="thumbnail" data-src="assets/images/7.webp">
-                            <img src="assets/images/7.webp" alt="תמונה 7">
-                        </div>
                         <div class="thumbnail video-thumbnail" data-video="assets/1.mp4" style="position:relative">
-                            <img src="assets/images/5.webp" alt="וידאו" style="opacity:0.85">
+                            <img src="assets/images/1.webp" alt="וידאו" style="opacity:0.85">
                             <div class="thumb-play"><i class="fas fa-play"></i></div>
                         </div>
                     </div>
@@ -658,7 +646,7 @@
                         badge.style.padding = '5px 10px';
                         badge.style.borderRadius = '15px';
                         badge.style.fontSize = '0.8em';
-                        badge.innerHTML = '<i class="fas fa-images"></i> 7 תמונות';
+                        badge.innerHTML = '<i class="fas fa-images"></i> 3 תמונות';
                         mainContainer.appendChild(badge);
                     }
                 }
@@ -748,7 +736,7 @@
                             badge.style.padding = '5px 10px';
                             badge.style.borderRadius = '15px';
                             badge.style.fontSize = '0.8em';
-                            badge.innerHTML = '<i class="fas fa-images"></i> 7 תמונות';
+                            badge.innerHTML = '<i class="fas fa-images"></i> 3 תמונות';
                             
                             // Add elements to container
                             videoContainer.appendChild(video);

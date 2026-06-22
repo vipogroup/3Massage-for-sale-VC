@@ -119,6 +119,19 @@ body.v4-page::before { display: none !important; }
     background: var(--lp-blue-muted);
 }
 
+.v4-page .back-button--inactive,
+.v4-page .back-button--inactive:disabled {
+    opacity: 0.35;
+    cursor: default;
+    pointer-events: none;
+}
+
+.v4-page .back-button--inactive:hover {
+    border-color: var(--lp-line);
+    color: var(--lp-ink-secondary);
+    background: var(--lp-white);
+}
+
 /* ── Video ── */
 .v4-page .video-gallery-container {
     padding: 16px 0 0 !important;
