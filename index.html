@@ -99,39 +99,22 @@
                 </div>
             </section>
 
+            <!-- סרטון הדגמה — רץ אוטומטית, בלי תמונות ממוזערות -->
+            <div class="video-gallery-container lp-hero-video">
+                <div class="video-gallery">
+                    <div class="lp-video-wrap">
+                        <span class="lp-video-label">סרטון הדגמה</span>
+                        <video id="demoVideo" width="100%" height="100%" controls muted loop playsinline autoplay>
+                            <source src="assets/1.mp4" type="video/mp4">
+                            הדפדפן שלך לא תומך בנגן וידאו.
+                        </video>
+                    </div>
+                </div>
+            </div>
+
             <!-- ══ מתחת לקיפ — פירוט מלא ══ -->
             <section class="lp-below-fold product-info">
                 <div class="lp-eyebrow">VIPO · Factory Direct</div>
-
-                <div class="gallery-container lp-gallery-full">
-                    <div class="thumbnails-container">
-                        <div class="thumbnail is-active" data-src="assets/images/1.webp">
-                            <img src="assets/images/1.webp" alt="תמונה 1">
-                        </div>
-                        <div class="thumbnail" data-src="assets/images/2.webp">
-                            <img src="assets/images/2.webp" alt="תמונה 2">
-                        </div>
-                        <div class="thumbnail" data-src="assets/images/3.webp">
-                            <img src="assets/images/3.webp" alt="תמונה 3">
-                        </div>
-                        <div class="thumbnail video-thumbnail" data-video="assets/1.mp4" style="position:relative">
-                            <img src="assets/images/1.webp" alt="וידאו" style="opacity:0.85">
-                            <div class="thumb-play"><i class="fas fa-play"></i></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="video-gallery-container">
-                    <div class="video-gallery">
-                        <div class="lp-video-wrap">
-                            <span class="lp-video-label">סרטון הדגמה</span>
-                            <video width="100%" height="100%" controls muted loop playsinline>
-                                <source src="assets/1.mp4" type="video/mp4">
-                                הדפדפן שלך לא תומך בנגן וידאו.
-                            </video>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="lp-features">
                     <div class="lp-feature"><span class="lp-feature-icon"><i class="fas fa-cogs"></i></span>5 מנועי עיסוי</div>
@@ -565,228 +548,55 @@
     <!-- Swiper JS -->
     <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
     <script>
-        // Gallery functionality
+        // גלריה — 3 תמונות מתחלפות בראש הדף (בלי ממוזערות)
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM fully loaded, initializing gallery...');
-            
-            // Get all thumbnails and main container
-            const thumbnails = document.querySelectorAll('.thumbnail');
+            const images = [
+                'assets/images/1.webp',
+                'assets/images/2.webp',
+                'assets/images/3.webp'
+            ];
+            const mainImage = document.getElementById('mainImage');
             const mainContainer = document.querySelector('.main-image-container');
-            let mainImage = document.getElementById('mainImage');
-            let currentImageIndex = 0;
+            let currentIndex = 0;
             let slideInterval;
-            
-            // Function to go to next image
-            function nextImage() {
-                currentImageIndex = (currentImageIndex + 1) % thumbnails.length;
-                if (thumbnails[currentImageIndex].classList.contains('video-thumbnail')) {
-                    // Skip video thumbnails in auto-slide
-                    currentImageIndex = (currentImageIndex + 1) % thumbnails.length;
-                }
-                showImage(currentImageIndex);
-            }
-            
-            // Function to show specific image by index
-            function setActiveThumb(index) {
-                thumbnails.forEach((thumb, i) => {
-                    thumb.classList.toggle('is-active', i === index);
-                });
-            }
 
             function showImage(index) {
-                if (index >= 0 && index < thumbnails.length) {
-                    const imgSrc = thumbnails[index].getAttribute('data-src');
-                    if (imgSrc) {
-                        updateMainImage(imgSrc);
-                        setActiveThumb(index);
-                        currentImageIndex = index;
-                    }
-                }
+                if (!mainImage || !images.length) return;
+                mainImage.src = images[index];
+                currentIndex = index;
             }
-            
-            // Start auto slide
+
+            function nextImage() {
+                showImage((currentIndex + 1) % images.length);
+            }
+
             function startSlideShow() {
-                stopSlideShow(); // Clear any existing interval
-                slideInterval = setInterval(nextImage, 2000); // Change image every 2 seconds
+                stopSlideShow();
+                slideInterval = setInterval(nextImage, 3000);
             }
-            
-            // Stop auto slide
+
             function stopSlideShow() {
                 if (slideInterval) {
                     clearInterval(slideInterval);
                     slideInterval = null;
                 }
             }
-            
-            // Function to update main image
-            function updateMainImage(src) {
-                if (!mainImage) {
-                    // If mainImage doesn't exist, create it
-                    mainImage = document.createElement('img');
-                    mainImage.id = 'mainImage';
-                    mainImage.alt = 'כורסת עיסוי VC';
-                    mainImage.style.width = '100%';
-                    mainImage.style.height = '100%';
-                    mainImage.style.objectFit = 'contain';
-                    mainImage.style.display = 'block';
-                    
-                    // Clear container and add main image
-                    if (mainContainer) {
-                        mainContainer.innerHTML = '';
-                        mainContainer.appendChild(mainImage);
-                        
-                        // Add gallery badge
-                        const badge = document.createElement('div');
-                        badge.className = 'gallery-badge';
-                        badge.style.position = 'absolute';
-                        badge.style.top = '10px';
-                        badge.style.left = '10px';
-                        badge.style.background = 'rgba(0,0,0,0.7)';
-                        badge.style.color = 'white';
-                        badge.style.padding = '5px 10px';
-                        badge.style.borderRadius = '15px';
-                        badge.style.fontSize = '0.8em';
-                        badge.innerHTML = '<i class="fas fa-images"></i> 3 תמונות';
-                        mainContainer.appendChild(badge);
-                    }
+
+            if (mainImage && images.length) {
+                showImage(0);
+                startSlideShow();
+                if (mainContainer) {
+                    mainContainer.addEventListener('mouseenter', stopSlideShow);
+                    mainContainer.addEventListener('mouseleave', startSlideShow);
+                    mainContainer.addEventListener('touchstart', stopSlideShow);
+                    mainContainer.addEventListener('touchend', startSlideShow);
                 }
-                
-                // Update image source
-                if (mainImage) {
-                    mainImage.src = src;
-                    console.log('Updated main image to:', src);
-                }
-            }
-            
-            // Initialize first image and start slideshow
-            if (thumbnails.length > 0) {
-                showImage(0); // Show first image and highlight thumbnail
-                startSlideShow(); // Start auto slideshow
-                
-                // Pause on hover
-                mainContainer.addEventListener('mouseenter', stopSlideShow);
-                mainContainer.addEventListener('mouseleave', startSlideShow);
-                
-                // Pause on touch
-                mainContainer.addEventListener('touchstart', stopSlideShow);
-                mainContainer.addEventListener('touchend', startSlideShow);
             }
 
-            // Handle thumbnail clicks
-            thumbnails.forEach(thumb => {
-                thumb.addEventListener('click', function() {
-                    console.log('Thumbnail clicked:', this);
-                    
-                    const idx = Array.from(thumbnails).indexOf(this);
-                    setActiveThumb(idx);
-                    
-                    // If it's a video thumbnail
-                    if (this.classList.contains('video-thumbnail')) {
-                        const videoUrl = this.getAttribute('data-video');
-                        console.log('Loading video:', videoUrl);
-                        
-                        if (mainContainer) {
-                            // Create video container
-                            const videoContainer = document.createElement('div');
-                            videoContainer.className = 'video-container';
-                            videoContainer.style.width = '100%';
-                            videoContainer.style.height = '100%';
-                            videoContainer.style.position = 'relative';
-                            videoContainer.style.background = '#000';
-                            
-                            // Create video element
-                            const video = document.createElement('video');
-                            video.id = 'productVideo';
-                            video.controls = true;
-                            video.style.width = '100%';
-                            video.style.height = '100%';
-                            video.style.objectFit = 'contain';
-                            
-                            // Add video source
-                            const source = document.createElement('source');
-                            source.src = videoUrl;
-                            source.type = 'video/mp4';
-                            video.appendChild(source);
-                            video.appendChild(document.createTextNode('הדפדפן שלך לא תומך בהצגת וידאו.'));
-                            
-                            // Add close button
-                            const closeBtn = document.createElement('button');
-                            closeBtn.id = 'closeVideo';
-                            closeBtn.innerHTML = '×';
-                            closeBtn.style.position = 'absolute';
-                            closeBtn.style.top = '10px';
-                            closeBtn.style.right = '10px';
-                            closeBtn.style.background = 'rgba(0,0,0,0.7)';
-                            closeBtn.style.color = 'white';
-                            closeBtn.style.border = 'none';
-                            closeBtn.style.width = '30px';
-                            closeBtn.style.height = '30px';
-                            closeBtn.style.borderRadius = '50%';
-                            closeBtn.style.cursor = 'pointer';
-                            closeBtn.style.zIndex = '10';
-                            
-                            // Add gallery badge
-                            const badge = document.createElement('div');
-                            badge.className = 'gallery-badge';
-                            badge.style.position = 'absolute';
-                            badge.style.top = '10px';
-                            badge.style.left = '10px';
-                            badge.style.background = 'rgba(0,0,0,0.7)';
-                            badge.style.color = 'white';
-                            badge.style.padding = '5px 10px';
-                            badge.style.borderRadius = '15px';
-                            badge.style.fontSize = '0.8em';
-                            badge.innerHTML = '<i class="fas fa-images"></i> 3 תמונות';
-                            
-                            // Add elements to container
-                            videoContainer.appendChild(video);
-                            videoContainer.appendChild(closeBtn);
-                            
-                            // Clear and update container
-                            mainContainer.innerHTML = '';
-                            mainContainer.appendChild(videoContainer);
-                            mainContainer.appendChild(badge);
-                            
-                            // Add close button event
-                            closeBtn.addEventListener('click', function(e) {
-                                e.stopPropagation();
-                                console.log('Close button clicked');
-                                
-                                const firstThumb = document.querySelector('.thumbnail');
-                                if (firstThumb) {
-                                    const firstImgSrc = firstThumb.getAttribute('data-src');
-                                    if (firstImgSrc) {
-                                        updateMainImage(firstImgSrc);
-                                        setActiveThumb(0);
-                                    }
-                                }
-                            });
-                            
-                            // Play video
-                            video.play().catch(error => {
-                                console.error('Error playing video:', error);
-                            });
-                        }
-                    } else {
-                        // It's an image thumbnail
-                        const imgSrc = this.getAttribute('data-src');
-                        console.log('Loading image:', imgSrc);
-                        if (imgSrc) {
-                            updateMainImage(imgSrc);
-                            // Update current index and reset slideshow
-                            currentImageIndex = Array.from(thumbnails).indexOf(this);
-                            startSlideShow();
-                        }    
-                    }
-                });
-            });
-            
-            // Make first thumbnail active by default
-            if (thumbnails.length > 0) {
-                setActiveThumb(0);
+            const demoVideo = document.getElementById('demoVideo');
+            if (demoVideo) {
+                demoVideo.play().catch(function() {});
             }
-            
-            // V4 uses CSS aspect-ratio — no inline height overrides
         });
     </script>
     <script src="assets/js/main.js"></script>
