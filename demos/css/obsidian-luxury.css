@@ -1,352 +1,102 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Heebo:wght@400;500;600;700;800;900&display=swap');
+/**
+ * Obsidian Luxury — עיצוב כהה + זהב
+ * מOverride על premium-v4 — כל התוכן המקורי נשמר
+ */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,500&display=swap');
 
-:root {
-    --bg: #080809;
-    --surface: #121214;
-    --surface2: #1a1a1e;
-    --gold: #c9a962;
-    --gold-light: #e8d5a3;
-    --text: #f4f4f5;
-    --muted: #a1a1aa;
-    --red: #f43f5e;
-    --green: #25d366;
-    --max: 440px;
-    --font-display: 'Cormorant Garamond', Georgia, serif;
-    --font-body: 'Heebo', sans-serif;
+body.v4-page.theme-obsidian {
+    --lp-blue: #c9a962;
+    --lp-blue-hover: #b8944f;
+    --lp-blue-muted: rgba(201,169,98,.12);
+    --lp-ink: #f4f4f5;
+    --lp-ink-secondary: #a1a1aa;
+    --lp-ink-muted: #71717a;
+    --lp-line: rgba(201,169,98,.15);
+    --lp-surface: #141416;
+    --lp-white: #0a0a0b;
+    --lp-green: #25d366;
+    --lp-green-bg: rgba(37,211,102,.1);
+    --lp-red: #f43f5e;
+    --lp-red-bg: rgba(244,63,94,.12);
+    background: #080809;
+    color: var(--lp-ink);
 }
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-body.obsidian {
-    font-family: var(--font-body);
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    padding-bottom: calc(80px + env(safe-area-inset-bottom));
-    -webkit-font-smoothing: antialiased;
-}
-
-body.obsidian::before {
-    content: '';
-    position: fixed;
-    inset: 0;
+body.v4-page.theme-obsidian::before {
+    display: block !important;
     background:
-        radial-gradient(ellipse 70% 45% at 50% 0%, rgba(201,169,98,.12), transparent),
-        radial-gradient(ellipse 50% 30% at 80% 90%, rgba(201,169,98,.06), transparent);
-    pointer-events: none;
+        radial-gradient(ellipse 70% 45% at 50% 0%, rgba(201,169,98,.14), transparent),
+        radial-gradient(ellipse 50% 30% at 80% 90%, rgba(201,169,98,.06), transparent) !important;
 }
 
-.obs-wrap {
-    position: relative;
-    max-width: var(--max);
-    margin: 0 auto;
-    padding: 0 18px 32px;
+body.v4-page.theme-obsidian .product-header {
+    background: rgba(8,8,9,.92) !important;
+    border-bottom-color: rgba(201,169,98,.15) !important;
 }
 
-/* Header */
-.obs-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 14px 0;
-    border-bottom: 1px solid rgba(201,169,98,.12);
-    margin-bottom: 20px;
-}
-
-.obs-logo {
-    font-size: 0.65rem;
-    font-weight: 800;
-    letter-spacing: .22em;
-    text-transform: uppercase;
-    color: var(--gold);
-}
-
-.obs-header-actions { display: flex; gap: 8px; }
-
-.obs-icon-btn {
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    border: 1px solid rgba(201,169,98,.25);
-    background: rgba(201,169,98,.06);
-    color: var(--gold-light);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    font-size: 0.9rem;
-}
-
-/* Hero */
-.obs-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    color: var(--gold);
-    border: 1px solid rgba(201,169,98,.3);
-    padding: 5px 12px;
-    border-radius: 999px;
-    margin-bottom: 14px;
-}
-
-.obs-badge .dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--gold);
-    animation: pulse 1.5s infinite;
-}
-
-@keyframes pulse { 50% { opacity: .3; } }
-
-.obs-hero-img {
-    position: relative;
-    border-radius: 24px;
-    overflow: hidden;
-    background: var(--surface2);
-    border: 1px solid rgba(201,169,98,.15);
-    margin-bottom: 22px;
-    box-shadow: 0 32px 64px rgba(0,0,0,.5), inset 0 1px 0 rgba(201,169,98,.1);
-}
-
-.obs-hero-img::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(8,8,9,.6) 0%, transparent 40%);
-    z-index: 1;
-    pointer-events: none;
-}
-
-.obs-hero-img img {
-    width: 100%;
-    aspect-ratio: 1;
-    object-fit: contain;
-    display: block;
-    padding: 16px;
-}
-
-.obs-title {
-    font-family: var(--font-display);
-    font-size: clamp(2rem, 8vw, 2.75rem);
-    font-weight: 600;
-    line-height: 1.1;
-    color: var(--text);
-    margin-bottom: 8px;
+body.v4-page.theme-obsidian .product-title {
+    font-family: 'Cormorant Garamond', Georgia, serif !important;
+    font-weight: 700 !important;
     letter-spacing: -.01em;
 }
 
-.obs-title em {
-    font-style: italic;
-    color: var(--gold-light);
+body.v4-page.theme-obsidian .current-price {
+    color: #e8d5a3 !important;
 }
 
-.obs-sub {
-    font-size: 0.88rem;
-    color: var(--muted);
-    line-height: 1.6;
-    margin-bottom: 20px;
+body.v4-page.theme-obsidian .gallery-container {
+    background: #121214 !important;
+    border-color: rgba(201,169,98,.2) !important;
+    box-shadow: 0 24px 48px rgba(0,0,0,.45) !important;
 }
 
-/* Price card */
-.obs-price-card {
-    background: var(--surface);
-    border: 1px solid rgba(201,169,98,.2);
-    border-radius: 20px;
-    padding: 18px 20px;
-    margin-bottom: 16px;
-    position: relative;
-    overflow: hidden;
+body.v4-page.theme-obsidian .join-group-btn {
+    background: linear-gradient(135deg, #c9a962, #a8863a) !important;
+    color: #0a0a0b !important;
+    box-shadow: 0 8px 32px rgba(201,169,98,.35) !important;
 }
 
-.obs-price-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+body.v4-page.theme-obsidian .lp-mobile-cta-bar {
+    background: rgba(8,8,9,.96) !important;
+    border-top-color: rgba(201,169,98,.2) !important;
 }
 
-.obs-price-row {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 12px;
+body.v4-page.theme-obsidian .urgency-hub,
+body.v4-page.theme-obsidian .stock-fomo {
+    background: #121214 !important;
+    border-color: rgba(201,169,98,.15) !important;
 }
 
-.obs-price-now {
-    font-size: 2.5rem;
-    font-weight: 900;
-    color: var(--gold-light);
-    line-height: 1;
-    font-variant-numeric: tabular-nums;
+body.v4-page.theme-obsidian .accordion-item {
+    background: #121214 !important;
+    border-color: rgba(255,255,255,.08) !important;
 }
 
-.obs-price-was {
-    font-size: 1rem;
-    color: var(--red);
-    text-decoration: line-through;
-    opacity: .85;
+body.v4-page.theme-obsidian .accordion-button {
+    background: #121214 !important;
+    color: var(--lp-ink) !important;
 }
 
-.obs-save {
-    font-size: 0.72rem;
-    font-weight: 800;
-    background: rgba(244,63,94,.15);
-    color: var(--red);
-    padding: 6px 10px;
-    border-radius: 8px;
+body.v4-page.theme-obsidian .accordion-button:not(.collapsed) {
+    background: rgba(201,169,98,.08) !important;
+    color: #e8d5a3 !important;
 }
 
-.obs-price-note {
-    margin-top: 10px;
-    font-size: 0.78rem;
-    color: var(--muted);
+body.v4-page.theme-obsidian .bottom-cta {
+    background: #121214 !important;
+    border-color: rgba(201,169,98,.15) !important;
 }
 
-.obs-price-note strong { color: var(--gold); }
-
-/* Features */
-.obs-features {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-bottom: 20px;
+body.v4-page.theme-obsidian .product-footer {
+    background: #080809 !important;
+    color: var(--lp-ink-muted) !important;
 }
 
-.obs-feat {
-    background: var(--surface);
-    border: 1px solid rgba(255,255,255,.06);
-    border-radius: 14px;
-    padding: 12px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+body.v4-page.theme-obsidian .lp-feature-icon {
+    background: rgba(201,169,98,.12) !important;
+    color: #c9a962 !important;
 }
 
-.obs-feat i { color: var(--gold); font-size: 0.85rem; }
-
-/* FOMO */
-.obs-fomo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    padding: 10px 14px;
-    border-radius: 12px;
-    background: rgba(244,63,94,.1);
-    border: 1px solid rgba(244,63,94,.2);
-    color: #fda4af;
-    margin-bottom: 20px;
+body.v4-page.theme-obsidian .header-whatsapp-btn {
+    box-shadow: 0 6px 20px rgba(37,211,102,.3) !important;
 }
-
-.obs-fomo strong { color: #fff; }
-
-/* Stock block */
-.obs-stock {
-    background: var(--surface);
-    border-radius: 20px;
-    padding: 18px;
-    border: 1px solid rgba(255,255,255,.06);
-    margin-bottom: 20px;
-}
-
-.obs-stock-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 14px;
-}
-
-.obs-stock-label {
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: .1em;
-    text-transform: uppercase;
-    color: var(--muted);
-}
-
-.obs-stock-title { font-size: 0.95rem; font-weight: 800; margin-top: 4px; }
-
-.obs-stock-big {
-    text-align: center;
-    background: rgba(244,63,94,.12);
-    border-radius: 12px;
-    padding: 8px 14px;
-}
-
-.obs-stock-big .num { display: block; font-size: 1.75rem; font-weight: 900; color: var(--red); line-height: 1; }
-.obs-stock-big .lbl { font-size: 0.65rem; color: var(--muted); font-weight: 600; }
-
-.obs-bar {
-    height: 6px;
-    background: rgba(255,255,255,.08);
-    border-radius: 999px;
-    overflow: hidden;
-    margin-bottom: 12px;
-}
-
-.obs-bar-fill {
-    height: 100%;
-    width: 46%;
-    background: linear-gradient(90deg, var(--gold), var(--red));
-    border-radius: 999px;
-}
-
-/* Video */
-.obs-video {
-    border-radius: 16px;
-    overflow: hidden;
-    border: 1px solid rgba(255,255,255,.08);
-    margin-bottom: 20px;
-}
-
-.obs-video video { width: 100%; display: block; aspect-ratio: 16/9; object-fit: cover; }
-
-/* CTA desktop inline */
-.obs-cta-inline {
-    display: none;
-}
-
-@media (min-width: 768px) {
-    .obs-cta-inline { display: block; margin-bottom: 24px; }
-    body.obsidian { padding-bottom: 32px; }
-}
-
-.obs-cta-inline .join-group-btn,
-.demo-mobile-cta .join-group-btn {
-    background: linear-gradient(135deg, var(--gold), #a8863a);
-    color: #0a0a0b;
-    box-shadow: 0 8px 32px rgba(201,169,98,.35);
-}
-
-.obs-trust {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    justify-content: center;
-    font-size: 0.68rem;
-    color: var(--muted);
-    padding-top: 8px;
-}
-
-.obs-trust span {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    padding: 4px 10px;
-    border: 1px solid rgba(255,255,255,.08);
-    border-radius: 999px;
-}
-
-.obs-trust i { color: var(--gold); font-size: 0.6rem; }

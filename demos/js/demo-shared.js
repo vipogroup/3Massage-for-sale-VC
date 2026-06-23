@@ -1,20 +1,119 @@
+/**
+ * טעינת תוכן מלא מדף הנחיתה + אתחול גלריה, וידאו, config
+ */
 (function () {
-    const images = ['../assets/images/1.webp', '../assets/images/2.webp', '../assets/images/3.webp'];
-    let idx = 0;
+    const IMAGES = ['../assets/images/1.webp', '../assets/images/2.webp', '../assets/images/3.webp'];
+    let slideIndex = 0;
+    let slideTimer = null;
 
-    function rotateImages() {
-        document.querySelectorAll('[data-demo-gallery]').forEach(function (img) {
-            if (!img.dataset.demoGallery) return;
-            img.src = images[idx % images.length];
+    function initGallery() {
+        const mainImage = document.getElementById('mainImage');
+        const mainContainer = document.querySelector('.main-image-container');
+        if (!mainImage) return;
+
+        function show(i) {
+            mainImage.src = IMAGES[i % IMAGES.length];
+            slideIndex = i;
+        }
+
+        function next() {
+            show(slideIndex + 1);
+        }
+
+        function start() {
+            stop();
+            slideTimer = setInterval(next, 3000);
+        }
+
+        function stop() {
+            if (slideTimer) {
+                clearInterval(slideTimer);
+                slideTimer = null;
+            }
+        }
+
+        show(0);
+        start();
+
+        if (mainContainer) {
+            mainContainer.addEventListener('mouseenter', stop);
+            mainContainer.addEventListener('mouseleave', start);
+            mainContainer.addEventListener('touchstart', stop);
+            mainContainer.addEventListener('touchend', start);
+        }
+    }
+
+    function initVideo() {
+        const video = document.getElementById('demoVideo');
+        if (video) video.play().catch(function () {});
+    }
+
+    function initPulse() {
+        document.querySelectorAll('.join-group-btn').forEach(function (btn) {
+            btn.addEventListener('mouseover', function () { this.classList.add('pulse'); });
+            btn.addEventListener('mouseout', function () { this.classList.remove('pulse'); });
         });
-        idx++;
+    }
+
+    function loadConfig() {
+        return fetch('../config.json')
+            .then(function (r) { return r.json(); })
+            .then(function (c) {
+                document.dispatchEvent(new CustomEvent('vipo:config-loaded', { detail: c }));
+                return c;
+            })
+            .catch(function () {
+                document.dispatchEvent(new CustomEvent('vipo:config-loaded', { detail: {} }));
+            });
+    }
+
+    function rebindShare() {
+        var btn = document.querySelector('.share-button');
+        var overlay = document.getElementById('shareOverlay');
+        if (!btn || !overlay || btn.dataset.demoShareBound) return;
+        btn.dataset.demoShareBound = '1';
+        btn.addEventListener('click', function (e) {
+            e.preventDefault();
+            overlay.hidden = false;
+            document.body.classList.add('share-open');
+        });
+    }
+
+    function afterContentLoaded() {
+        initGallery();
+        initVideo();
+        initPulse();
+        rebindShare();
+        loadConfig();
+        if (typeof startCountdown === 'function') {
+            startCountdown();
+        }
+        window.scrollTo(0, 0);
+        document.dispatchEvent(new Event('demo:content-loaded'));
+    }
+
+    function loadLanding() {
+        const root = document.getElementById('demo-root');
+        if (!root) return Promise.reject(new Error('demo-root missing'));
+
+        return fetch('partials/full-landing.html')
+            .then(function (r) {
+                if (!r.ok) throw new Error('Failed to load landing content');
+                return r.text();
+            })
+            .then(function (html) {
+                root.innerHTML = html;
+                afterContentLoaded();
+            });
     }
 
     document.addEventListener('DOMContentLoaded', function () {
-        rotateImages();
-        setInterval(rotateImages, 3500);
-
-        const video = document.getElementById('demoVideo');
-        if (video) video.play().catch(function () {});
+        loadLanding().catch(function (err) {
+            console.error(err);
+            var root = document.getElementById('demo-root');
+            if (root) {
+                root.innerHTML = '<p style="padding:24px;text-align:center;color:#e11d48">שגיאה בטעינת התוכן. נסה לפתוח דרך שרת מקומי או GitHub Pages.</p>';
+            }
+        });
     });
 })();

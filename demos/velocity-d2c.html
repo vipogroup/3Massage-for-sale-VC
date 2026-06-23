@@ -1,108 +1,34 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="he" dir="rtl" class="v4-root">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Velocity D2C — דמו | VC LUXURY</title>
+    <title>Velocity D2C — דמו מלא | VC LUXURY</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/premium-v4.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+    <link rel="stylesheet" href="../assets/css/hero-fold.css">
+    <link rel="stylesheet" href="../assets/css/order-form.css">
+    <link rel="stylesheet" href="../assets/css/share-sheet.css">
     <link rel="stylesheet" href="css/shared.css">
     <link rel="stylesheet" href="css/velocity-d2c.css">
-    <link rel="stylesheet" href="../assets/css/order-form.css">
 </head>
-<body class="velocity">
+<body class="v4-page theme-velocity">
     <div class="demo-ribbon">
-        <span>דמו · Velocity D2C</span>
+        <span>דמו מלא · Velocity D2C · כל התוכן מהדף המקורי</span>
         <nav class="demo-ribbon-nav">
             <a href="index.html">כל הדמוים</a>
             <a href="../index.html">גרסה חיה</a>
         </nav>
     </div>
-
-    <div class="vel-strip">🔥 <strong>29 יחידות</strong> נותרו במחיר מכולה — לאחר הגעה ₪3,500</div>
-
-    <div class="vel-wrap">
-        <header class="vel-header">
-            <div class="vel-logo">VIPO CONNECT</div>
-            <a href="https://wa.me/972587009938" class="vel-wa"><i class="fab fa-whatsapp"></i> צור קשר</a>
-        </header>
-
-        <section class="vel-hero">
-            <div class="vel-img-wrap">
-                <img data-demo-gallery src="../assets/images/1.webp" alt="כורסת עיסוי VC - LUXURY">
-                <div class="vel-live"><span class="vel-live-dot"></span> 12 צופים עכשיו</div>
-            </div>
-
-            <h1 class="vel-title">כורסת עיסוי VC — LUXURY</h1>
-            <div class="vel-rating">
-                <span class="vel-stars">★★★★★</span>
-                <span>450+ יחידות נמכרו · 26 החודש</span>
-            </div>
-
-            <div class="vel-price-hero">
-                <div class="vel-price-row">
-                    <div class="vel-price-now current-price">₪2,900</div>
-                    <div class="vel-price-was">₪12,000</div>
-                </div>
-                <div class="vel-save">חיסכון ₪9,100 — מחיר מפעל בלבד</div>
-                <p class="vel-price-note">מכירה לאחר הגעה: <strong>₪3,500</strong></p>
-            </div>
-
-            <div class="vel-proof">
-                <div class="vel-proof-item"><span class="n blue stock-sold-count">25</span><span class="l">נרכשו</span></div>
-                <div class="vel-proof-item"><span class="n">54</span><span class="l">במכולה</span></div>
-                <div class="vel-proof-item"><span class="n red stock-left-count">29</span><span class="l">נותרו</span></div>
-            </div>
-        </section>
-
-        <div class="vel-bar-section">
-            <div class="vel-bar-label">
-                <span>מלאי נמחק מהר</span>
-                <span><span class="stock-left-count">29</span> נותרו!</span>
-            </div>
-            <div class="vel-bar"><div class="vel-bar-fill"></div></div>
-        </div>
-
-        <div class="vel-features">
-            <div class="vel-feat"><i class="fas fa-cogs"></i> 5 מנועים</div>
-            <div class="vel-feat"><i class="fas fa-fire"></i> חימום גרפן</div>
-            <div class="vel-feat"><i class="fas fa-microphone"></i> שליטה קולית</div>
-            <div class="vel-feat"><i class="fas fa-shield-alt"></i> אחריות יצרן</div>
-        </div>
-
-        <div class="vel-video">
-            <video id="demoVideo" muted loop playsinline autoplay controls>
-                <source src="../assets/1.mp4" type="video/mp4">
-            </video>
-        </div>
-
-        <div class="vel-trust">
-            <span><i class="fas fa-lock"></i> תשלום מאובטח</span>
-            <span><i class="fas fa-flag"></i> תקן ישראלי</span>
-            <span><i class="fas fa-truck"></i> מכולה מסין</span>
-        </div>
-
-        <div class="vel-cta-inline">
-            <button type="button" class="btn btn-lg join-group-btn">
-                <span class="btn-text">לרכישה במחיר מפעל</span>
-                <i class="fab fa-whatsapp"></i>
-            </button>
-        </div>
-    </div>
-
-    <aside class="demo-mobile-cta">
-        <button type="button" class="btn btn-lg join-group-btn">
-            <span class="btn-text">לרכישה במחיר מפעל</span>
-            <i class="fab fa-whatsapp"></i>
-        </button>
-    </aside>
-
+    <div id="demo-root"></div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/share-sheet.js"></script>
     <script src="../assets/js/stock-api.js"></script>
     <script src="../assets/js/order-form.js"></script>
     <script src="js/demo-shared.js"></script>
-    <script>
-        fetch('../config.json').then(function (r) { return r.json(); }).then(function (c) {
-            document.dispatchEvent(new CustomEvent('vipo:config-loaded', { detail: c }));
-        });
-    </script>
 </body>
 </html>
