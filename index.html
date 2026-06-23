@@ -418,78 +418,6 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <!-- שיתוף והפניה -->
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingFour">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                                <i class="fas fa-share-alt me-2"></i> שיתוף והפניה
-                            </button>
-                        </h2>
-                        <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#productAccordion">
-                            <div class="accordion-body">
-                                <div class="referral-program">
-                                    <div class="referral-header">
-                                        <div class="referral-icon">
-                                            <i class="fas fa-gift"></i>
-                                        </div>
-                                        <div class="referral-title">
-                                            <h4>שיתפת? הרווחת! <span class="sparkle">✨</span></h4>
-                                            <p class="lead">קבל קוד קופון אישי לשתף עם חברים</p>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="referral-description">
-                                        <div class="referral-badge">
-                                            <span class="badge-text">₪150</span>
-                                        </div>
-                                        <p>כל חבר שרוכש דרכך - אתה זוכה ב-150 ש"ח הנחה ברכישה הבאה!</p>
-                                    </div>
-                                    
-                                    <div class="coupon-code-container my-4">
-                                        <div class="coupon-code">
-                                            <input type="text" value="FRIEND20" id="couponCode" readonly>
-                                            <button class="copy-btn" onclick="copyToClipboard()"><i class="far fa-copy"></i> העתק קוד</button>
-                                        </div>
-                                        <div class="copy-message" id="copyMessage">הקוד הועתק!</div>
-                                    </div>
-                                    
-                                    <div class="share-buttons mt-4">
-                                        <p class="share-title">שתף עכשיו:</p>
-                                        <div class="social-buttons">
-                                            <a href="https://chat.whatsapp.com/FbGe3b0vcZN6hL2hxeveOR" target="_blank" class="btn btn-whatsapp"><i class="fab fa-whatsapp"></i> וואטסאפ</a>
-                                            <a href="#" class="btn btn-facebook"><i class="fab fa-facebook-f"></i> פייסבוק</a>
-                                            <a href="#" class="btn btn-telegram"><i class="fab fa-telegram-plane"></i> טלגרם</a>
-                                            <a href="#" class="btn btn-email"><i class="far fa-envelope"></i> אימייל</a>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="referral-footer mt-4">
-                                        <div class="referral-steps">
-                                            <div class="step">
-                                                <div class="step-number">1</div>
-                                                <div class="step-text">שתף את הקוד</div>
-                                            </div>
-                                            <div class="step-arrow">
-                                                <i class="fas fa-arrow-left"></i>
-                                            </div>
-                                            <div class="step">
-                                                <div class="step-number">2</div>
-                                                <div class="step-text">חברים רוכשים</div>
-                                            </div>
-                                            <div class="step-arrow">
-                                                <i class="fas fa-arrow-left"></i>
-                                            </div>
-                                            <div class="step">
-                                                <div class="step-number">3</div>
-                                                <div class="step-text">קבל ₪150</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </section>
             
@@ -608,23 +536,7 @@
     <script src="assets/js/product-loader.js"></script>
     <script src="assets/js/order-form.js"></script>
     <script>
-        // קוד להעתקת קוד הקופון
-        function copyToClipboard() {
-            const couponCode = document.getElementById('couponCode');
-            const copyMessage = document.getElementById('copyMessage');
-            
-            couponCode.select();
-            document.execCommand('copy');
-            
-            copyMessage.style.opacity = '1';
-            setTimeout(() => {
-                copyMessage.style.opacity = '0';
-            }, 2000);
-        }
-        
-        // אנימציה לכפתור הצטרפות
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize join button animations
             const joinButtons = document.querySelectorAll('.join-group-btn');
             joinButtons.forEach(button => {
                 button.addEventListener('mouseover', function() {
@@ -634,8 +546,7 @@
                     this.classList.remove('pulse');
                 });
             });
-            
-            // Start the countdown timer
+
             startCountdown();
         });
     </script>
