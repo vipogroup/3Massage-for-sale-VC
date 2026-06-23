@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Obsidian Luxury — דמו | VC LUXURY</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/shared.css">
+    <link rel="stylesheet" href="css/obsidian-luxury.css">
+    <link rel="stylesheet" href="../assets/css/order-form.css">
+</head>
+<body class="obsidian">
+    <div class="demo-ribbon">
+        <span>דמו · Obsidian Luxury</span>
+        <nav class="demo-ribbon-nav">
+            <a href="index.html">כל הדמוים</a>
+            <a href="../index.html">גרסה חיה</a>
+        </nav>
+    </div>
+
+    <div class="obs-wrap">
+        <header class="obs-header">
+            <div class="obs-logo">VIPO · LUXURY</div>
+            <div class="obs-header-actions">
+                <a href="https://wa.me/972587009938" class="obs-icon-btn" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </header>
+
+        <div class="obs-badge"><span class="dot"></span> מכולה בדרך מסין</div>
+
+        <div class="obs-hero-img">
+            <img data-demo-gallery src="../assets/images/1.webp" alt="כורסת עיסוי VC - LUXURY">
+        </div>
+
+        <h1 class="obs-title">כורסת עיסוי<br><em>VC — LUXURY</em></h1>
+        <p class="obs-sub">חוויית סpa מקצועית בבית. 5 מנועים, חימום גרפן, שליטה קולית — עיצוב יוקרתי.</p>
+
+        <div class="obs-price-card">
+            <div class="obs-price-row">
+                <div>
+                    <div class="obs-price-was">₪12,000</div>
+                    <div class="obs-price-now current-price">₪2,900</div>
+                </div>
+                <div class="obs-save">חיסכון ₪9,100</div>
+            </div>
+            <p class="obs-price-note">מכירת הכורסה לאחר הגעה <strong>₪3,500</strong></p>
+        </div>
+
+        <div class="obs-features">
+            <div class="obs-feat"><i class="fas fa-cogs"></i> 5 מנועי עיסוי</div>
+            <div class="obs-feat"><i class="fas fa-fire"></i> חימום גרפן</div>
+            <div class="obs-feat"><i class="fas fa-microphone"></i> שליטה קולית</div>
+            <div class="obs-feat"><i class="fas fa-shield-alt"></i> אחריות יצרן</div>
+        </div>
+
+        <div class="obs-fomo">
+            <i class="fas fa-circle" style="font-size:6px;color:#f43f5e"></i>
+            נרכשו כבר <strong>26 כורסאות</strong> החודש · 450 יחידות ב-8 חודשים
+        </div>
+
+        <div class="obs-stock">
+            <div class="obs-stock-head">
+                <div>
+                    <div class="obs-stock-label">מלאי מכולה</div>
+                    <div class="obs-stock-title"><span class="stock-sold-count">25</span> מתוך <span class="stock-total-count">54</span> נתפסו</div>
+                </div>
+                <div class="obs-stock-big">
+                    <span class="num stock-left-count">29</span>
+                    <span class="lbl">נותרו</span>
+                </div>
+            </div>
+            <div class="obs-bar"><div class="obs-bar-fill"></div></div>
+        </div>
+
+        <div class="obs-video">
+            <video id="demoVideo" muted loop playsinline autoplay controls>
+                <source src="../assets/1.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="obs-cta-inline">
+            <button type="button" class="btn btn-lg join-group-btn">
+                <span class="btn-text">לרכישה במחיר מפעל</span>
+                <i class="fab fa-whatsapp"></i>
+            </button>
+        </div>
+
+        <div class="obs-trust">
+            <span><i class="fas fa-flag"></i> תקן ישראלי</span>
+            <span><i class="fas fa-certificate"></i> CE</span>
+            <span><i class="fas fa-lock"></i> תשלום מאובטח</span>
+        </div>
+    </div>
+
+    <aside class="demo-mobile-cta">
+        <button type="button" class="btn btn-lg join-group-btn">
+            <span class="btn-text">לרכישה במחיר מפעל</span>
+            <i class="fab fa-whatsapp"></i>
+        </button>
+    </aside>
+
+    <script src="../assets/js/stock-api.js"></script>
+    <script src="../assets/js/order-form.js"></script>
+    <script src="js/demo-shared.js"></script>
+    <script>
+        fetch('../config.json').then(function (r) { return r.json(); }).then(function (c) {
+            document.dispatchEvent(new CustomEvent('vipo:config-loaded', { detail: c }));
+        });
+    </script>
+</body>
+</html>

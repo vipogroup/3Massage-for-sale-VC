@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Aurora Glass — דמו | VC LUXURY</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/shared.css">
+    <link rel="stylesheet" href="css/aurora-glass.css">
+    <link rel="stylesheet" href="../assets/css/order-form.css">
+</head>
+<body class="aurora">
+    <div class="demo-ribbon">
+        <span>דמו · Aurora Glass</span>
+        <nav class="demo-ribbon-nav">
+            <a href="index.html">כל הדמוים</a>
+            <a href="../index.html">גרסה חיה</a>
+        </nav>
+    </div>
+
+    <div class="aur-wrap">
+        <header class="aur-header">
+            <div class="aur-pill">✦ VIPO LUXURY</div>
+            <div class="aur-header-btns">
+                <a href="https://wa.me/972587009938" class="aur-glass-btn"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </header>
+
+        <div class="aur-card">
+            <div class="aur-hero-img">
+                <img data-demo-gallery src="../assets/images/1.webp" alt="כורסת עיסוי VC - LUXURY">
+            </div>
+            <div class="aur-tag">New · Factory Direct</div>
+            <h1 class="aur-title">כורסת עיסוי VC — LUXURY</h1>
+            <p class="aur-sub">טכנולוגיית VC מתקדמת · 5 מנועים · חימום גרפן · שליטה קולית</p>
+
+            <div class="aur-price-row">
+                <div class="aur-price-now current-price">₪2,900</div>
+                <div>
+                    <div class="aur-price-was">₪12,000</div>
+                    <div style="font-size:0.72rem;font-weight:800;color:#10b981">חיסכון ₪9,100</div>
+                </div>
+            </div>
+
+            <div class="aur-chip-row">
+                <span class="aur-chip"><i class="fas fa-shield-alt"></i> אחריות</span>
+                <span class="aur-chip"><i class="fas fa-flag"></i> תקן IL</span>
+                <span class="aur-chip"><i class="fas fa-certificate"></i> CE</span>
+            </div>
+        </div>
+
+        <div class="aur-fomo">
+            <span class="aur-fomo-dot"></span>
+            <span>נרכשו <strong>26 כורסאות</strong> החודש · 450 יחידות ב-8 חודשים</span>
+        </div>
+
+        <div class="aur-card" style="padding:16px">
+            <div style="font-size:0.72rem;font-weight:800;color:#64748b;margin-bottom:12px;text-transform:uppercase;letter-spacing:.08em">מלאי מכולה · מסין</div>
+            <div class="aur-stats">
+                <div class="aur-stat"><span class="n stock-sold-count">25</span><span class="l">נרכשו</span></div>
+                <div class="aur-stat"><span class="n stock-total-count">54</span><span class="l">במכולה</span></div>
+                <div class="aur-stat"><span class="n stock-left-count">29</span><span class="l">נותרו</span></div>
+            </div>
+            <div class="aur-bar"><div class="aur-bar-fill"></div></div>
+            <p style="font-size:0.78rem;color:#64748b;text-align:center">לאחר הגעה — <strong style="color:#ef4444">₪3,500</strong></p>
+        </div>
+
+        <div class="aur-card aur-video" style="padding:0">
+            <video id="demoVideo" muted loop playsinline autoplay controls>
+                <source src="../assets/1.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="aur-cta-inline">
+            <button type="button" class="btn btn-lg join-group-btn">
+                <span class="btn-text">לרכישה במחיר מפעל</span>
+                <i class="fab fa-whatsapp"></i>
+            </button>
+        </div>
+        <p class="aur-note">הזמנה מאובטחת · מלאי מוגבל · מחיר מפעל</p>
+    </div>
+
+    <aside class="demo-mobile-cta">
+        <button type="button" class="btn btn-lg join-group-btn">
+            <span class="btn-text">לרכישה במחיר מפעל</span>
+            <i class="fab fa-whatsapp"></i>
+        </button>
+    </aside>
+
+    <script src="../assets/js/stock-api.js"></script>
+    <script src="../assets/js/order-form.js"></script>
+    <script src="js/demo-shared.js"></script>
+    <script>
+        fetch('../config.json').then(function (r) { return r.json(); }).then(function (c) {
+            document.dispatchEvent(new CustomEvent('vipo:config-loaded', { detail: c }));
+        });
+    </script>
+</body>
+</html>

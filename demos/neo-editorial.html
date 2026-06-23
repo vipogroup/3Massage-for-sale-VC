@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Neo Editorial — דמו | VC LUXURY</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/shared.css">
+    <link rel="stylesheet" href="css/neo-editorial.css">
+    <link rel="stylesheet" href="../assets/css/order-form.css">
+</head>
+<body class="editorial">
+    <div class="demo-ribbon">
+        <span>דמו · Neo Editorial</span>
+        <nav class="demo-ribbon-nav">
+            <a href="index.html">כל הדמוים</a>
+            <a href="../index.html">גרסה חיה</a>
+        </nav>
+    </div>
+
+    <div class="ed-wrap">
+        <header class="ed-header">
+            <div class="ed-wordmark">VIPO CONNECT</div>
+            <nav class="ed-nav">
+                <a href="https://wa.me/972587009938">צור קשר</a>
+            </nav>
+        </header>
+
+        <div class="ed-issue">Factory Direct · Issue 01 · 2026</div>
+
+        <figure class="ed-hero-img">
+            <img data-demo-gallery src="../assets/images/1.webp" alt="כורסת עיסוי VC - LUXURY">
+            <figcaption>כורסת עיסוי VC — LUXURY · תמונה 1 מתוך 3</figcaption>
+        </figure>
+
+        <h1 class="ed-title">כורסת עיסוי VC — LUXURY</h1>
+        <p class="ed-lead">כורסת עיסוי מתקדמת עם טכנולוגיית VC. עיצוב יוקרתי, 5 מנועים, חימום גרפן ושליטה קולית — חוויית סpa מקצועית בנוחות הבית.</p>
+
+        <div class="ed-divider"></div>
+
+        <div class="ed-price-block">
+            <div>
+                <div class="ed-price-label">מחיר מכולה</div>
+                <div class="ed-price-now current-price">₪2,900</div>
+            </div>
+            <div class="ed-price-meta">
+                <span class="ed-price-was">₪12,000</span>
+                <span class="ed-save">−₪9,100</span>
+            </div>
+        </div>
+        <p class="ed-price-note">מכירת הכורסה לאחר הגעה <strong>₪3,500</strong> · מכרנו 450 יחידות ב-8 חודשים</p>
+
+        <div class="ed-specs">
+            <div class="ed-spec"><strong>מנועים</strong>5 מנועי עיסוי</div>
+            <div class="ed-spec"><strong>חימום</strong>גרפן מתקדם</div>
+            <div class="ed-spec"><strong>שליטה</strong>קולית + שלט</div>
+            <div class="ed-spec"><strong>אחריות</strong>יצרן + הרחבה</div>
+        </div>
+
+        <div class="ed-fomo">
+            <span class="pulse"></span>
+            <span><strong>29 יחידות</strong> נותרו במחיר ₪2,900 — <span class="stock-sold-count">25</span> כבר נרכשו</span>
+        </div>
+
+        <div class="ed-video">
+            <video id="demoVideo" muted loop playsinline autoplay controls>
+                <source src="../assets/1.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="ed-cta-inline">
+            <button type="button" class="btn btn-lg join-group-btn">
+                <span class="btn-text">לרכישה במחיר מפעל</span>
+                <i class="fab fa-whatsapp"></i>
+            </button>
+        </div>
+
+        <p class="ed-footnote">תקן ישראלי · CE · אחריות יצרן לשנה · הרחבה ₪500</p>
+    </div>
+
+    <aside class="demo-mobile-cta">
+        <button type="button" class="btn btn-lg join-group-btn">
+            <span class="btn-text">לרכישה במחיר מפעל</span>
+            <i class="fab fa-whatsapp"></i>
+        </button>
+    </aside>
+
+    <script src="../assets/js/stock-api.js"></script>
+    <script src="../assets/js/order-form.js"></script>
+    <script src="js/demo-shared.js"></script>
+    <script>
+        fetch('../config.json').then(function (r) { return r.json(); }).then(function (c) {
+            document.dispatchEvent(new CustomEvent('vipo:config-loaded', { detail: c }));
+        });
+    </script>
+</body>
+</html>

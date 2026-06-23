@@ -1,0 +1,181 @@
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+    --hub-bg: #070708;
+    --hub-card: #141416;
+    --hub-line: rgba(255,255,255,.08);
+    --hub-text: #fafafa;
+    --hub-muted: #a1a1aa;
+    --hub-accent: #0066ff;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Heebo', sans-serif;
+    background: var(--hub-bg);
+    color: var(--hub-text);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0,102,255,.18), transparent),
+        radial-gradient(ellipse 60% 40% at 100% 100%, rgba(201,169,98,.08), transparent);
+    pointer-events: none;
+}
+
+.hub-wrap {
+    position: relative;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 32px 20px 64px;
+}
+
+.hub-eyebrow {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--hub-accent);
+    margin-bottom: 12px;
+}
+
+.hub-title {
+    font-size: clamp(1.75rem, 5vw, 2.5rem);
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: 8px;
+}
+
+.hub-sub {
+    color: var(--hub-muted);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 32px;
+    max-width: 540px;
+}
+
+.hub-live {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.06);
+    border: 1px solid var(--hub-line);
+    color: var(--hub-text);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-bottom: 40px;
+    transition: background .2s;
+}
+
+.hub-live:hover { background: rgba(255,255,255,.1); }
+
+.hub-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+}
+
+@media (min-width: 640px) {
+    .hub-grid { grid-template-columns: 1fr 1fr; }
+}
+
+.hub-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    background: var(--hub-card);
+    border: 1px solid var(--hub-line);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: transform .25s, border-color .25s, box-shadow .25s;
+}
+
+.hub-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255,255,255,.16);
+    box-shadow: 0 24px 48px rgba(0,0,0,.4);
+}
+
+.hub-card-preview {
+    height: 160px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hub-card-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: .9;
+}
+
+.hub-card-preview::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+}
+
+.preview-obsidian { background: linear-gradient(135deg, #0a0a0b 0%, #1a1510 100%); }
+.preview-obsidian::after { background: linear-gradient(to top, #141416, transparent 60%); }
+
+.preview-editorial { background: linear-gradient(135deg, #faf9f7, #eceae6); }
+.preview-editorial::after { background: linear-gradient(to top, #141416, transparent 50%); }
+
+.preview-aurora { background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%); }
+.preview-aurora::after { background: linear-gradient(to top, #141416, transparent 50%); }
+
+.preview-velocity { background: linear-gradient(135deg, #0f172a, #1e3a5f); }
+.preview-velocity::after { background: linear-gradient(to top, #141416, transparent 50%); }
+
+.hub-card-body { padding: 18px 20px 22px; }
+
+.hub-card-tag {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 999px;
+    margin-bottom: 10px;
+}
+
+.tag-dark { background: rgba(201,169,98,.15); color: #c9a962; }
+.tag-light { background: rgba(255,255,255,.08); color: #e4e4e7; }
+.tag-glass { background: rgba(102,126,234,.2); color: #a5b4fc; }
+.tag-conv { background: rgba(34,197,94,.15); color: #4ade80; }
+
+.hub-card h2 {
+    font-size: 1.15rem;
+    font-weight: 800;
+    margin-bottom: 6px;
+}
+
+.hub-card p {
+    font-size: 0.82rem;
+    color: var(--hub-muted);
+    line-height: 1.55;
+}
+
+.hub-card-arrow {
+    margin-top: 14px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--hub-accent);
+}
+
+.hub-footer {
+    margin-top: 48px;
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--hub-muted);
+}
