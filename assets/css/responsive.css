@@ -14,7 +14,7 @@ html:has(body.v4-page) {
 body.v4-page {
     overflow-x: clip;
     min-width: 280px;
-    padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px)) !important;
+    padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px)) !important;
     padding-top: env(safe-area-inset-top, 0px);
 }
 

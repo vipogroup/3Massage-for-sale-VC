@@ -34,7 +34,7 @@ body.v4-page {
     font-family: var(--lp-font);
     background: var(--lp-white);
     color: var(--lp-ink);
-    padding-bottom: calc(76px + env(safe-area-inset-bottom));
+    padding-bottom: calc(24px + env(safe-area-inset-bottom));
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
 }
