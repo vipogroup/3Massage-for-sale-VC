@@ -48,7 +48,7 @@
         const wrap = document.getElementById('demoVideoWrap');
         const switchBtn = document.getElementById('demoVideoSwitch');
         const hint = document.querySelector('.lp-demo-video-hint');
-        var paths = { preview: '../assets/1.mp4', full: '../assets/2.mp4' };
+        var paths = { preview: '../assets/1.mp4', full: '../assets/d2.mp4' };
 
         function startPreview() {
             if (!video || !wrap) return;
