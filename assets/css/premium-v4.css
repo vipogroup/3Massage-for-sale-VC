@@ -500,6 +500,22 @@ body.v4-page::before { display: none !important; }
     margin-bottom: 28px;
 }
 
+.v4-page .lp-urgency-above-video {
+    margin-top: 4px;
+    margin-bottom: 16px !important;
+}
+
+@media (max-width: 767px) {
+    .v4-page .lp-urgency-above-video {
+        margin-top: 0;
+        margin-bottom: 14px !important;
+    }
+
+    .v4-page .lp-below-fold .lp-below-video {
+        padding-top: 0 !important;
+    }
+}
+
 .v4-page .stock-fomo {
     padding: 20px !important;
     background: var(--lp-white) !important;
