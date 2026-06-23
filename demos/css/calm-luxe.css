@@ -1,0 +1,387 @@
+/**
+ * Calm Luxe — רוגע · בהירות · רצון לרכוש
+ * כלל 15 שניות: תמונה → שם → מחיר → כפתור
+ * פלטה: 3 צבעים בלבד במסך הראשון (קרם · פחם · מרווה)
+ */
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap');
+
+body.v4-page.theme-calm-luxe {
+    /* ── Design tokens ── */
+    --calm-bg: #f7f6f3;
+    --calm-surface: #ffffff;
+    --calm-ink: #2a2a2a;
+    --calm-ink-soft: #6b6b6b;
+    --calm-ink-muted: #9a9a9a;
+    --calm-line: #e8e6e1;
+    --calm-sage: #3d7a65;
+    --calm-sage-dark: #2f5e4e;
+    --calm-sage-soft: #e8f0ec;
+    --calm-sand: #c4a574;
+    --calm-sand-soft: #f5f0e8;
+
+    /* Override premium-v4 variables */
+    --lp-blue: var(--calm-sage);
+    --lp-blue-hover: var(--calm-sage-dark);
+    --lp-blue-muted: var(--calm-sage-soft);
+    --lp-ink: var(--calm-ink);
+    --lp-ink-secondary: var(--calm-ink-soft);
+    --lp-ink-muted: var(--calm-ink-muted);
+    --lp-line: var(--calm-line);
+    --lp-surface: var(--calm-surface);
+    --lp-white: var(--calm-bg);
+    --lp-green: var(--calm-sage);
+    --lp-green-bg: var(--calm-sage-soft);
+    --lp-red: #a67c5b;
+    --lp-red-bg: var(--calm-sand-soft);
+    --lp-amber: var(--calm-sand);
+    --lp-shadow: 0 2px 12px rgba(42, 42, 42, 0.04);
+    --lp-shadow-lg: 0 8px 32px rgba(42, 42, 42, 0.06);
+    --lp-radius-sm: 10px;
+    --lp-radius: 14px;
+    --lp-radius-lg: 18px;
+
+    background: var(--calm-bg);
+    color: var(--calm-ink);
+    font-family: 'Heebo', sans-serif;
+}
+
+body.v4-page.theme-calm-luxe::before {
+    display: none !important;
+}
+
+/* ── Header — שקט, לא מתחרה עם המוצר ── */
+body.v4-page.theme-calm-luxe .product-header {
+    background: rgba(247, 246, 243, 0.95) !important;
+    border-bottom: 1px solid var(--calm-line) !important;
+    box-shadow: none !important;
+}
+
+body.v4-page.theme-calm-luxe .logo-btn {
+    color: var(--calm-ink-soft) !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.12em !important;
+}
+
+body.v4-page.theme-calm-luxe .logo-btn:hover {
+    color: var(--calm-sage) !important;
+}
+
+body.v4-page.theme-calm-luxe .header-whatsapp-btn {
+    background: var(--calm-surface) !important;
+    color: var(--calm-sage-dark) !important;
+    border: 1px solid var(--calm-line) !important;
+    box-shadow: none !important;
+    font-weight: 600 !important;
+}
+
+body.v4-page.theme-calm-luxe .header-whatsapp-btn i {
+    color: var(--calm-sage) !important;
+}
+
+body.v4-page.theme-calm-luxe .share-button {
+    border-color: var(--calm-line) !important;
+    color: var(--calm-ink-soft) !important;
+}
+
+body.v4-page.theme-calm-luxe .share-button:hover {
+    background: var(--calm-sage-soft) !important;
+    color: var(--calm-sage) !important;
+    border-color: transparent !important;
+}
+
+/* ══════════════════════════════════════
+   HERO — 15 שניות: מה · כמה · מה לעשות
+   ══════════════════════════════════════ */
+
+body.v4-page.theme-calm-luxe .gallery-container {
+    background: var(--calm-surface) !important;
+    border: 1px solid var(--calm-line) !important;
+    box-shadow: var(--lp-shadow) !important;
+    border-radius: var(--lp-radius-lg) !important;
+}
+
+body.v4-page.theme-calm-luxe .gallery-badge {
+    background: var(--calm-sage-soft) !important;
+    color: var(--calm-sage-dark) !important;
+    font-weight: 600 !important;
+    border: none !important;
+}
+
+body.v4-page.theme-calm-luxe .product-title {
+    font-weight: 800 !important;
+    color: var(--calm-ink) !important;
+    letter-spacing: -0.02em !important;
+    text-align: center !important;
+}
+
+body.v4-page.theme-calm-luxe .product-subtitle {
+    text-align: center !important;
+    color: var(--calm-ink-soft) !important;
+    font-size: 0.9rem !important;
+    line-height: 1.55 !important;
+    max-width: 320px;
+    margin-inline: auto !important;
+}
+
+/* מחיר — שני מספרים בלבד, בלי רעש */
+body.v4-page.theme-calm-luxe .price-card {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 8px 0 12px !important;
+    text-align: center !important;
+}
+
+body.v4-page.theme-calm-luxe .price-row-main {
+    justify-content: center !important;
+    align-items: baseline !important;
+    gap: 14px !important;
+    flex-wrap: wrap !important;
+}
+
+body.v4-page.theme-calm-luxe .lp-price-block {
+    text-align: center !important;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    justify-content: center;
+}
+
+body.v4-page.theme-calm-luxe .current-price {
+    color: var(--calm-sage-dark) !important;
+    -webkit-text-fill-color: var(--calm-sage-dark) !important;
+    font-size: 2.5rem !important;
+    font-weight: 800 !important;
+    order: 2;
+}
+
+body.v4-page.theme-calm-luxe .original-price {
+    color: var(--calm-ink-muted) !important;
+    font-size: 1rem !important;
+    order: 1;
+    text-decoration: line-through;
+}
+
+body.v4-page.theme-calm-luxe .discount-badge {
+    display: none !important;
+}
+
+body.v4-page.theme-calm-luxe .lp-price-note {
+    text-align: center;
+    font-size: 0.78rem;
+    color: var(--calm-ink-soft);
+    margin-top: 4px;
+}
+
+body.v4-page.theme-calm-luxe .lp-price-note strong {
+    color: var(--calm-sand);
+    font-weight: 700;
+}
+
+/* FOMO — טקסט שקט, לא כפתור אדום */
+body.v4-page.theme-calm-luxe .lp-hero-fomo {
+    background: transparent !important;
+    border: none !important;
+    color: var(--calm-ink-soft) !important;
+    font-weight: 500 !important;
+    font-size: 0.75rem !important;
+    padding: 0 !important;
+    margin-bottom: 6px !important;
+}
+
+body.v4-page.theme-calm-luxe .lp-hero-fomo .dot {
+    background: var(--calm-sage) !important;
+    animation: none !important;
+}
+
+body.v4-page.theme-calm-luxe .lp-hero-fomo strong {
+    color: var(--calm-ink) !important;
+    font-weight: 700 !important;
+}
+
+body.v4-page.theme-calm-luxe .lp-hero-fold .lp-hero-sales-note {
+    display: none !important;
+}
+
+/* CTA — נקודת הפokus היחידה בצבע */
+body.v4-page.theme-calm-luxe .join-group-btn {
+    background: var(--calm-sage) !important;
+    box-shadow: 0 4px 16px rgba(61, 122, 101, 0.25) !important;
+    border-radius: var(--lp-radius) !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.01em;
+    min-height: 52px !important;
+}
+
+body.v4-page.theme-calm-luxe .join-group-btn:hover {
+    background: var(--calm-sage-dark) !important;
+    box-shadow: 0 6px 20px rgba(47, 94, 78, 0.3) !important;
+}
+
+body.v4-page.theme-calm-luxe .lp-mobile-cta-bar {
+    background: rgba(247, 246, 243, 0.97) !important;
+    border-top: 1px solid var(--calm-line) !important;
+    box-shadow: 0 -4px 20px rgba(42, 42, 42, 0.04) !important;
+}
+
+/* ── Below fold — אותה שפה, פחות רעש ── */
+body.v4-page.theme-calm-luxe .lp-eyebrow {
+    color: var(--calm-sage) !important;
+}
+
+body.v4-page.theme-calm-luxe .lp-eyebrow::before {
+    background: var(--calm-sage) !important;
+}
+
+body.v4-page.theme-calm-luxe .lp-feature {
+    background: var(--calm-surface) !important;
+    border-color: var(--calm-line) !important;
+}
+
+body.v4-page.theme-calm-luxe .lp-feature-icon {
+    background: var(--calm-sage-soft) !important;
+    color: var(--calm-sage) !important;
+}
+
+body.v4-page.theme-calm-luxe .trust-micro i {
+    color: var(--calm-sage) !important;
+}
+
+body.v4-page.theme-calm-luxe .lp-warranty-note {
+    background: var(--calm-surface) !important;
+    border-color: var(--calm-line) !important;
+    color: var(--calm-ink-soft) !important;
+}
+
+body.v4-page.theme-calm-luxe .lp-cta-sub {
+    color: var(--calm-ink-muted) !important;
+}
+
+/* Urgency — מידע, לא אזעקה */
+body.v4-page.theme-calm-luxe .urgency-hub {
+    background: var(--calm-surface) !important;
+    border-color: var(--calm-line) !important;
+}
+
+body.v4-page.theme-calm-luxe .lp-scarcity-big .num {
+    color: var(--calm-sage-dark) !important;
+}
+
+body.v4-page.theme-calm-luxe .stat-box.sold .num {
+    color: var(--calm-sage) !important;
+}
+
+body.v4-page.theme-calm-luxe .stat-box.left .num {
+    color: var(--calm-sand) !important;
+}
+
+body.v4-page.theme-calm-luxe .stock-bar {
+    background: linear-gradient(90deg, var(--calm-sage), var(--calm-sand)) !important;
+}
+
+body.v4-page.theme-calm-luxe .stock-urgency-main strong {
+    color: var(--calm-ink) !important;
+}
+
+body.v4-page.theme-calm-luxe .stock-urgency-sub strong {
+    color: var(--calm-sand) !important;
+}
+
+body.v4-page.theme-calm-luxe .countdown-value {
+    color: var(--calm-sage-dark) !important;
+}
+
+body.v4-page.theme-calm-luxe .countdown-section {
+    background: var(--calm-bg) !important;
+}
+
+/* Accordion */
+body.v4-page.theme-calm-luxe .accordion-item {
+    border-color: var(--calm-line) !important;
+    background: var(--calm-surface) !important;
+}
+
+body.v4-page.theme-calm-luxe .accordion-button {
+    color: var(--calm-ink) !important;
+    background: var(--calm-surface) !important;
+}
+
+body.v4-page.theme-calm-luxe .accordion-button:not(.collapsed) {
+    background: var(--calm-sage-soft) !important;
+    color: var(--calm-sage-dark) !important;
+}
+
+body.v4-page.theme-calm-luxe .advantage-icon i,
+body.v4-page.theme-calm-luxe .cert-badge {
+    color: var(--calm-sage) !important;
+}
+
+/* Bottom CTA */
+body.v4-page.theme-calm-luxe .bottom-cta {
+    background: var(--calm-surface) !important;
+    border: 1px solid var(--calm-line) !important;
+    box-shadow: var(--lp-shadow) !important;
+}
+
+body.v4-page.theme-calm-luxe .bottom-cta h4 {
+    color: var(--calm-ink) !important;
+    font-weight: 800 !important;
+}
+
+body.v4-page.theme-calm-luxe .bottom-cta .btn:not(.join-group-btn) {
+    background: var(--calm-ink) !important;
+    color: #fff !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+body.v4-page.theme-calm-luxe .payment-security {
+    color: var(--calm-ink-muted) !important;
+}
+
+body.v4-page.theme-calm-luxe .product-footer {
+    background: transparent !important;
+    color: var(--calm-ink-muted) !important;
+}
+
+body.v4-page.theme-calm-luxe .lp-video-label {
+    background: var(--calm-surface) !important;
+    color: var(--calm-ink-soft) !important;
+}
+
+/* ── Mobile hero — מסך ראשון נקי ── */
+@media (max-width: 767px) {
+    body.v4-page.theme-calm-luxe .lp-hero-fold .product-title {
+        font-size: 1.2rem !important;
+    }
+
+    body.v4-page.theme-calm-luxe .lp-hero-fold .product-subtitle {
+        -webkit-line-clamp: 2;
+        font-size: 0.82rem !important;
+    }
+
+    body.v4-page.theme-calm-luxe .lp-hero-fold .current-price {
+        font-size: 2.15rem !important;
+    }
+
+    body.v4-page.theme-calm-luxe .lp-hero-fold .main-image-container img {
+        max-height: min(34svh, 240px);
+    }
+}
+
+@media (min-width: 768px) {
+    body.v4-page.theme-calm-luxe .product-title,
+    body.v4-page.theme-calm-luxe .product-subtitle,
+    body.v4-page.theme-calm-luxe .price-card {
+        text-align: right !important;
+    }
+
+    body.v4-page.theme-calm-luxe .lp-price-block {
+        justify-content: flex-start !important;
+        text-align: right !important;
+    }
+
+    body.v4-page.theme-calm-luxe .price-row-main {
+        justify-content: space-between !important;
+    }
+}
