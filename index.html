@@ -175,18 +175,17 @@
                 <div class="lp-demo-video-block">
                     <div class="lp-demo-video-head">
                         <h3 class="lp-demo-video-title">סרטון הדגמה — המערכת המתקדמת בפעולה</h3>
-                        <p class="lp-demo-video-hint">לחצו לצפייה עם קול</p>
+                        <p class="lp-demo-video-hint">לחצו לסרטון מלא עם קול</p>
                     </div>
                     <div class="video-gallery-container lp-below-video">
                         <div class="video-gallery">
-                            <div class="lp-video-wrap" id="demoVideoWrap">
-                                <video id="demoVideo" controls playsinline preload="metadata" poster="assets/images/1.webp">
-                                    <source src="assets/1.mp4" type="video/mp4">
+                            <div class="lp-video-wrap is-preview" id="demoVideoWrap">
+                                <video id="demoVideo" muted loop playsinline autoplay preload="auto" src="assets/1.mp4">
                                     הדפדפן שלך לא תומך בנגן וידאו.
                                 </video>
-                                <button type="button" class="lp-video-play-overlay" id="demoVideoPlay" aria-label="הפעל סרטון הדגמה עם קול">
-                                    <span class="lp-video-play-icon" aria-hidden="true"><i class="fas fa-play"></i></span>
-                                    <span class="lp-video-play-text">צפו בהדגמה</span>
+                                <button type="button" class="lp-video-switch-btn" id="demoVideoSwitch" aria-label="החלף לסרטון מלא עם קול">
+                                    <i class="fas fa-volume-up" aria-hidden="true"></i>
+                                    <span>סרטון מלא עם קול</span>
                                 </button>
                             </div>
                         </div>
@@ -531,46 +530,69 @@
                 }
             }
 
-            const demoVideo = document.getElementById('demoVideo');
-            const demoWrap = document.getElementById('demoVideoWrap');
-            const demoPlay = document.getElementById('demoVideoPlay');
+            var demoPaths = { preview: 'assets/1.mp4', full: 'assets/2.mp4' };
 
-            function setDemoPlaying(active) {
-                if (demoWrap) demoWrap.classList.toggle('is-playing', active);
-            }
+            function initDemoVideoPlayer(paths) {
+                const demoVideo = document.getElementById('demoVideo');
+                const demoWrap = document.getElementById('demoVideoWrap');
+                const demoSwitch = document.getElementById('demoVideoSwitch');
+                const demoHint = document.querySelector('.lp-demo-video-hint');
+                if (!demoVideo || !demoWrap) return;
 
-            function activateDemoVideo() {
-                if (!demoVideo) return;
-                demoVideo.muted = false;
-                demoVideo.loop = true;
-                if (demoVideo.paused) {
-                    demoVideo.currentTime = 0;
+                function startPreview() {
+                    demoVideo.src = paths.preview;
+                    demoVideo.muted = true;
+                    demoVideo.loop = true;
+                    demoVideo.removeAttribute('controls');
+                    demoVideo.playsInline = true;
+                    demoWrap.classList.add('is-preview');
+                    demoWrap.classList.remove('is-full');
+                    demoVideo.play().catch(function() {});
                 }
-                var playPromise = demoVideo.play();
-                if (playPromise && playPromise.catch) playPromise.catch(function() {});
-                setDemoPlaying(true);
-            }
 
-            if (demoVideo) {
-                demoVideo.pause();
-                demoVideo.muted = true;
-                if (demoPlay) {
-                    demoPlay.addEventListener('click', function(e) {
+                function switchToFullVideo() {
+                    if (demoWrap.classList.contains('is-full')) return;
+                    demoVideo.pause();
+                    demoVideo.src = paths.full;
+                    demoVideo.muted = false;
+                    demoVideo.loop = true;
+                    demoVideo.setAttribute('controls', '');
+                    demoVideo.load();
+                    demoWrap.classList.remove('is-preview');
+                    demoWrap.classList.add('is-full');
+                    if (demoHint) demoHint.textContent = 'צופים בסרטון המלא';
+                    demoVideo.play().catch(function() {});
+                }
+
+                startPreview();
+
+                if (demoSwitch) {
+                    demoSwitch.addEventListener('click', function(e) {
                         e.preventDefault();
                         e.stopPropagation();
-                        activateDemoVideo();
+                        switchToFullVideo();
                     });
                 }
-                demoVideo.addEventListener('play', function() {
-                    if (!demoVideo.muted) setDemoPlaying(true);
-                });
-                demoVideo.addEventListener('pause', function() {
-                    setDemoPlaying(false);
-                });
-                demoVideo.addEventListener('volumechange', function() {
-                    if (!demoVideo.muted && !demoVideo.paused) setDemoPlaying(true);
+
+                demoWrap.addEventListener('click', function(e) {
+                    if (demoWrap.classList.contains('is-full')) return;
+                    if (e.target === demoSwitch || (demoSwitch && demoSwitch.contains(e.target))) return;
+                    switchToFullVideo();
                 });
             }
+
+            fetch('config.json?_=' + Date.now())
+                .then(function(r) { return r.json(); })
+                .then(function(cfg) {
+                    if (cfg.demoVideo) {
+                        if (cfg.demoVideo.preview) demoPaths.preview = cfg.demoVideo.preview;
+                        if (cfg.demoVideo.full) demoPaths.full = cfg.demoVideo.full;
+                    }
+                    initDemoVideoPlayer(demoPaths);
+                })
+                .catch(function() {
+                    initDemoVideoPlayer(demoPaths);
+                });
         });
     </script>
     <script src="assets/js/main.js"></script>

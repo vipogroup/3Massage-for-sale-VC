@@ -27,5 +27,9 @@
   "contactPhone": "0587009938",
   "shipment": {
     "currentStage": "shipped"
+  },
+  "demoVideo": {
+    "preview": "assets/1.mp4",
+    "full": "assets/2.mp4"
   }
 }

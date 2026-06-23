@@ -139,18 +139,17 @@
                 <div class="lp-demo-video-block">
                     <div class="lp-demo-video-head">
                         <h3 class="lp-demo-video-title">סרטון הדגמה — המערכת המתקדמת בפעולה</h3>
-                        <p class="lp-demo-video-hint">לחצו לצפייה עם קול</p>
+                        <p class="lp-demo-video-hint">לחצו לסרטון מלא עם קול</p>
                     </div>
                     <div class="video-gallery-container lp-below-video">
                         <div class="video-gallery">
-                            <div class="lp-video-wrap" id="demoVideoWrap">
-                                <video id="demoVideo" controls playsinline preload="metadata" poster="../assets/images/1.webp">
-                                    <source src="../assets/1.mp4" type="video/mp4">
+                            <div class="lp-video-wrap is-preview" id="demoVideoWrap">
+                                <video id="demoVideo" muted loop playsinline autoplay preload="auto" src="../assets/1.mp4">
                                     הדפדפן שלך לא תומך בנגן וידאו.
                                 </video>
-                                <button type="button" class="lp-video-play-overlay" id="demoVideoPlay" aria-label="הפעל סרטון הדגמה עם קול">
-                                    <span class="lp-video-play-icon" aria-hidden="true"><i class="fas fa-play"></i></span>
-                                    <span class="lp-video-play-text">צפו בהדגמה</span>
+                                <button type="button" class="lp-video-switch-btn" id="demoVideoSwitch" aria-label="החלף לסרטון מלא עם קול">
+                                    <i class="fas fa-volume-up" aria-hidden="true"></i>
+                                    <span>סרטון מלא עם קול</span>
                                 </button>
                             </div>
                         </div>

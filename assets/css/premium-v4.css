@@ -229,6 +229,35 @@ body.v4-page::before { display: none !important; }
     background: #000;
 }
 
+.v4-page .lp-video-wrap.is-preview {
+    cursor: pointer;
+}
+
+.v4-page .lp-video-switch-btn {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: none;
+    border-radius: 999px;
+    padding: 8px 14px;
+    background: rgba(255, 255, 255, 0.94);
+    color: var(--lp-ink);
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.22);
+    white-space: nowrap;
+}
+
+.v4-page .lp-video-wrap.is-full .lp-video-switch-btn {
+    display: none;
+}
+
 .v4-page .lp-video-play-overlay {
     position: absolute;
     inset: 0;

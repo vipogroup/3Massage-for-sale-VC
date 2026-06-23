@@ -46,45 +46,63 @@
     function initVideo() {
         const video = document.getElementById('demoVideo');
         const wrap = document.getElementById('demoVideoWrap');
-        const playBtn = document.getElementById('demoVideoPlay');
+        const switchBtn = document.getElementById('demoVideoSwitch');
+        const hint = document.querySelector('.lp-demo-video-hint');
+        var paths = { preview: '../assets/1.mp4', full: '../assets/2.mp4' };
 
-        function setPlaying(active) {
-            if (wrap) wrap.classList.toggle('is-playing', active);
+        function startPreview() {
+            if (!video || !wrap) return;
+            video.src = paths.preview;
+            video.muted = true;
+            video.loop = true;
+            video.removeAttribute('controls');
+            video.playsInline = true;
+            wrap.classList.add('is-preview');
+            wrap.classList.remove('is-full');
+            video.play().catch(function () {});
         }
 
-        function activate() {
-            if (!video) return;
+        function switchToFull() {
+            if (!video || !wrap || wrap.classList.contains('is-full')) return;
+            video.pause();
+            video.src = paths.full;
             video.muted = false;
             video.loop = true;
-            if (video.paused) {
-                video.currentTime = 0;
-            }
-            var playPromise = video.play();
-            if (playPromise && playPromise.catch) playPromise.catch(function () {});
-            setPlaying(true);
+            video.setAttribute('controls', '');
+            video.load();
+            wrap.classList.remove('is-preview');
+            wrap.classList.add('is-full');
+            if (hint) hint.textContent = 'צופים בסרטון המלא';
+            video.play().catch(function () {});
         }
 
-        if (!video) return;
+        if (!video || !wrap) return;
 
-        video.pause();
-        video.muted = true;
+        fetch('../config.json')
+            .then(function (r) { return r.json(); })
+            .then(function (cfg) {
+                if (cfg.demoVideo) {
+                    if (cfg.demoVideo.preview) paths.preview = '../' + cfg.demoVideo.preview.replace(/^\/?/, '');
+                    if (cfg.demoVideo.full) paths.full = '../' + cfg.demoVideo.full.replace(/^\/?/, '');
+                }
+                startPreview();
+            })
+            .catch(function () {
+                startPreview();
+            });
 
-        if (playBtn) {
-            playBtn.addEventListener('click', function (e) {
+        if (switchBtn) {
+            switchBtn.addEventListener('click', function (e) {
                 e.preventDefault();
                 e.stopPropagation();
-                activate();
+                switchToFull();
             });
         }
 
-        video.addEventListener('play', function () {
-            if (!video.muted) setPlaying(true);
-        });
-        video.addEventListener('pause', function () {
-            setPlaying(false);
-        });
-        video.addEventListener('volumechange', function () {
-            if (!video.muted && !video.paused) setPlaying(true);
+        wrap.addEventListener('click', function (e) {
+            if (wrap.classList.contains('is-full')) return;
+            if (switchBtn && (e.target === switchBtn || switchBtn.contains(e.target))) return;
+            switchToFull();
         });
     }
 
