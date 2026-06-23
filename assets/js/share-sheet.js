@@ -2,7 +2,7 @@
  * שיתוף הדף — וואטסאפ, פייסבוק, טלגרם, העתקה, שיתוף מערכת
  */
 (function () {
-    const PRODUCT_TITLE = 'כורסת עיסוי ביתית VC — מחיר מפעל';
+    const PRODUCT_TITLE = 'כורסת עיסוי VC - LUXURY';
 
     function $(sel) {
         return document.querySelector(sel);
