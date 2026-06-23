@@ -102,11 +102,29 @@ body.v4-page .product-header [class*="col-"] {
     padding-inline: 4px;
 }
 
+body.v4-page .product-header .col-6,
 body.v4-page .product-header .col-8 {
     display: flex;
     justify-content: center;
     align-items: center;
     min-width: 0;
+}
+
+body.v4-page .product-header .col-3.text-start {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+@media (max-width: 360px) {
+    body.v4-page .header-contact-btn span {
+        display: none;
+    }
+
+    body.v4-page .header-contact-btn {
+        width: 40px;
+        padding: 0;
+    }
 }
 
 /* ── Thumbnails scroll ── */

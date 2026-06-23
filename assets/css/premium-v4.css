@@ -100,7 +100,38 @@ body.v4-page::before { display: none !important; }
 
 .v4-page .logo-btn .fa-arrow-left { display: none; }
 
-.v4-page .back-button,
+.v4-page .header-contact-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    min-height: 40px;
+    max-width: 100%;
+    padding: 0 10px;
+    border-radius: var(--lp-radius-sm);
+    border: none;
+    background: linear-gradient(135deg, #25d366, #128c7e);
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(37, 211, 102, 0.35);
+}
+
+.v4-page .header-contact-btn i {
+    font-size: 1rem;
+}
+
+.v4-page .header-contact-btn:hover {
+    color: #fff;
+    filter: brightness(1.05);
+}
+
+.v4-page .whatsapp-float--hidden {
+    display: none !important;
+}
+
 .v4-page .share-button {
     width: 40px;
     height: 40px;
@@ -112,24 +143,10 @@ body.v4-page::before { display: none !important; }
     padding: 0;
 }
 
-.v4-page .back-button:hover,
 .v4-page .share-button:hover {
     border-color: var(--lp-blue-muted);
     color: var(--lp-blue);
     background: var(--lp-blue-muted);
-}
-
-.v4-page .back-button--inactive,
-.v4-page .back-button--inactive:disabled {
-    opacity: 0.35;
-    cursor: default;
-    pointer-events: none;
-}
-
-.v4-page .back-button--inactive:hover {
-    border-color: var(--lp-line);
-    color: var(--lp-ink-secondary);
-    background: var(--lp-white);
 }
 
 /* ── Video ── */
