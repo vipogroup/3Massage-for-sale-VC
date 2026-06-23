@@ -33,6 +33,21 @@
         return STAGE_ORDER.indexOf(id);
     }
 
+    function stageMediaCount(stage) {
+        const images = (stage.images || []).length;
+        const videos = (stage.videos || []).length;
+        return { images, videos, total: images + videos };
+    }
+
+    function stageMediaMeta(stage, i, currentIdx) {
+        const { images, videos } = stageMediaCount(stage);
+        const parts = [];
+        if (images) parts.push(`${images} תמונות`);
+        if (videos) parts.push(`${videos} סרטונים`);
+        if (parts.length) return parts.join(' · ');
+        return i <= currentIdx ? 'ממתין לתמונות' : 'בקרוב';
+    }
+
     function renderTrack(stages, currentStageId) {
         const track = $('#sgTrackSteps');
         if (!track) return;
@@ -42,10 +57,7 @@
             if (i < currentIdx) cls += ' is-done';
             else if (i === currentIdx) cls += ' is-current';
             else cls += ' is-future';
-            const count = stage.images.length;
-            const meta = count
-                ? `${count} תמונות`
-                : (i <= currentIdx ? 'ממתין לתמונות' : 'בקרוב');
+            const meta = stageMediaMeta(stage, i, currentIdx);
             return `
 <div class="${cls}" data-stage="${stage.id}">
   <div class="sg-step-icon"><i class="fas ${stage.icon}"></i></div>
@@ -62,22 +74,32 @@
         if (!wrap) return;
         const currentIdx = stageIndex(currentStageId);
         wrap.innerHTML = stages.map((stage, i) => {
-            if (i > currentIdx && !stage.images.length) {
+            const { images, videos } = stageMediaCount(stage);
+            if (i > currentIdx && !images && !videos) {
                 return '';
             }
-            const imgs = stage.images.map((src, idx) => `
+            const videoItems = (stage.videos || []).map((src, idx) => `
+<div class="sg-video-card">
+  <video controls playsinline preload="metadata" src="${src}" aria-label="סרטון ${idx + 1}"></video>
+</div>`).join('');
+            const videoBlock = videoItems ? `<div class="sg-videos">${videoItems}</div>` : '';
+            const imgs = (stage.images || []).map((src, idx) => `
 <button type="button" class="sg-thumb" data-src="${src}" aria-label="תמונה ${idx + 1}">
   <img src="${src}" alt="${stage.label} ${idx + 1}" loading="lazy">
 </button>`).join('');
-            const body = imgs
-                ? `<div class="sg-grid">${imgs}</div>`
-                : `<div class="sg-empty">עדיין אין תמונות לשלב זה</div>`;
+            const imageBlock = imgs ? `<div class="sg-grid">${imgs}</div>` : '';
+            const body = videoBlock || imageBlock
+                ? `${videoBlock}${imageBlock}`
+                : `<div class="sg-empty">עדיין אין תמונות או סרטונים לשלב זה</div>`;
+            const countParts = [];
+            if (images) countParts.push(`${images} תמונות`);
+            if (videos) countParts.push(`${videos} סרטונים`);
             return `
 <section class="sg-section" id="section-${stage.id}">
   <div class="sg-section-head">
     <i class="fas ${stage.icon}"></i>
     <h2>${stage.label}</h2>
-    <span class="sg-count">${stage.images.length ? stage.images.length + ' תמונות' : ''}</span>
+    <span class="sg-count">${countParts.join(' · ')}</span>
   </div>
   ${body}
 </section>`;
