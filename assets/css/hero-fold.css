@@ -357,13 +357,13 @@
 
         font-size: 0.68rem;
 
-        font-weight: 700;
+        font-weight: 600;
 
-        color: var(--lp-ink, #0c0c0d);
+        color: var(--lp-ink-secondary, #52525b);
 
-        background: var(--lp-red-bg, #fff1f3);
+        background: #faf0ea;
 
-        border: 1px solid rgba(225, 29, 72, 0.12);
+        border: 1px solid rgba(193, 122, 82, 0.15);
 
         border-radius: 999px;
 
@@ -385,7 +385,7 @@
 
         border-radius: 50%;
 
-        background: var(--lp-red, #e11d48);
+        background: #c17a52;
 
         animation: heroFomoPulse 1.4s infinite;
 
@@ -405,7 +405,9 @@
 
     body.v4-page .lp-hero-fomo strong {
 
-        color: var(--lp-red, #e11d48);
+        color: var(--lp-ink, #0c0c0d);
+
+        font-weight: 700;
 
     }
 

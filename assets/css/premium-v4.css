@@ -20,6 +20,12 @@
     --lp-red: #e11d48;
     --lp-red-bg: #fff1f3;
     --lp-amber: #d97706;
+    --lp-stock-sage: #4a7c68;
+    --lp-stock-sage-soft: #e8f2ed;
+    --lp-stock-slate: #5c6778;
+    --lp-stock-slate-soft: #eef1f4;
+    --lp-stock-warm: #c17a52;
+    --lp-stock-warm-soft: #faf0ea;
     --lp-radius-sm: 12px;
     --lp-radius: 16px;
     --lp-radius-lg: 20px;
@@ -555,8 +561,8 @@ body.v4-page::before { display: none !important; }
 .v4-page .lp-scarcity-big {
     text-align: center;
     flex-shrink: 0;
-    background: var(--lp-surface);
-    border: 1px solid var(--lp-line);
+    background: var(--lp-stock-warm-soft);
+    border: 1px solid rgba(193, 122, 82, 0.18);
     border-radius: var(--lp-radius-sm);
     padding: 8px 12px;
     min-width: 64px;
@@ -566,7 +572,7 @@ body.v4-page::before { display: none !important; }
     display: block;
     font-size: 1.75rem;
     font-weight: 800;
-    color: var(--lp-ink);
+    color: var(--lp-stock-warm);
     line-height: 1;
     font-variant-numeric: tabular-nums;
 }
@@ -574,7 +580,7 @@ body.v4-page::before { display: none !important; }
 .v4-page .lp-scarcity-big .lbl {
     font-size: 0.625rem;
     font-weight: 600;
-    color: var(--lp-ink-muted);
+    color: var(--lp-ink-secondary);
     text-transform: uppercase;
     letter-spacing: 0.06em;
 }
@@ -587,41 +593,52 @@ body.v4-page::before { display: none !important; }
 }
 
 .v4-page .stat-box {
-    background: var(--lp-surface) !important;
-    border: 1px solid var(--lp-line) !important;
     border-radius: var(--lp-radius-sm) !important;
     padding: 10px 6px !important;
+    border: 1px solid transparent !important;
+}
+
+.v4-page .stat-box.sold {
+    background: var(--lp-stock-sage-soft) !important;
+    border-color: rgba(74, 124, 104, 0.12) !important;
+}
+
+.v4-page .stat-box.total {
+    background: var(--lp-stock-slate-soft) !important;
+    border-color: rgba(92, 103, 120, 0.1) !important;
+}
+
+.v4-page .stat-box.left {
+    background: var(--lp-stock-warm-soft) !important;
+    border-color: rgba(193, 122, 82, 0.12) !important;
 }
 
 .v4-page .stat-box .num {
     font-size: 1.125rem !important;
     font-weight: 800 !important;
     font-variant-numeric: tabular-nums;
-    color: var(--lp-ink) !important;
 }
 
-.v4-page .stat-box.sold .num,
-.v4-page .stat-box.total .num,
-.v4-page .stat-box.left .num {
-    color: var(--lp-ink) !important;
-}
+.v4-page .stat-box.sold .num { color: var(--lp-stock-sage) !important; }
+.v4-page .stat-box.total .num { color: var(--lp-stock-slate) !important; }
+.v4-page .stat-box.left .num { color: var(--lp-stock-warm) !important; }
 
 .v4-page .stat-box .lbl {
     font-size: 0.625rem !important;
-    color: var(--lp-ink-muted) !important;
+    color: var(--lp-ink-secondary) !important;
     font-weight: 600;
 }
 
 .v4-page .stock-bar-wrap {
-    height: 6px !important;
+    height: 7px !important;
     background: var(--lp-line) !important;
     border-radius: 999px;
     margin-bottom: 12px !important;
 }
 
 .v4-page .stock-bar {
-    background: var(--lp-ink-secondary) !important;
-    opacity: 0.45;
+    background: linear-gradient(90deg, var(--lp-stock-sage), var(--lp-stock-warm)) !important;
+    opacity: 0.75;
     animation: none !important;
     border-radius: 999px;
 }
@@ -629,8 +646,8 @@ body.v4-page::before { display: none !important; }
 .v4-page .stock-stats { display: none !important; }
 
 .v4-page .stock-urgency {
-    background: var(--lp-surface) !important;
-    border: 1px solid var(--lp-line) !important;
+    background: linear-gradient(180deg, var(--lp-stock-sage-soft) 0%, var(--lp-white) 100%) !important;
+    border: 1px solid rgba(74, 124, 104, 0.14) !important;
     border-radius: var(--lp-radius-sm) !important;
     padding: 12px 14px !important;
     font-size: 0.8125rem !important;
@@ -648,24 +665,24 @@ body.v4-page::before { display: none !important; }
 }
 
 .v4-page .stock-urgency-main .stock-left-count {
-    color: var(--lp-ink);
+    color: var(--lp-stock-warm);
     font-size: 1em;
     font-weight: 800;
 }
 
 .v4-page .stock-urgency-main .urgency-price-now {
-    color: var(--lp-ink);
+    color: var(--lp-stock-sage);
     font-weight: 800;
 }
 
 .v4-page .stock-urgency-sub {
     margin: 0;
     font-size: 0.8125rem;
-    color: var(--lp-ink-muted);
+    color: var(--lp-ink-secondary);
 }
 
 .v4-page .stock-urgency-sub .urgency-price-after {
-    color: var(--lp-ink-secondary);
+    color: var(--lp-stock-warm);
     font-weight: 700;
 }
 
