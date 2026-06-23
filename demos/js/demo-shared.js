@@ -55,6 +55,10 @@
         function activate() {
             if (!video) return;
             video.muted = false;
+            video.loop = true;
+            if (video.paused) {
+                video.currentTime = 0;
+            }
             var playPromise = video.play();
             if (playPromise && playPromise.catch) playPromise.catch(function () {});
             setPlaying(true);
@@ -62,7 +66,8 @@
 
         if (!video) return;
 
-        video.play().catch(function () {});
+        video.pause();
+        video.muted = true;
 
         if (playBtn) {
             playBtn.addEventListener('click', function (e) {

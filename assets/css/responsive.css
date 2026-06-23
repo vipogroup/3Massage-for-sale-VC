@@ -29,6 +29,13 @@ body.v4-page video {
     height: auto;
 }
 
+body.v4-page .lp-video-wrap video,
+body.v4-page .sg-video-card video {
+    width: 100% !important;
+    height: 100% !important;
+    max-height: none !important;
+}
+
 body.v4-page .main-image-container img {
     height: 100% !important;
     max-height: 100%;
