@@ -3,10 +3,6 @@
  */
 
 @media (max-width: 767px) {
-    body.v4-page .video-gallery-container {
-        order: 10;
-    }
-
     body.v4-page main > .container {
         display: flex;
         flex-direction: column;
@@ -17,9 +13,9 @@
         display: flex;
         flex-direction: column;
         min-height: calc(100dvh - 52px - env(safe-area-inset-top, 0px));
-        max-height: calc(100dvh - 52px - env(safe-area-inset-top, 0px));
+        max-height: none;
         padding: 0 0 8px;
-        overflow: hidden;
+        overflow: visible;
     }
 
     body.v4-page .lp-hero-fold .product-info {
@@ -46,7 +42,18 @@
         min-height: 0;
         aspect-ratio: unset !important;
         height: 100% !important;
-        max-height: 42dvh !important;
+        max-height: 34dvh !important;
+    }
+
+    body.v4-page .lp-hero-fold .lp-hero-fold-video {
+        flex-shrink: 0;
+        padding: 8px 0 0 !important;
+        margin: 0;
+    }
+
+    body.v4-page .lp-hero-fold .lp-hero-fold-video .lp-video-wrap {
+        aspect-ratio: 16/9;
+        max-height: 28dvh;
     }
 
     body.v4-page .lp-hero-fold .thumbnails-container,
@@ -197,7 +204,7 @@
     /* CTA at bottom of fold */
     body.v4-page .lp-hero-fold .lp-hero-actions {
         flex-shrink: 0;
-        margin-top: auto;
+        margin-top: 0;
         padding-top: 4px;
     }
 

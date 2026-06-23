@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="assets/css/hero-fold.css">
     <!-- Share Styles CSS -->
     <link rel="stylesheet" href="assets/css/order-form.css">
+    <link rel="stylesheet" href="assets/css/share-sheet.css">
     <link rel="stylesheet" href="assets/css/admin-panel.css">
     <!-- Favicon -->
     <link rel="shortcut icon" href="https://via.placeholder.com/32x32/3498db/ffffff?text=V" type="image/x-icon">
@@ -45,8 +46,8 @@
                     </a>
                 </div>
                 <div class="col-2 text-end">
-                    <button class="share-button" aria-label="שתף מוצר">
-                        <i class="fas fa-paper-plane"></i>
+                    <button type="button" class="share-button" aria-label="שתף את הדף" title="שתף">
+                        <i class="fas fa-share-alt" aria-hidden="true"></i>
                     </button>
                 </div>
             </div>
@@ -92,25 +93,24 @@
                 </div>
 
                 <div class="lp-hero-actions">
-                    <a href="https://chat.whatsapp.com/C5C5uo6lFXCEVGjbj4WOh1" target="_blank" class="btn btn-lg join-group-btn">
+                    <button type="button" class="btn btn-lg join-group-btn">
                         <span class="btn-text">לרכישה במחיר מפעל</span>
                         <i class="fab fa-whatsapp"></i>
-                    </a>
+                    </button>
                 </div>
-            </section>
 
-            <!-- סרטון הדגמה — רץ אוטומטית, בלי תמונות ממוזערות -->
-            <div class="video-gallery-container lp-hero-video">
-                <div class="video-gallery">
-                    <div class="lp-video-wrap">
-                        <span class="lp-video-label">סרטון הדגמה</span>
-                        <video id="demoVideo" width="100%" height="100%" controls muted loop playsinline autoplay>
-                            <source src="assets/1.mp4" type="video/mp4">
-                            הדפדפן שלך לא תומך בנגן וידאו.
-                        </video>
+                <div class="video-gallery-container lp-hero-video lp-hero-fold-video">
+                    <div class="video-gallery">
+                        <div class="lp-video-wrap">
+                            <span class="lp-video-label">סרטון הדגמה</span>
+                            <video id="demoVideo" width="100%" height="100%" controls muted loop playsinline autoplay>
+                                <source src="assets/1.mp4" type="video/mp4">
+                                הדפדפן שלך לא תומך בנגן וידאו.
+                            </video>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </section>
 
             <!-- ══ מתחת לקיפ — פירוט מלא ══ -->
             <section class="lp-below-fold product-info">
@@ -130,10 +130,10 @@
                 </div>
                 <p class="lp-warranty-note">אחריות יצרן לשנה נוספת 500 שקל</p>
 
-                <a href="https://chat.whatsapp.com/C5C5uo6lFXCEVGjbj4WOh1" target="_blank" class="btn btn-lg join-group-btn lp-below-cta">
+                <button type="button" class="btn btn-lg join-group-btn lp-below-cta">
                     <span class="btn-text">לרכישה במחיר מפעל</span>
                     <i class="fab fa-whatsapp"></i>
-                </a>
+                </button>
                 <p class="lp-cta-sub">הזמנה מאובטחת דרך קבוצת WhatsApp · מלאי מוגבל</p>
             </section>
 
@@ -497,7 +497,7 @@
                 <div class="bottom-cta">
                     <h4>המכולה בדרך — ראו בעצמכם</h4>
                     <p>תמונות מהמפעל, העמסה ומשלוח ישיר</p>
-                    <a href="gallery.html" class="btn btn-lg">קטלוג תמונות <i class="fas fa-images"></i></a>
+                    <a href="gallery.html" class="btn btn-lg">גלריה תמונות מהמפעל ייצור <i class="fas fa-images"></i></a>
                     <div class="payment-security mt-2">
                         <i class="fas fa-lock"></i> תשלום מאובטח
                         <i class="fas fa-shield-alt ms-2"></i> הבטחת מחיר הנמוך ביותר
@@ -537,9 +537,9 @@
                 <span class="now">₪2,900</span>
                 <span class="was">₪12,000</span>
             </div>
-            <a href="https://chat.whatsapp.com/C5C5uo6lFXCEVGjbj4WOh1" target="_blank" class="btn join-group-btn">
+            <button type="button" class="btn join-group-btn">
                 לרכישה במחיר מפעל
-            </a>
+            </button>
         </div>
     </div>
 
@@ -600,6 +600,7 @@
         });
     </script>
     <script src="assets/js/main.js"></script>
+    <script src="assets/js/share-sheet.js"></script>
     <!-- Product Loader JS -->
     <script src="assets/js/stock-api.js"></script>
     <script src="assets/js/stock-live.js"></script>

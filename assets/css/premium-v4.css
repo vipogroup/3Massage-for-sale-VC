@@ -133,9 +133,13 @@ body.v4-page::before { display: none !important; }
 }
 
 /* ── Video ── */
-.v4-page .lp-hero-video {
-    padding: 12px 0 4px !important;
+.v4-page .lp-hero-fold-video {
+    padding: 10px 0 0 !important;
     margin: 0;
+}
+
+.v4-page .lp-hero-fold-video .lp-video-wrap {
+    max-height: 220px;
 }
 
 .v4-page .video-gallery-container {

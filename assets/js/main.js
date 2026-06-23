@@ -107,36 +107,29 @@ function formatTime(time) {
 
 // Initialize share buttons
 function initShareButtons() {
-    // WhatsApp share
-    document.querySelector('.btn-whatsapp').addEventListener('click', function(e) {
-        e.preventDefault();
-        const text = 'בדקו את המוצר המדהים הזה! הצטרפו לקבוצת הרכישה עם הקוד שלי: VIPO-FRIEND-123';
-        const url = window.location.href;
-        window.open(`https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`, '_blank');
+    const map = [
+        ['.btn-whatsapp', (url) => `https://wa.me/?text=${encodeURIComponent('בדקו את המוצר המדהים הזה! ' + url)}`],
+        ['.btn-facebook', (url) => `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`],
+        ['.btn-telegram', (url) => `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent('בדקו את המוצר המדהים הזה!')}`],
+    ];
+    map.forEach(([sel, buildUrl]) => {
+        const el = document.querySelector(sel);
+        if (!el) return;
+        el.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.open(buildUrl(window.location.href), '_blank', 'noopener');
+        });
     });
-    
-    // Facebook share
-    document.querySelector('.btn-facebook').addEventListener('click', function(e) {
-        e.preventDefault();
-        const url = window.location.href;
-        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
-    });
-    
-    // Telegram share
-    document.querySelector('.btn-telegram').addEventListener('click', function(e) {
-        e.preventDefault();
-        const text = 'בדקו את המוצר המדהים הזה! הצטרפו לקבוצת הרכישה עם הקוד שלי: VIPO-FRIEND-123';
-        const url = window.location.href;
-        window.open(`https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`, '_blank');
-    });
-    
-    // Email share
-    document.querySelector('.btn-email').addEventListener('click', function(e) {
-        e.preventDefault();
-        const subject = 'מוצר מדהים שחשבתי שיעניין אותך';
-        const body = `היי,\n\nבדקו את המוצר המדהים הזה! הצטרפו לקבוצת הרכישה עם הקוד שלי: VIPO-FRIEND-123\n\n${window.location.href}`;
-        window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    });
+
+    const emailBtn = document.querySelector('.btn-email');
+    if (emailBtn) {
+        emailBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const subject = 'מוצר מדהים שחשבתי שיעניין אותך';
+            const body = `היי,\n\nבדקו את המוצר:\n${window.location.href}`;
+            window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        });
+    }
 }
 
 // Copy to clipboard function

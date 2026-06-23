@@ -1,14 +1,13 @@
-/* טופס הזמנה → וואטסאפ */
+/* טופס הזמנה → וואטסאפ — מסך מלא */
 #orderOverlay {
     position: fixed;
     inset: 0;
     z-index: 10040;
-    background: rgba(15, 23, 42, 0.55);
+    background: #fff;
     display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    padding: 12px;
-    padding-bottom: max(12px, env(safe-area-inset-bottom));
+    align-items: stretch;
+    justify-content: stretch;
+    padding: 0;
 }
 
 #orderOverlay[hidden] {
@@ -22,37 +21,84 @@ body.order-open {
 .order-sheet {
     position: relative;
     width: 100%;
-    max-width: 420px;
+    height: 100dvh;
+    max-width: none;
+    max-height: 100dvh;
     background: #fff;
-    border-radius: 16px 16px 12px 12px;
-    padding: 20px 18px 22px;
-    box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.18);
+    border-radius: 0;
+    padding: 0;
+    box-shadow: none;
     color: #111;
-    max-height: 92dvh;
-    overflow-y: auto;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
-.order-sheet h2 {
-    margin: 0 0 6px;
-    font-size: 1.25rem;
-    font-weight: 700;
+.order-sheet-header {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: max(12px, env(safe-area-inset-top)) 16px 12px;
+    border-bottom: 1px solid #e2e8f0;
+    background: #fff;
+}
+
+.order-back {
+    width: 44px;
+    height: 44px;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    background: #f8fafc;
+    color: #334155;
+    font-size: 1.1rem;
+    cursor: pointer;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.order-sheet-header h2 {
+    margin: 0;
+    flex: 1;
+    font-size: 1.15rem;
+    font-weight: 800;
+    text-align: center;
+}
+
+.order-sheet-header-spacer {
+    width: 44px;
+    flex-shrink: 0;
+}
+
+.order-sheet-body {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 16px 18px max(16px, env(safe-area-inset-bottom));
 }
 
 .order-lead {
     margin: 0 0 8px;
     color: #475569;
-    font-size: 0.92rem;
+    font-size: 0.9rem;
+    text-align: center;
 }
 
 .order-api-note {
-    margin: 0 0 14px;
-    font-size: 0.82rem;
+    margin: 0 0 12px;
+    font-size: 0.78rem;
     color: #15803d;
     background: #f0fdf4;
     border: 1px solid #bbf7d0;
     border-radius: 8px;
-    padding: 8px 10px;
-    line-height: 1.4;
+    padding: 6px 10px;
+    line-height: 1.35;
+    text-align: center;
 }
 
 .order-api-note.is-muted {
@@ -68,23 +114,18 @@ body.order-open {
 }
 
 .order-close {
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    width: 36px;
-    height: 36px;
-    border: none;
-    background: #f1f5f9;
-    border-radius: 50%;
-    font-size: 1.4rem;
-    line-height: 1;
-    cursor: pointer;
-    color: #334155;
+    display: none;
+}
+
+#orderForm {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
 }
 
 .order-sheet label {
     display: block;
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     font-weight: 600;
     margin-bottom: 4px;
     color: #334155;
@@ -93,16 +134,17 @@ body.order-open {
 .order-input {
     width: 100%;
     box-sizing: border-box;
-    padding: 11px 13px;
+    padding: 10px 12px;
     border: 1px solid #cbd5e1;
     border-radius: 10px;
     font-size: 1rem;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
 }
 
 .order-textarea {
-    resize: vertical;
-    min-height: 64px;
+    resize: none;
+    min-height: 52px;
+    max-height: 52px;
 }
 
 .order-btn {
@@ -117,6 +159,7 @@ body.order-open {
     font-weight: 700;
     font-size: 1rem;
     cursor: pointer;
+    margin-top: 4px;
 }
 
 .order-btn-primary {
@@ -131,9 +174,10 @@ body.order-open {
 
 .order-form-status {
     min-height: 1.2em;
-    margin: 10px 0 0;
-    font-size: 0.85rem;
+    margin: 8px 0 0;
+    font-size: 0.82rem;
     color: #64748b;
+    text-align: center;
 }
 
 .order-form-status.is-ok {
@@ -149,15 +193,20 @@ body.order-open {
 }
 
 .order-fine {
-    margin: 10px 0 0;
-    font-size: 0.75rem;
+    margin: 8px 0 0;
+    font-size: 0.72rem;
     color: #94a3b8;
     text-align: center;
-    line-height: 1.4;
+    line-height: 1.35;
 }
 
 .join-group-btn.is-sold-out {
     opacity: 0.55;
     pointer-events: none;
     filter: grayscale(0.4);
+}
+
+button.join-group-btn {
+    border: none;
+    text-decoration: none;
 }

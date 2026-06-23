@@ -192,25 +192,30 @@
         overlay.hidden = true;
         overlay.innerHTML = `
 <div class="order-sheet" role="dialog" aria-labelledby="orderTitle" aria-modal="true">
-  <button type="button" class="order-close" id="orderCloseBtn" aria-label="סגור">×</button>
-  <h2 id="orderTitle">הזמנה במחיר מפעל</h2>
-  <p class="order-lead">מלא פרטים — נפתח וואטסאפ עם ההזמנה שלך</p>
-  <p class="order-api-note" id="orderApiNote"></p>
-  <form id="orderForm" novalidate>
-    <label for="orderName">שם מלא *</label>
-    <input type="text" id="orderName" class="order-input" required autocomplete="name" placeholder="ישראל ישראלי">
-    <label for="orderPhone">נייד *</label>
-    <input type="tel" id="orderPhone" class="order-input" required autocomplete="tel" inputmode="tel" placeholder="050-0000000">
-    <label for="orderCity">עיר</label>
-    <input type="text" id="orderCity" class="order-input" autocomplete="address-level2" placeholder="תל אביב">
-    <label for="orderNote">הערות</label>
-    <textarea id="orderNote" class="order-input order-textarea" rows="2" placeholder="צבע, שאלה, זמן מועדף…"></textarea>
-    <button type="submit" class="order-btn order-btn-primary" id="orderSubmitBtn">
-      <span>שלח הזמנה בוואטסאפ</span> <i class="fab fa-whatsapp"></i>
-    </button>
-    <p class="order-form-status" id="orderFormStatus" aria-live="polite"></p>
-    <p class="order-fine">בלחיצה תועבר/י לוואטסאפ עם פרטי ההזמנה. אין חיוב אוטומטי.</p>
-  </form>
+  <header class="order-sheet-header">
+    <button type="button" class="order-back" id="orderCloseBtn" aria-label="חזרה"><i class="fas fa-arrow-right"></i></button>
+    <h2 id="orderTitle">הזמנה במחיר מפעל</h2>
+    <span class="order-sheet-header-spacer" aria-hidden="true"></span>
+  </header>
+  <div class="order-sheet-body">
+    <p class="order-lead">מלא פרטים — נפתח וואטסאפ עם ההזמנה שלך</p>
+    <p class="order-api-note" id="orderApiNote"></p>
+    <form id="orderForm" novalidate>
+      <label for="orderName">שם מלא *</label>
+      <input type="text" id="orderName" class="order-input" required autocomplete="name" placeholder="ישראל ישראלי">
+      <label for="orderPhone">נייד *</label>
+      <input type="tel" id="orderPhone" class="order-input" required autocomplete="tel" inputmode="tel" placeholder="050-0000000">
+      <label for="orderCity">עיר</label>
+      <input type="text" id="orderCity" class="order-input" autocomplete="address-level2" placeholder="תל אביב">
+      <label for="orderNote">הערות</label>
+      <textarea id="orderNote" class="order-input order-textarea" rows="2" placeholder="צבע, שאלה, זמן מועדף…"></textarea>
+      <button type="submit" class="order-btn order-btn-primary" id="orderSubmitBtn">
+        <span>שלח הזמנה בוואטסאפ</span> <i class="fab fa-whatsapp"></i>
+      </button>
+      <p class="order-form-status" id="orderFormStatus" aria-live="polite"></p>
+      <p class="order-fine">בלחיצה תועבר/י לוואטסאפ עם פרטי ההזמנה. אין חיוב אוטומטי.</p>
+    </form>
+  </div>
 </div>`;
         document.body.appendChild(overlay);
 
