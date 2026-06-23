@@ -225,6 +225,15 @@
         color: var(--lp-red, #e11d48);
     }
 
+    body.v4-page .lp-hero-sales-note {
+        margin: 0 0 10px;
+        font-size: 0.7rem;
+        line-height: 1.45;
+        text-align: center;
+        color: var(--lp-ink-secondary, #52525b);
+        font-weight: 500;
+    }
+
     /* CTA at bottom of fold */
     body.v4-page .lp-hero-fold .lp-hero-actions {
         flex-shrink: 0;

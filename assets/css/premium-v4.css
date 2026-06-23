@@ -322,6 +322,15 @@ body.v4-page::before { display: none !important; }
     font-weight: 400;
 }
 
+.v4-page .lp-hero-sales-note {
+    margin: 0 0 12px;
+    font-size: 0.75rem;
+    line-height: 1.45;
+    text-align: center;
+    color: var(--lp-ink-secondary);
+    font-weight: 500;
+}
+
 /* Feature grid */
 .v4-page .lp-features {
     display: grid;
