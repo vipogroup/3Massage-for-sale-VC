@@ -45,7 +45,42 @@
 
     function initVideo() {
         const video = document.getElementById('demoVideo');
-        if (video) video.play().catch(function () {});
+        const wrap = document.getElementById('demoVideoWrap');
+        const playBtn = document.getElementById('demoVideoPlay');
+
+        function setPlaying(active) {
+            if (wrap) wrap.classList.toggle('is-playing', active);
+        }
+
+        function activate() {
+            if (!video) return;
+            video.muted = false;
+            var playPromise = video.play();
+            if (playPromise && playPromise.catch) playPromise.catch(function () {});
+            setPlaying(true);
+        }
+
+        if (!video) return;
+
+        video.play().catch(function () {});
+
+        if (playBtn) {
+            playBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                activate();
+            });
+        }
+
+        video.addEventListener('play', function () {
+            if (!video.muted) setPlaying(true);
+        });
+        video.addEventListener('pause', function () {
+            setPlaying(false);
+        });
+        video.addEventListener('volumechange', function () {
+            if (!video.muted && !video.paused) setPlaying(true);
+        });
     }
 
     function initPulse() {

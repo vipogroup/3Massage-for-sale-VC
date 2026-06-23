@@ -164,6 +164,30 @@ body.v4-page::before { display: none !important; }
 }
 
 /* ── Video ── */
+.v4-page .lp-demo-video-block {
+    margin-bottom: 4px;
+}
+
+.v4-page .lp-demo-video-head {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.v4-page .lp-demo-video-title {
+    margin: 0 0 4px;
+    font-size: 0.9375rem;
+    font-weight: 800;
+    line-height: 1.35;
+    color: var(--lp-ink);
+}
+
+.v4-page .lp-demo-video-hint {
+    margin: 0;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--lp-ink-muted);
+}
+
 .v4-page .lp-hero-fold-video {
     padding: 10px 0 0 !important;
     margin: 0;
@@ -176,6 +200,11 @@ body.v4-page::before { display: none !important; }
 .v4-page .video-gallery-container {
     padding: 16px 0 0 !important;
     background: transparent !important;
+}
+
+.v4-page .lp-below-video.video-gallery-container,
+.v4-page .lp-demo-video-block .lp-below-video {
+    padding-top: 0 !important;
 }
 
 .v4-page .video-gallery h4 { display: none; }
@@ -194,6 +223,51 @@ body.v4-page::before { display: none !important; }
     height: 100%;
     object-fit: cover;
     display: block;
+}
+
+.v4-page .lp-video-play-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: none;
+    padding: 0;
+    background: rgba(0, 0, 0, 0.38);
+    color: #fff;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.v4-page .lp-video-wrap.is-playing .lp-video-play-overlay {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.v4-page .lp-video-play-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.96);
+    color: var(--lp-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.28);
+}
+
+.v4-page .lp-video-play-icon i {
+    margin-inline-start: 3px;
+}
+
+.v4-page .lp-video-play-text {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.45);
 }
 
 .v4-page .lp-video-label {
