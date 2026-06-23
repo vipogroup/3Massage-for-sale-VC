@@ -331,6 +331,11 @@ body.v4-page::before { display: none !important; }
     font-weight: 500;
 }
 
+.v4-page .bottom-cta .join-group-btn {
+    width: 100%;
+    margin-top: 16px;
+}
+
 /* Feature grid */
 .v4-page .lp-features {
     display: grid;
