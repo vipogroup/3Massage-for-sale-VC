@@ -22,27 +22,47 @@
         display: contents;
     }
 
-    /* Hero image — compact */
+    /* Hero image — fixed box, no overlap with text below */
     body.v4-page .lp-hero-fold .lp-hero-media {
-        flex: 1 1 auto;
+        flex: 0 0 auto;
+        width: 100%;
         min-height: 0;
-        margin-bottom: 10px;
+        margin-bottom: 12px;
+        position: relative;
+        z-index: 1;
     }
 
     body.v4-page .lp-hero-fold .gallery-container {
         margin: 0 !important;
         padding: 6px !important;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
+        height: auto !important;
+        display: block;
     }
 
     body.v4-page .lp-hero-fold .main-image-container {
-        flex: 1 1 auto;
-        min-height: 0;
-        aspect-ratio: unset !important;
-        height: 100% !important;
-        max-height: 34dvh !important;
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        max-height: min(42dvh, 320px);
+        height: auto !important;
+        flex: none;
+        margin-bottom: 0 !important;
+    }
+
+    body.v4-page .lp-hero-fold .main-image-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+    }
+
+    body.v4-page .lp-hero-fold .gallery-badge {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        top: auto;
+        z-index: 2;
     }
 
     body.v4-page .lp-hero-fold .lp-hero-fold-video {
@@ -64,11 +84,15 @@
         display: none !important;
     }
 
-    /* Text block */
+    /* Text block — always below gallery, never on top */
     body.v4-page .lp-hero-fold .lp-hero-copy {
         flex-shrink: 0;
+        position: relative;
+        z-index: 2;
         text-align: center;
         padding: 0 2px;
+        margin-top: 0;
+        background: var(--lp-white, #fff);
     }
 
     body.v4-page .lp-hero-fold .product-title {
@@ -319,7 +343,7 @@
     }
 
     body.v4-page .lp-hero-fold .main-image-container {
-        max-height: 36dvh !important;
+        max-height: min(38dvh, 280px) !important;
     }
 }
 

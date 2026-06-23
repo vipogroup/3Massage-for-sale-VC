@@ -30,7 +30,8 @@ body.v4-page video {
 }
 
 body.v4-page .main-image-container img {
-    height: 100%;
+    height: 100% !important;
+    max-height: 100%;
     object-fit: contain;
 }
 
