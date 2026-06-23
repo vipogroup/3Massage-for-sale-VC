@@ -114,16 +114,18 @@ body.v4-page .product-header .col-3.text-start {
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    min-width: 0;
 }
 
 @media (max-width: 360px) {
-    body.v4-page .header-contact-btn span {
-        display: none;
+    body.v4-page .header-whatsapp-btn {
+        padding: 0.5rem 0.65rem;
+        font-size: 0.75rem;
+        gap: 0.35rem;
     }
 
-    body.v4-page .header-contact-btn {
-        width: 40px;
-        padding: 0;
+    body.v4-page .header-whatsapp-btn i {
+        font-size: 1.15rem;
     }
 }
 
