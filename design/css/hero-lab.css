@@ -288,6 +288,84 @@ body { padding-bottom: 80px; }
 }
 
 /* ══════════════════════════════
+   Section 3 — יתרונות + מפרט
+══════════════════════════════ */
+.s3 {
+    padding: 20px 14px 24px;
+    background: var(--bg);
+}
+
+.s3-heading {
+    font-size: 1rem; font-weight: 900; color: var(--navy);
+    text-align: center; margin-bottom: 14px;
+}
+
+/* Benefits */
+.s3-benefits {
+    display: flex; flex-direction: column; gap: 10px;
+    margin-bottom: 20px;
+}
+.s3-ben {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 12px 14px;
+    background: rgba(255,255,255,0.72);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(28,43,70,0.06);
+    border-radius: 14px;
+    box-shadow: 0 2px 10px rgba(28,43,70,0.05);
+}
+.s3-ben-icon {
+    width: 38px; height: 38px; border-radius: 10px;
+    background: linear-gradient(135deg, rgba(28,43,70,0.06), rgba(28,43,70,0.02));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; color: var(--navy); flex-shrink: 0;
+}
+.s3-ben-txt { flex: 1; }
+.s3-ben-txt strong {
+    display: block; font-size: 0.78rem; font-weight: 800;
+    color: var(--navy); margin-bottom: 2px;
+}
+.s3-ben-txt p {
+    font-size: 0.65rem; color: var(--ink-2); line-height: 1.45; margin: 0;
+}
+
+/* Specs */
+.s3-specs-card {
+    background: rgba(255,255,255,0.72);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(28,43,70,0.06);
+    border-radius: 16px;
+    padding: 14px 16px;
+    box-shadow: 0 4px 20px rgba(28,43,70,0.08), 0 1px 2px rgba(28,43,70,0.04);
+}
+.s3-specs-title {
+    font-size: 0.76rem; font-weight: 800; color: var(--navy);
+    display: flex; align-items: center; gap: 8px;
+    margin-bottom: 12px;
+}
+.s3-specs-title i {
+    width: 26px; height: 26px; border-radius: 8px;
+    background: rgba(28,43,70,0.06);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.72rem; color: var(--navy);
+}
+.s3-specs {
+    width: 100%; border-collapse: collapse;
+}
+.s3-specs tr { border-bottom: 1px solid var(--line); }
+.s3-specs tr:last-child { border-bottom: none; }
+.s3-specs td {
+    padding: 8px 0; font-size: 0.68rem; vertical-align: top;
+}
+.s3-specs td:first-child {
+    font-weight: 700; color: var(--navy); white-space: nowrap;
+    padding-inline-end: 14px; width: 38%;
+}
+.s3-specs td:last-child {
+    color: var(--ink-2); font-weight: 500;
+}
+
+/* ══════════════════════════════
    Sticky CTA
 ══════════════════════════════ */
 .vp-sticky {
