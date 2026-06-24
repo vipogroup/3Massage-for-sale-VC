@@ -135,68 +135,127 @@ body { padding-bottom: 80px; }
 .vp-cta-sub { margin-top: 8px; text-align: center; font-size: 0.63rem; color: var(--ink-3); }
 
 /* ══════════════════════════════
-   Section 2 — קהילת רוכשים
+   Section 2 — מבצע + מלאי (panel)
 ══════════════════════════════ */
-.vp-community { border-top: 6px solid #f0f3f8; }
+.s2 { padding: 6px 14px 18px; }
 
-/* טיימר */
-.vp-timer-block { padding: 20px 18px 16px; text-align: center; border-bottom: 1px solid var(--line); }
-.vp-timer-label { font-size: 0.68rem; font-weight: 700; color: var(--ink-2); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; gap: 6px; }
-.vp-timer-label i { color: #e8a000; }
-.vp-timer { display: inline-flex; align-items: center; gap: 5px; background: var(--navy); border-radius: 14px; padding: 12px 16px; }
-.vp-unit { display: flex; flex-direction: column; align-items: center; gap: 2px; min-width: 38px; }
-.vp-num { font-size: 1.65rem; font-weight: 900; color: #fff; letter-spacing: -0.04em; line-height: 1; font-variant-numeric: tabular-nums; }
-.vp-lbl { font-size: 0.5rem; font-weight: 700; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.06em; }
-.vp-sep { font-size: 1.45rem; font-weight: 900; color: rgba(255,255,255,0.3); margin-bottom: 12px; }
+.s2-panel {
+    position: relative; overflow: hidden;
+    background: linear-gradient(155deg, #0e1929, #1c2b46 55%, #243a5e);
+    border-radius: 18px;
+    color: #fff;
+    padding: 20px 18px 16px;
+    box-shadow: 0 8px 32px rgba(14,25,41,0.35), inset 0 1px 0 rgba(255,255,255,0.06);
+}
+.s2-panel::before {
+    content: '';
+    position: absolute;
+    top: -40%; right: -30%;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(176,141,87,0.12) 0%, transparent 70%);
+    pointer-events: none;
+}
 
-/* פס התקדמות */
-.vp-progress-block { padding: 16px 18px; border-bottom: 1px solid var(--line); }
-.vp-progress-head { display: flex; justify-content: space-between; font-size: 0.74rem; margin-bottom: 8px; }
-.vp-progress-head i { color: var(--navy); margin-inline-end: 4px; }
-.vp-progress-head strong { color: var(--navy); font-size: 1rem; font-weight: 900; }
-.vp-progress-head strong.urgent { color: #c0392b; }
-.vp-progress-wrap { height: 8px; background: var(--line); border-radius: 999px; overflow: hidden; margin-bottom: 7px; }
-.vp-progress-fill { height: 100%; background: linear-gradient(90deg, var(--navy) 0%, #3a5f94 100%); border-radius: 999px; }
-.vp-progress-note { font-size: 0.67rem; color: var(--ink-3); }
-.vp-progress-note strong { color: var(--ink); }
+/* head */
+.s2-head {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    margin-bottom: 14px;
+}
+.s2-title {
+    font-size: 1rem; font-weight: 800; line-height: 1.3; margin: 0;
+}
+.s2-title span { font-weight: 500; opacity: 0.55; font-size: 0.78rem; }
+.s2-subtitle {
+    font-size: 0.66rem; opacity: 0.55; margin-top: 3px;
+}
+.s2-subtitle strong { opacity: 1; color: #ff6b6b; font-weight: 800; }
+.s2-live {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 0.58rem; font-weight: 800; letter-spacing: 0.08em;
+    color: #2ecc71; flex-shrink: 0; margin-top: 3px;
+}
+.s2-pulse {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #2ecc71; animation: s2p 1.5s infinite; flex-shrink: 0;
+}
+@keyframes s2p { 0%,100%{box-shadow:0 0 0 0 rgba(46,204,113,.5)} 50%{box-shadow:0 0 0 5px rgba(46,204,113,0)} }
 
-/* מלאי לפי צבע */
-.vp-stock-block { padding: 14px 18px; border-bottom: 1px solid var(--line); }
-.vp-block-title { font-size: 0.68rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); margin-bottom: 10px; }
-.vp-stock-row { display: flex; align-items: center; gap: 8px; margin-bottom: 9px; }
-.vp-stock-row:last-child { margin-bottom: 0; }
-.vp-dot { width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0; }
-.vp-color-name { font-size: 0.72rem; font-weight: 600; color: var(--ink); width: 34px; flex-shrink: 0; }
-.vp-bar-wrap { flex: 1; height: 6px; background: var(--line); border-radius: 999px; overflow: hidden; }
-.vp-bar { height: 100%; background: linear-gradient(90deg, var(--green), #2da878); border-radius: 999px; }
-.vp-stock-badge { font-size: 0.62rem; font-weight: 700; color: var(--ink-2); display: flex; align-items: center; gap: 3px; white-space: nowrap; }
-.vp-stock-badge.urgent { color: #c0392b; }
+/* timer */
+.s2-timer {
+    display: flex; gap: 6px; justify-content: center; margin-bottom: 18px;
+}
+.s2-t {
+    display: flex; flex-direction: column; align-items: center;
+    background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px; padding: 8px 14px 5px; min-width: 62px;
+}
+.s2-t span {
+    font-size: 1.6rem; font-weight: 900; line-height: 1;
+    font-variant-numeric: tabular-nums; letter-spacing: 0.04em;
+}
+.s2-t small {
+    font-size: 0.5rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.08em; opacity: 0.45; margin-top: 3px;
+}
 
-/* רשימת רוכשים */
-.vp-buyers-block { padding: 14px 18px 10px; border-bottom: 1px solid var(--line); }
-.vp-buyers-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
-.vp-live { display: flex; align-items: center; gap: 5px; font-size: 0.62rem; font-weight: 700; color: var(--green); }
-.vp-pulse { width: 7px; height: 7px; border-radius: 50%; background: #2ecc71; animation: vpulse 1.5s infinite; flex-shrink: 0; }
-@keyframes vpulse { 0%,100%{box-shadow:0 0 0 0 rgba(46,204,113,.5)} 50%{box-shadow:0 0 0 6px rgba(46,204,113,0)} }
-.vp-buyers-list { list-style: none; }
-.vp-buyers-list li { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-bottom: 1px solid var(--line); }
-.vp-buyers-list li:last-child { border-bottom: none; }
-.vp-av { width: 32px; height: 32px; border-radius: 50%; background: var(--navy); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 800; flex-shrink: 0; }
-.vp-bi { flex: 1; }
-.vp-bi strong { display: block; font-size: 0.76rem; color: var(--ink); }
-.vp-bi span { font-size: 0.62rem; color: var(--ink-3); }
-.vp-bc { width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0; box-shadow: 0 0 0 2px #fff, 0 0 0 3px var(--line); }
-.vp-show-more { width: 100%; margin-top: 10px; padding: 9px; border: 1px dashed var(--line); border-radius: 10px; background: transparent; font-family: inherit; font-size: 0.72rem; font-weight: 700; color: var(--navy); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; }
+/* bar chart */
+.s2-chart {
+    display: flex; flex-direction: column; gap: 8px;
+    margin-bottom: 8px;
+}
+.s2-cr {
+    display: flex; align-items: center; gap: 8px;
+}
+.s2-cd {
+    width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0;
+}
+.s2-cn {
+    font-size: 0.66rem; font-weight: 700; min-width: 36px; text-align: end;
+}
+.s2-bar-wrap {
+    flex: 1; height: 10px; border-radius: 999px;
+    background: rgba(255,255,255,0.08);
+    overflow: hidden;
+}
+.s2-bar {
+    height: 100%; border-radius: 999px;
+    background: linear-gradient(90deg, #3a7bd5, #6cb5f7);
+    transition: width .8s ease;
+}
+.s2-bar.s2-bar-hot {
+    background: linear-gradient(90deg, #e05d44, #ff8a65);
+}
+.s2-cv {
+    font-size: 0.7rem; font-weight: 800; min-width: 28px;
+    font-variant-numeric: tabular-nums;
+}
+.s2-cv.hot { color: #ff8a65; }
+.s2-cv i { font-size: 0.6rem; margin-inline-start: 2px; }
 
-/* סרטון */
-.vp-video-block { padding: 14px 18px 20px; }
-.vp-video-btn { display: flex; align-items: center; gap: 12px; padding: 14px; border: 1px solid var(--line); border-radius: var(--r); background: #f8fafc; text-decoration: none; transition: background .14s; }
-.vp-video-btn:hover { background: #eef2f8; }
-.vp-video-play { width: 44px; height: 44px; border-radius: 50%; background: var(--navy); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
-.vp-video-text { flex: 1; }
-.vp-video-text strong { display: block; font-size: 0.84rem; font-weight: 800; color: var(--navy); }
-.vp-video-text span { font-size: 0.65rem; color: var(--ink-3); }
-.vp-video-arrow { color: var(--ink-3); font-size: 0.75rem; }
+.s2-total {
+    text-align: center; font-size: 0.6rem; opacity: 0.4;
+    margin-bottom: 14px; margin-top: 2px;
+}
+.s2-total strong { font-weight: 800; opacity: 1; }
+.s2-total span { color: #ff8a65; opacity: 1; font-weight: 700; }
+
+/* video link */
+.s2-vid {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 10px 14px; border-radius: 10px;
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08);
+    text-decoration: none; color: #fff;
+    transition: background .15s;
+}
+.s2-vid:hover { background: rgba(255,255,255,0.12); }
+.s2-vid-icon {
+    width: 30px; height: 30px; border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem;
+}
+.s2-vid-txt { font-size: 0.72rem; font-weight: 700; }
+.s2-vid-txt small { font-weight: 500; opacity: 0.5; margin-inline-start: 4px; }
 
 /* ══════════════════════════════
    Sticky CTA

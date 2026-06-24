@@ -10,9 +10,7 @@
 </head>
 <body>
 
-    <!-- ══════════════════════════════
-         Section 0 — Header
-    ══════════════════════════════ -->
+    <!-- Section 0 — Header -->
     <header class="vp-header">
         <div class="vp-side start">
             <a href="#order" class="vp-icon-btn" aria-label="וואטסאפ"><i class="fab fa-whatsapp"></i></a>
@@ -25,13 +23,9 @@
         </div>
     </header>
 
-    <!-- ══════════════════════════════
-         Section 1 — Hero
-    ══════════════════════════════ -->
     <main>
+        <!-- Section 1 — Hero -->
         <section class="vp-hero">
-
-            <!-- תמונת מוצר -->
             <div class="vp-stage" id="vpStage">
                 <img src="img/chair-cream-hires.png" alt="כורסת עיסוי VC" id="vpImg">
                 <div class="vp-stage-bar">
@@ -39,8 +33,6 @@
                     <div class="vp-swatches" id="vpSwatches"></div>
                 </div>
             </div>
-
-            <!-- טקסט + קנייה -->
             <div class="vp-copy">
                 <div class="vp-title-row">
                     <h1 class="vp-title">כורסת עיסוי<span>VC LUXURY</span></h1>
@@ -60,85 +52,61 @@
             </div>
         </section>
 
-        <!-- ══════════════════════════════
-             Section 2 — קהילת רוכשים
-        ══════════════════════════════ -->
-        <section class="vp-community">
+        <!-- Section 2 — מבצע + מלאי -->
+        <section class="s2">
+            <div class="s2-panel">
 
-            <!-- טיימר -->
-            <div class="vp-timer-block">
-                <p class="vp-timer-label"><i class="fas fa-bolt"></i> מחיר המפעל נסגר בעוד</p>
-                <div class="vp-timer">
-                    <div class="vp-unit"><span class="vp-num" id="s2h">11</span><span class="vp-lbl">שעות</span></div>
-                    <span class="vp-sep">:</span>
-                    <div class="vp-unit"><span class="vp-num" id="s2m">47</span><span class="vp-lbl">דקות</span></div>
-                    <span class="vp-sep">:</span>
-                    <div class="vp-unit"><span class="vp-num" id="s2s">32</span><span class="vp-lbl">שניות</span></div>
+                <!-- כותרת + LIVE -->
+                <div class="s2-head">
+                    <div>
+                        <h2 class="s2-title">מבצע מפעל<span> · לזמן מוגבל</span></h2>
+                        <p class="s2-subtitle">34 כורסאות נמכרו · נותרו <strong>16</strong> יחידות</p>
+                    </div>
+                    <div class="s2-live"><span class="s2-pulse"></span>LIVE</div>
                 </div>
-            </div>
 
-            <!-- פס התקדמות -->
-            <div class="vp-progress-block">
-                <div class="vp-progress-head">
-                    <span><i class="fas fa-users"></i> <strong>34</strong> הצטרפו כבר</span>
-                    <span>נותרו <strong class="urgent">16</strong> מקומות</span>
+                <!-- טיימר -->
+                <div class="s2-timer">
+                    <div class="s2-t"><span id="s2h">11</span><small>שעות</small></div>
+                    <div class="s2-t"><span id="s2m">47</span><small>דקות</small></div>
+                    <div class="s2-t"><span id="s2s">32</span><small>שניות</small></div>
                 </div>
-                <div class="vp-progress-wrap"><div class="vp-progress-fill" style="width:68%"></div></div>
-                <p class="vp-progress-note">68% מהמכולה נמכרה · <strong>המחיר עולה לאחר הגעתה</strong></p>
-            </div>
 
-            <!-- מלאי לפי צבע -->
-            <div class="vp-stock-block">
-                <p class="vp-block-title">זמינות לפי צבע</p>
-                <div class="vp-stock-row">
-                    <span class="vp-dot" style="background:#efe9df;border:1px solid #ccc"></span>
-                    <span class="vp-color-name">שמנת</span>
-                    <div class="vp-bar-wrap"><div class="vp-bar" style="width:20%"></div></div>
-                    <span class="vp-stock-badge urgent"><i class="fas fa-fire"></i> 2 נותרו</span>
+                <!-- גרף מלאי -->
+                <div class="s2-chart">
+                    <div class="s2-cr">
+                        <span class="s2-cd" style="background:#efe9df;border:1px solid #c4bfb5"></span>
+                        <span class="s2-cn">שמנת</span>
+                        <div class="s2-bar-wrap"><div class="s2-bar s2-bar-hot" style="width:13%"></div></div>
+                        <span class="s2-cv hot">2 <i class="fas fa-fire"></i></span>
+                    </div>
+                    <div class="s2-cr">
+                        <span class="s2-cd" style="background:#7d7d80"></span>
+                        <span class="s2-cn">אפור</span>
+                        <div class="s2-bar-wrap"><div class="s2-bar" style="width:33%"></div></div>
+                        <span class="s2-cv">5</span>
+                    </div>
+                    <div class="s2-cr">
+                        <span class="s2-cd" style="background:#1c1c1e"></span>
+                        <span class="s2-cn">שחור</span>
+                        <div class="s2-bar-wrap"><div class="s2-bar" style="width:53%"></div></div>
+                        <span class="s2-cv">8</span>
+                    </div>
                 </div>
-                <div class="vp-stock-row">
-                    <span class="vp-dot" style="background:#7d7d80"></span>
-                    <span class="vp-color-name">אפור</span>
-                    <div class="vp-bar-wrap"><div class="vp-bar" style="width:50%"></div></div>
-                    <span class="vp-stock-badge">5 נותרו</span>
-                </div>
-                <div class="vp-stock-row">
-                    <span class="vp-dot" style="background:#1c1c1e"></span>
-                    <span class="vp-color-name">שחור</span>
-                    <div class="vp-bar-wrap"><div class="vp-bar" style="width:73%"></div></div>
-                    <span class="vp-stock-badge">8 נותרו</span>
-                </div>
-            </div>
+                <p class="s2-total">סה"כ <strong>15</strong> במלאי מתוך 50 · <span>70% נמכרו</span></p>
 
-            <!-- רשימת רוכשים -->
-            <div class="vp-buyers-block">
-                <div class="vp-buyers-head">
-                    <p class="vp-block-title">הצטרפו לאחרונה</p>
-                    <span class="vp-live"><span class="vp-pulse"></span>חי</span>
-                </div>
-                <ul class="vp-buyers-list">
-                    <li><span class="vp-av">מ</span><div class="vp-bi"><strong>מיכל כ.</strong><span>שמנת · לפני שעתיים</span></div><span class="vp-bc" style="background:#efe9df;border:1px solid #ccc"></span></li>
-                    <li><span class="vp-av">ד</span><div class="vp-bi"><strong>דוד ל.</strong><span>שחור · לפני 5 שעות</span></div><span class="vp-bc" style="background:#1c1c1e"></span></li>
-                    <li><span class="vp-av">ש</span><div class="vp-bi"><strong>שרה מ.</strong><span>אפור · אתמול</span></div><span class="vp-bc" style="background:#7d7d80"></span></li>
-                    <li><span class="vp-av">י</span><div class="vp-bi"><strong>יוסי א.</strong><span>שחור · אתמול</span></div><span class="vp-bc" style="background:#1c1c1e"></span></li>
-                </ul>
-                <button class="vp-show-more">הצג את כולם <i class="fas fa-chevron-down"></i></button>
-            </div>
-
-            <!-- סרטון הדגמה -->
-            <div class="vp-video-block">
-                <a href="#" class="vp-video-btn">
-                    <div class="vp-video-play"><i class="fas fa-circle-play"></i></div>
-                    <div class="vp-video-text"><strong>ראו סרטון הדגמה</strong><span>2:14 דקות · הכורסה בפעולה</span></div>
-                    <i class="fas fa-chevron-left vp-video-arrow"></i>
+                <!-- סרטון -->
+                <a href="#" class="s2-vid">
+                    <span class="s2-vid-icon"><i class="fas fa-play"></i></span>
+                    <span class="s2-vid-txt">צפו בסרטון הדגמה <small>2:14</small></span>
                 </a>
-            </div>
 
+            </div>
         </section>
     </main>
 
-    <!-- ══ כפתור צף ══ -->
-    <div class="vp-sticky" id="vpSticky">
+    <!-- כפתור צף -->
+    <div class="vp-sticky">
         <div class="vp-sticky-inner">
             <div class="vp-sticky-price">
                 <span class="vp-sticky-now">₪2,900</span>
@@ -199,7 +167,6 @@
 
         go(0); startAuto();
 
-        // Countdown
         var end = Date.now() + (11 * 3600 + 47 * 60 + 32) * 1000;
         function pad(n) { return String(n).padStart(2,'0'); }
         function tick() {
@@ -209,7 +176,6 @@
             document.getElementById('s2s').textContent = pad(d%60);
         }
         tick(); setInterval(tick, 1000);
-
     })();
     </script>
 </body>
