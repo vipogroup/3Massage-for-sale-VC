@@ -36,7 +36,7 @@
         return `https://wa.me/972${phone}?text=${encodeURIComponent(message)}`;
     }
 
-    function buildOrderMessage(data) {
+    function buildOrderMessage(data, orderResult) {
         const product = (appConfig && appConfig.productName) || 'כורסת עיסוי VC - LUXURY';
         const price = getPriceText();
         let msg = `🛒 *הזמנה חדשה מהאתר*\n\n`;
@@ -53,7 +53,13 @@
         if (data.note) {
             msg += `הערות: ${data.note}\n`;
         }
-        msg += `\n_נשלח מדף הנחיתה_`;
+        if (orderResult && orderResult.purchaseNumber) {
+            msg += `\nמספר רכישה: #${orderResult.purchaseNumber}`;
+        }
+        if (orderResult && orderResult.reviewUrl) {
+            msg += `\n\n⭐ *קישור ביקורת ללקוח* (העבר לאחר אישור):\n${orderResult.reviewUrl}`;
+        }
+        msg += `\n\n_נשלח מדף הנחיתה_`;
         return msg;
     }
 
@@ -152,12 +158,13 @@
         }
 
         const orderData = { name, phone, city, color, note };
+        let orderResult = null;
 
         try {
             if (StockApi.isEnabled()) {
                 setStatus('שומרים את ההזמנה ומעדכנים מלאי…', 'info');
-                const result = await StockApi.submitOrder(orderData);
-                if (result.error === 'sold_out' || result.ok === false) {
+                orderResult = await StockApi.submitOrder(orderData);
+                if (orderResult.error === 'sold_out' || orderResult.ok === false) {
                     setStatus('מצטערים — המלאי נגמר הרגע.', 'error');
                     updateSoldOutUI();
                     return;
@@ -166,12 +173,14 @@
                 setStatus('פותחים וואטסאפ…', 'info');
             }
 
-            const waUrl = getSellerWhatsAppUrl(buildOrderMessage(orderData));
+            const waUrl = getSellerWhatsAppUrl(buildOrderMessage(orderData, orderResult));
             window.open(waUrl, '_blank', 'noopener');
 
             setStatus(
                 StockApi.isEnabled()
-                    ? 'ההזמנה נשמרה והמלאי עודכן. שלחנו אותך לוואטסאפ.'
+                    ? (orderResult && orderResult.reviewUrl
+                        ? 'ההזמנה נשמרה. בוואטסאפ יש קישור ביקורת אישי ללקוח.'
+                        : 'ההזמנה נשמרה והמלאי עודכן. שלחנו אותך לוואטסאפ.')
                     : 'נפתח וואטסאפ — שלח את ההודעה כדי להשלים את ההזמנה.',
                 'ok'
             );

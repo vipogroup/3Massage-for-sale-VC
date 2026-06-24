@@ -144,6 +144,68 @@ const StockApi = (function () {
         return [];
     }
 
+    async function apiGet(action, extraParams) {
+        if (!isEnabled()) {
+            throw new Error('api_disabled');
+        }
+        const sep = apiUrl().includes('?') ? '&' : '?';
+        let url = `${apiUrl()}${sep}action=${encodeURIComponent(action)}&_=${Date.now()}`;
+        if (extraParams) {
+            Object.keys(extraParams).forEach((key) => {
+                url += '&' + encodeURIComponent(key) + '=' + encodeURIComponent(extraParams[key]);
+            });
+        }
+        const res = await fetch(url, { cache: 'no-store', redirect: 'follow' });
+        return JSON.parse(await res.text());
+    }
+
+    async function apiPost(payload) {
+        if (!isEnabled()) {
+            throw new Error('api_disabled');
+        }
+        const res = await fetch(apiUrl(), {
+            method: 'POST',
+            redirect: 'follow',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify(payload)
+        });
+        return JSON.parse(await res.text());
+    }
+
+    async function fetchReviews() {
+        if (!isEnabled()) return [];
+        try {
+            const data = await apiGet('reviews');
+            if (data.ok && Array.isArray(data.reviews)) return data.reviews;
+        } catch (err) {
+            console.warn('StockApi: fetchReviews failed', err);
+        }
+        return [];
+    }
+
+    async function validateReviewToken(token) {
+        if (!isEnabled()) {
+            return { ok: false, error: 'api_disabled' };
+        }
+        return apiGet('reviewValidate', { token: token });
+    }
+
+    async function submitReview(review) {
+        if (!isEnabled()) {
+            return { ok: false, error: 'api_disabled' };
+        }
+        return apiPost({
+            action: 'reviewSubmit',
+            token: review.token,
+            stars: review.stars,
+            text: review.text
+        });
+    }
+
+    async function initForReview(config) {
+        appConfig = await resolveConfig(config || {});
+    }
+
     function startPolling(ms) {
         if (pollTimer) {
             clearInterval(pollTimer);
@@ -183,8 +245,12 @@ const StockApi = (function () {
 
     return {
         init,
+        initForReview,
         fetchStock,
         fetchBuyers,
+        fetchReviews,
+        validateReviewToken,
+        submitReview,
         submitOrder,
         saveUrl,
         isEnabled,

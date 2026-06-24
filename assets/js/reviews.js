@@ -1,4 +1,12 @@
 (function () {
+    function escapeHtml(str) {
+        return String(str || '')
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;');
+    }
+
     function renderStars(n) {
         var count = Math.max(0, Math.min(5, Number(n) || 5));
         var out = '';
@@ -23,8 +31,8 @@
             return (
                 '<article class="lp-review-card">' +
                 '<div class="lp-review-stars" aria-label="' + (r.stars || 5) + ' כוכבים">' + renderStars(r.stars) + '</div>' +
-                '<p class="lp-review-text">"' + r.text + '"</p>' +
-                '<footer class="lp-review-author">' + r.name + '</footer>' +
+                '<p class="lp-review-text">"' + escapeHtml(r.text) + '"</p>' +
+                '<footer class="lp-review-author">' + escapeHtml(r.name) + '</footer>' +
                 '</article>'
             );
         }).join('');
@@ -34,6 +42,14 @@
         if (config && config.reviews && config.reviews.enabled === false) {
             renderReviews([]);
             return;
+        }
+
+        if (typeof StockApi !== 'undefined' && StockApi.fetchReviews) {
+            var apiReviews = await StockApi.fetchReviews();
+            if (apiReviews.length) {
+                renderReviews(apiReviews);
+                return;
+            }
         }
 
         var items = (config && config.reviews && config.reviews.items) || [];
