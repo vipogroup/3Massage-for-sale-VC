@@ -221,15 +221,15 @@ body { padding-bottom: 80px; }
 }
 .s2-stat {
     flex: 1; display: flex; flex-direction: column; align-items: center;
-    justify-content: center; padding: 10px 4px;
+    justify-content: center; padding: 7px 4px;
 }
 .s2-stat-num {
-    font-size: 1.3rem; font-weight: 900; color: #fff;
+    font-size: 1rem; font-weight: 900; color: #fff;
     line-height: 1; font-variant-numeric: tabular-nums;
 }
 .s2-stat-lbl {
-    font-size: 0.54rem; font-weight: 700; color: rgba(255,255,255,0.45);
-    margin-top: 3px;
+    font-size: 0.48rem; font-weight: 700; color: rgba(255,255,255,0.45);
+    margin-top: 2px;
 }
 .s2-stat-div {
     width: 1px; background: rgba(255,255,255,0.08); flex-shrink: 0;
