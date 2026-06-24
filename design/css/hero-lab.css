@@ -595,6 +595,69 @@ body { padding-bottom: 80px; }
 .s7-note i { font-size: 0.5rem; }
 
 /* ══════════════════════════════
+   Section 8 — המכולה בדרך
+══════════════════════════════ */
+.s8 {
+    padding: 0 14px 24px;
+    background: var(--bg);
+}
+.s8-inner {
+    text-align: center;
+    padding: 24px 20px;
+    background: linear-gradient(180deg, #f7f8fb, #eef1f8);
+    border-radius: 18px;
+    border: 1px solid var(--line);
+}
+.s8-icon {
+    width: 48px; height: 48px; border-radius: 14px;
+    background: rgba(28,43,70,0.06);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; color: var(--navy);
+    margin-bottom: 12px;
+}
+.s8-title {
+    font-size: 0.95rem; font-weight: 900; color: var(--navy);
+    margin-bottom: 4px;
+}
+.s8-sub {
+    font-size: 0.64rem; color: var(--ink-2); margin-bottom: 16px;
+    line-height: 1.5;
+}
+.s8-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    min-height: 44px; padding: 0 24px;
+    border-radius: 12px; border: 2px solid var(--navy);
+    background: var(--bg); color: var(--navy);
+    font-family: var(--sans); font-size: 0.8rem; font-weight: 800;
+    text-decoration: none;
+    transition: background .15s, color .15s;
+}
+.s8-btn:hover { background: var(--navy); color: #fff; }
+.s8-btn i { font-size: 0.9rem; }
+.s8-trust {
+    display: flex; align-items: center; justify-content: center; gap: 14px;
+    margin-top: 14px;
+    font-size: 0.54rem; color: var(--ink-3); font-weight: 600;
+}
+.s8-trust i { font-size: 0.52rem; margin-inline-end: 3px; }
+
+/* ══════════════════════════════
+   Footer
+══════════════════════════════ */
+.vp-footer {
+    text-align: center; padding: 20px 14px 24px;
+    border-top: 1px solid var(--line);
+}
+.vp-footer-logo {
+    font-size: 1rem; font-weight: 900; letter-spacing: 0.25em;
+    color: var(--navy); text-transform: uppercase;
+    margin-bottom: 4px;
+}
+.vp-footer-copy {
+    font-size: 0.56rem; color: var(--ink-3); margin: 0;
+}
+
+/* ══════════════════════════════
    Sticky CTA
 ══════════════════════════════ */
 .vp-sticky {
