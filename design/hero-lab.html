@@ -222,6 +222,48 @@
             </div>
         </section>
 
+        <!-- Section 6 — גלריה -->
+        <section class="s6">
+            <div class="s6-header">
+                <span class="s6-eyebrow">הכורסה מכל זווית</span>
+                <h2 class="s6-heading">גלריית תמונות</h2>
+            </div>
+            <div class="s6-grid" id="s6Grid">
+                <a href="#" class="s6-thumb s6-thumb--lg" data-img="img/chair-cream-hires.png">
+                    <img src="img/chair-cream-hires.png" alt="כורסת עיסוי — שמנת" loading="lazy">
+                    <span class="s6-label">שמנת</span>
+                </a>
+                <a href="#" class="s6-thumb" data-img="img/chair-gray-hires.png">
+                    <img src="img/chair-gray-hires.png" alt="כורסת עיסוי — אפור" loading="lazy">
+                    <span class="s6-label">אפור</span>
+                </a>
+                <a href="#" class="s6-thumb" data-img="img/chair-black-hires.png">
+                    <img src="img/chair-black-hires.png" alt="כורסת עיסוי — שחור" loading="lazy">
+                    <span class="s6-label">שחור</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Lightbox -->
+        <div class="s6-lb" id="s6Lb">
+            <button class="s6-lb-close" id="s6LbClose"><i class="fas fa-xmark"></i></button>
+            <img id="s6LbImg" src="" alt="">
+        </div>
+
+        <!-- Section 7 — CTA סגירה -->
+        <section class="s7">
+            <div class="s7-inner">
+                <h2 class="s7-title">מוכנים לחוויה?</h2>
+                <p class="s7-sub">הזמינו עכשיו והבטיחו מחיר מפעל<br>לפני שהמכולה נגמרת</p>
+                <div class="s7-price-row">
+                    <span class="s7-now">₪2,900</span>
+                    <span class="s7-was">₪12,000</span>
+                </div>
+                <a href="#order" class="s7-cta"><i class="fab fa-whatsapp"></i> הזמינו עכשיו בוואטסאפ</a>
+                <p class="s7-note"><i class="fas fa-lock"></i> תשלום מאובטח · משלוח עד הבית</p>
+            </div>
+        </section>
+
     </main>
 
     <!-- כפתור צף -->
@@ -295,6 +337,19 @@
             document.getElementById('s2s').textContent = pad(d%60);
         }
         tick(); setInterval(tick, 1000);
+
+        // Lightbox
+        var lb = document.getElementById('s6Lb');
+        var lbImg = document.getElementById('s6LbImg');
+        document.getElementById('s6Grid').addEventListener('click', function (e) {
+            e.preventDefault();
+            var a = e.target.closest('.s6-thumb');
+            if (!a) return;
+            lbImg.src = a.dataset.img;
+            lb.classList.add('is-open');
+        });
+        document.getElementById('s6LbClose').addEventListener('click', function () { lb.classList.remove('is-open'); });
+        lb.addEventListener('click', function (e) { if (e.target === lb) lb.classList.remove('is-open'); });
     })();
     </script>
 </body>
