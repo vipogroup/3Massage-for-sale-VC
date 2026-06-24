@@ -13,17 +13,22 @@
     <!-- Section 0 — Header -->
     <header class="vp-header">
         <div class="vp-side start">
-            <a href="#order" class="vp-icon-btn" aria-label="וואטסאפ"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://wa.me/972501234567" target="_blank" rel="noopener" class="vp-icon-btn" aria-label="וואטסאפ"><i class="fab fa-whatsapp"></i></a>
         </div>
         <div class="vp-center">
             <a href="#" class="vp-logo"><span>VIPO</span><span>massage</span></a>
         </div>
         <div class="vp-side end">
-            <button class="vp-icon-btn" aria-label="שתף"><i class="fas fa-share-alt"></i></button>
+            <button class="vp-icon-btn" id="vpShare" aria-label="שתף"><i class="fas fa-share-alt"></i></button>
         </div>
     </header>
 
     <main>
+        <!-- Decorative drifting orbs -->
+        <div class="vp-orb vp-orb--1"></div>
+        <div class="vp-orb vp-orb--2"></div>
+        <div class="vp-orb vp-orb--3"></div>
+
         <!-- Section 1 — Hero -->
         <section class="vp-hero">
             <div class="vp-stage" id="vpStage">
@@ -49,13 +54,15 @@
                     <li><i class="fas fa-certificate"></i> תקן CE</li>
                     <li><i class="fas fa-truck-fast"></i> משלוח מהיר</li>
                 </ul>
+                <a href="https://wa.me/972501234567" target="_blank" rel="noopener" class="vp-cta"><i class="fab fa-whatsapp"></i> הזמינו עכשיו במחיר מפעל</a>
+                <p class="vp-cta-note"><i class="fas fa-bolt"></i> נותרו 16 כורסאות במכולה הנוכחית</p>
             </div>
         </section>
 
         <!-- Section 2 — מבצע -->
         <section class="s2">
             <div class="s2-bg">
-                <div class="s2-card">
+                <div class="s2-card reveal">
                     <div class="s2-card-head">
                         <i class="fas fa-clock"></i>
                         <span>המבצע נסגר בעוד</span>
@@ -99,28 +106,27 @@
 
         <!-- Section 3 — יתרונות + מפרט -->
         <section class="s3">
-          <div class="sec-card">
-            <div class="sec-card-icon"><i class="fas fa-gem"></i></div>
-            <span class="sec-card-eyebrow">למה דווקא VIPO?</span>
+          <div class="sec-card reveal">
+            <div class="vp-eyebrow"><span class="vp-eyebrow-num">01</span><span class="vp-eyebrow-line"></span><span class="vp-eyebrow-txt">למה VIPO</span></div>
             <h2 class="sec-card-title">חוויית עיסוי מקצועית — ממש בבית</h2>
 
             <div class="s3-grid">
-                <div class="s3-ben s3-ben--health">
+                <div class="s3-ben s3-ben--health reveal">
                     <div class="s3-ben-icon"><i class="fas fa-heart-pulse"></i></div>
                     <strong>בריאות הגב</strong>
                     <p>הקלה מוכחת על כאבי גב, צוואר ושרירים תפוסים — עיסוי יומי בלי לצאת מהבית</p>
                 </div>
-                <div class="s3-ben s3-ben--relax">
+                <div class="s3-ben s3-ben--relax reveal reveal-delay-1">
                     <div class="s3-ben-icon"><i class="fas fa-spa"></i></div>
                     <strong>הפגת מתחים</strong>
                     <p>שיאטסו מקצועי עם חימום אינפרא-אדום — ירידה במתח ושיפור שינה</p>
                 </div>
-                <div class="s3-ben s3-ben--shield">
+                <div class="s3-ben s3-ben--shield reveal reveal-delay-2">
                     <div class="s3-ben-icon"><i class="fas fa-shield-alt"></i></div>
                     <strong>אחריות מלאה</strong>
                     <p>שנתיים אחריות יצרן + שירות טכני בארץ + מלאי חלפים זמין</p>
                 </div>
-                <div class="s3-ben s3-ben--factory">
+                <div class="s3-ben s3-ben--factory reveal reveal-delay-3">
                     <div class="s3-ben-icon"><i class="fas fa-industry"></i></div>
                     <strong>ישירות מהמפעל</strong>
                     <p>ללא מתווכים ויבואנים — חיסכון של אלפי שקלים על כל כורסה</p>
@@ -148,17 +154,19 @@
 
         <!-- Section 4 — ביקורות -->
         <section class="s4">
-          <div class="sec-card">
-            <div class="sec-card-icon"><i class="fas fa-star"></i></div>
-            <span class="sec-card-eyebrow">מה הלקוחות אומרים</span>
+          <div class="s4-fade-top"></div>
+          <div class="s4-glow"></div>
+          <div class="s4-head reveal">
+            <div class="vp-eyebrow"><span class="vp-eyebrow-num">02</span><span class="vp-eyebrow-line"></span><span class="vp-eyebrow-txt">לקוחות מספרים</span></div>
+            <h2 class="s4-title">מה הלקוחות שלנו אומרים</h2>
             <div class="s4-rating-row">
-                    <div class="s4-stars">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <span class="s4-avg">4.8</span>
-                    <span class="s4-count">· 127 ביקורות</span>
+                <div class="s4-stars">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
                 </div>
+                <span class="s4-avg">4.8</span>
+                <span class="s4-count">· 127 ביקורות</span>
             </div>
+          </div>
 
             <div class="s4-list">
                 <div class="s4-card">
@@ -185,7 +193,7 @@
                 </div>
                 <div class="s4-card">
                     <div class="s4-card-top">
-                        <div class="s4-avatar" style="background:#b08d57">ש</div>
+                        <div class="s4-avatar" style="background:#5d6b85">ש</div>
                         <div class="s4-meta">
                             <strong>שרה מ.</strong>
                             <div class="s4-mini-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></div>
@@ -195,13 +203,13 @@
                     <p class="s4-body">"קניתי מתנה לאמא, היא לא מפסיקה לספר לכל השכנות. האיכות מעולה והמחיר לא ייאמן."</p>
                 </div>
             </div>
-          </div>
+          <div class="s4-fade-bot"></div>
         </section>
 
-        <!-- Section 5 — שאלות נפוצות -->
+        <!-- Section 5 — שאלות נפוצות  -->
         <section class="s5">
-          <div class="sec-card">
-            <div class="sec-card-icon"><i class="fas fa-circle-question"></i></div>
+          <div class="sec-card reveal">
+            <div class="vp-eyebrow"><span class="vp-eyebrow-num">03</span><span class="vp-eyebrow-line"></span><span class="vp-eyebrow-txt">כל מה שחשוב לדעת</span></div>
             <h2 class="sec-card-title">שאלות נפוצות</h2>
             <div class="s5-acc">
                 <details class="s5-item">
@@ -230,11 +238,11 @@
 
         <!-- Section 6 — המכולה בדרך + גלריית מפעל -->
         <section class="s8">
-            <div class="s8-inner">
+            <div class="s8-inner reveal">
                 <div class="s8-icon"><i class="fas fa-ship"></i></div>
                 <h2 class="s8-title">המכולה בדרך — ראו בעצמכם</h2>
                 <p class="s8-sub">תמונות מהמפעל, העמסה למכולה ומשלוח ישיר — שקיפות מלאה</p>
-                <a href="gallery.html" class="s8-btn">
+                <a href="#gallery" class="s8-btn">
                     <i class="fas fa-images"></i>
                     <span>גלריית תמונות מהמפעל</span>
                 </a>
@@ -246,10 +254,9 @@
         </section>
 
         <!-- Section 7 — גלריית מוצר -->
-        <section class="s6">
-          <div class="sec-card">
-            <div class="sec-card-icon"><i class="fas fa-camera"></i></div>
-            <span class="sec-card-eyebrow">הכורסה מכל זווית</span>
+        <section class="s6" id="gallery">
+          <div class="sec-card reveal">
+            <div class="vp-eyebrow"><span class="vp-eyebrow-num">04</span><span class="vp-eyebrow-line"></span><span class="vp-eyebrow-txt">מבט מקרוב</span></div>
             <h2 class="sec-card-title">גלריית תמונות</h2>
             <div class="s6-grid" id="s6Grid">
                 <a href="#" class="s6-thumb s6-thumb--lg" data-img="img/chair-cream-hires.png">
@@ -276,14 +283,14 @@
 
         <!-- Section 8 — CTA סגירה -->
         <section class="s7">
-            <div class="s7-inner">
+            <div class="s7-inner reveal">
                 <h2 class="s7-title">מוכנים לחוויה?</h2>
                 <p class="s7-sub">הזמינו עכשיו והבטיחו מחיר מפעל<br>לפני שהמכולה נגמרת</p>
                 <div class="s7-price-row">
                     <span class="s7-now">₪2,900</span>
                     <span class="s7-was">₪12,000</span>
                 </div>
-                <a href="#order" class="s7-cta"><i class="fab fa-whatsapp"></i> הזמינו עכשיו בוואטסאפ</a>
+                <a href="https://wa.me/972501234567" target="_blank" rel="noopener" class="s7-cta"><i class="fab fa-whatsapp"></i> הזמינו עכשיו בוואטסאפ</a>
                 <p class="s7-note"><i class="fas fa-lock"></i> תשלום מאובטח · משלוח עד הבית</p>
             </div>
         </section>
@@ -291,9 +298,88 @@
     </main>
 
     <!-- Footer -->
-    <footer class="vp-footer">
-        <div class="vp-footer-logo">VIPO</div>
-        <p class="vp-footer-copy">&copy; 2025 VIPO. כל הזכויות שמורות.</p>
+    <footer class="vp-footer reveal">
+        <div class="vp-ft-top">
+            <div class="vp-ft-brand">
+                <span class="vp-ft-logo">VIPO<span class="vp-ft-dot"></span></span>
+                <p class="vp-ft-tagline">כורסאות עיסוי פרימיום — ישירות מהמפעל אליכם</p>
+            </div>
+
+            <div class="vp-ft-cols">
+                <div class="vp-ft-col">
+                    <h4 class="vp-ft-col-title"><i class="fas fa-phone-alt"></i> צרו קשר</h4>
+                    <ul class="vp-ft-list">
+                        <li><a href="tel:+972501234567"><i class="fas fa-mobile-alt"></i> 050-123-4567</a></li>
+                        <li><a href="https://wa.me/972501234567" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> וואטסאפ</a></li>
+                        <li><a href="mailto:info@vipo.co.il"><i class="fas fa-envelope"></i> info@vipo.co.il</a></li>
+                    </ul>
+                </div>
+                <div class="vp-ft-col">
+                    <h4 class="vp-ft-col-title"><i class="fas fa-clock"></i> שעות פעילות</h4>
+                    <ul class="vp-ft-list">
+                        <li>א׳–ה׳: 09:00–19:00</li>
+                        <li>ו׳: 09:00–13:00</li>
+                        <li>שבת: סגור</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="vp-ft-map">
+            <div class="vp-ft-map-inner">
+                <div class="vp-ft-map-graphic">
+                    <svg class="vp-ft-minimap" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Map background -->
+                        <rect width="80" height="80" rx="12" fill="rgba(255,255,255,0.06)"/>
+                        <!-- Roads -->
+                        <path d="M0 35h80" stroke="rgba(255,255,255,0.12)" stroke-width="2"/>
+                        <path d="M0 55h80" stroke="rgba(255,255,255,0.08)" stroke-width="1.5"/>
+                        <path d="M30 0v80" stroke="rgba(255,255,255,0.12)" stroke-width="2"/>
+                        <path d="M55 0v80" stroke="rgba(255,255,255,0.08)" stroke-width="1.5"/>
+                        <!-- Diagonal road -->
+                        <path d="M10 70L70 10" stroke="rgba(255,255,255,0.06)" stroke-width="1.5"/>
+                        <!-- Area blocks -->
+                        <rect x="6" y="8" width="18" height="22" rx="3" fill="rgba(255,255,255,0.04)"/>
+                        <rect x="35" y="40" width="15" height="12" rx="2" fill="rgba(255,255,255,0.04)"/>
+                        <rect x="58" y="58" width="16" height="14" rx="3" fill="rgba(255,255,255,0.04)"/>
+                        <!-- Pin shadow -->
+                        <ellipse cx="42" cy="36" rx="6" ry="2.5" fill="rgba(0,0,0,0.25)"/>
+                        <!-- Pin -->
+                        <path d="M42 16c-5.5 0-10 4.5-10 10 0 7.5 10 16 10 16s10-8.5 10-16c0-5.5-4.5-10-10-10z" fill="#8b97ad"/>
+                        <circle cx="42" cy="26" r="4" fill="#fff"/>
+                    </svg>
+                    <div class="vp-ft-map-pulse"></div>
+                </div>
+                <div class="vp-ft-map-info">
+                    <strong><i class="fas fa-location-dot"></i> נקודת איסוף</strong>
+                    <p>אזור התעשייה, ישראל</p>
+                    <span class="vp-ft-map-note">משלוחים לכל הארץ</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="vp-ft-social">
+            <a href="#" class="vp-ft-soc-btn" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="vp-ft-soc-btn" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="vp-ft-soc-btn" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+        </div>
+
+        <div class="vp-ft-bottom">
+            <div class="vp-ft-pay" aria-label="אמצעי תשלום">
+                <i class="fab fa-cc-visa" title="Visa"></i>
+                <i class="fab fa-cc-mastercard" title="Mastercard"></i>
+                <i class="fab fa-cc-amex" title="American Express"></i>
+                <i class="fab fa-cc-paypal" title="PayPal"></i>
+                <i class="fab fa-apple-pay" title="Apple Pay"></i>
+            </div>
+            <div class="vp-ft-badges">
+                <span><i class="fas fa-lock"></i> תשלום מאובטח</span>
+                <span><i class="fas fa-shield-alt"></i> אחריות יצרן</span>
+                <span><i class="fas fa-truck-fast"></i> משלוח מהיר</span>
+            </div>
+            <p class="vp-ft-copy">&copy; 2026 VIPO. כל הזכויות שמורות.</p>
+            <p class="vp-ft-legal">ע.מ 123456789 | <a href="#">תנאי שימוש</a> · <a href="#">מדיניות פרטיות</a></p>
+        </div>
     </footer>
 
     <!-- כפתור צף -->
@@ -303,7 +389,7 @@
                 <span class="vp-sticky-now">₪2,900</span>
                 <span class="vp-sticky-was">₪12,000</span>
             </div>
-            <a href="#order" class="vp-sticky-btn"><i class="fab fa-whatsapp"></i> הזמינו עכשיו</a>
+            <a href="https://wa.me/972501234567" target="_blank" rel="noopener" class="vp-sticky-btn"><i class="fab fa-whatsapp"></i> הזמינו עכשיו</a>
         </div>
     </div>
 
@@ -380,6 +466,88 @@
         });
         document.getElementById('s6LbClose').addEventListener('click', function () { lb.classList.remove('is-open'); });
         lb.addEventListener('click', function (e) { if (e.target === lb) lb.classList.remove('is-open'); });
+
+        // Scroll Reveal
+        var reveals = document.querySelectorAll('.reveal');
+        var observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+        reveals.forEach(function (el) { observer.observe(el); });
+
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        // Animated number count-up
+        function countUp(el, target, dur, dec) {
+            var start = performance.now();
+            function step(now) {
+                var p = Math.min((now - start) / dur, 1);
+                var eased = 1 - Math.pow(1 - p, 3);
+                el.textContent = dec ? (target * eased).toFixed(dec) : Math.round(target * eased);
+                if (p < 1) requestAnimationFrame(step);
+            }
+            requestAnimationFrame(step);
+        }
+        var counted = new WeakSet();
+        var numObs = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting && !counted.has(entry.target)) {
+                    counted.add(entry.target);
+                    var raw = entry.target.textContent.trim();
+                    var dec = raw.indexOf('.') > -1 ? 1 : 0;
+                    var target = parseFloat(raw);
+                    if (!isNaN(target)) { if (reduce) { entry.target.textContent = raw; } else { countUp(entry.target, target, 1200, dec); } }
+                    numObs.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.6 });
+        document.querySelectorAll('.s2-stat-num, .s4-avg').forEach(function (el) { numObs.observe(el); });
+
+        // Hide sticky CTA when footer is visible
+        var sticky = document.querySelector('.vp-sticky');
+        var footer = document.querySelector('.vp-footer');
+        if (sticky && footer) {
+            var fObs = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) { sticky.classList.toggle('is-hidden', entry.isIntersecting); });
+            }, { threshold: 0.06 });
+            fObs.observe(footer);
+        }
+
+        // Prefill WhatsApp links with an order message
+        var waMsg = encodeURIComponent('היי! אני מעוניין/ת בכורסת עיסוי VC LUXURY במחיר המפעל (₪2,900). אפשר פרטים?');
+        document.querySelectorAll('a[href^="https://wa.me/"]').forEach(function (a) {
+            if (a.href.indexOf('text=') === -1) {
+                a.href = a.href + (a.href.indexOf('?') > -1 ? '&' : '?') + 'text=' + waMsg;
+            }
+        });
+
+        // Share button — Web Share API with graceful fallbacks
+        var shareBtn = document.getElementById('vpShare');
+        if (shareBtn) {
+            shareBtn.addEventListener('click', function () {
+                var data = { title: document.title, text: 'כורסת עיסוי VC LUXURY במחיר מפעל', url: location.href };
+                if (navigator.share) {
+                    navigator.share(data).catch(function () {});
+                } else if (navigator.clipboard) {
+                    navigator.clipboard.writeText(location.href).then(function () {
+                        var old = shareBtn.innerHTML;
+                        shareBtn.innerHTML = '<i class="fas fa-check"></i>';
+                        setTimeout(function () { shareBtn.innerHTML = old; }, 1600);
+                    }).catch(function () {});
+                } else {
+                    window.open('https://wa.me/?text=' + encodeURIComponent(location.href), '_blank', 'noopener');
+                }
+            });
+        }
+
+        // Placeholder links (#) should not jump to top
+        document.querySelectorAll('a[href="#"]').forEach(function (a) {
+            a.addEventListener('click', function (e) { e.preventDefault(); });
+        });
     })();
     </script>
 </body>
