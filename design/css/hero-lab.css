@@ -263,6 +263,12 @@ body { padding-bottom: 80px; }
 }
 
 /* ── Video thumbnail ── */
+.s2-vid-label {
+    font-size: 0.72rem; font-weight: 800; color: var(--navy);
+    margin: 0 0 6px; display: flex; align-items: center; gap: 6px;
+}
+.s2-vid-label i { font-size: 0.82rem; opacity: 0.5; }
+
 .s2-vid-thumb {
     display: block; position: relative;
     border-radius: 14px; overflow: hidden;
