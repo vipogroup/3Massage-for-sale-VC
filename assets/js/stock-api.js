@@ -202,6 +202,20 @@ const StockApi = (function () {
         });
     }
 
+    async function submitReviewRequest(review) {
+        if (!isEnabled()) {
+            return { ok: false, error: 'api_disabled' };
+        }
+        return apiPost({
+            action: 'reviewRequest',
+            name: review.name,
+            phone: review.phone,
+            color: review.color || '',
+            stars: review.stars,
+            text: review.text
+        });
+    }
+
     async function initForReview(config) {
         appConfig = await resolveConfig(config || {});
     }
@@ -251,6 +265,7 @@ const StockApi = (function () {
         fetchReviews,
         validateReviewToken,
         submitReview,
+        submitReviewRequest,
         submitOrder,
         saveUrl,
         isEnabled,

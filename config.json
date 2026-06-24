@@ -39,7 +39,9 @@
   "reviews": {
     "enabled": true,
     "moderation": true,
+    "publicForm": true,
     "pageUrl": "https://vipogroup.github.io/3Massage-for-sale-VC/review.html",
+    "requestUrl": "https://vipogroup.github.io/3Massage-for-sale-VC/review-request.html",
     "items": []
   }
 }

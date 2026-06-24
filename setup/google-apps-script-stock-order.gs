@@ -91,8 +91,8 @@ function ensureSetup_() {
   var orders = ss.getSheetByName('Orders');
   if (!orders) {
     orders = ss.insertSheet('Orders');
-    orders.getRange(1, 1, 1, 8).setValues([[
-      'תאריך', 'שם', 'טלפון', 'עיר', 'צבע', 'הערות', 'מוצר', 'reviewToken'
+    orders.getRange(1, 1, 1, 9).setValues([[
+      'תאריך', 'שם', 'טלפון', 'עיר', 'צבע', 'הערות', 'מוצר', 'reviewToken', 'purchaseNumber'
     ]]);
   }
   ensurePublicBuyers_();
@@ -203,6 +203,72 @@ function validateReviewToken_(token) {
   };
 }
 
+function normalizePhone_(raw) {
+  var d = String(raw || '').replace(/\D/g, '');
+  if (d.indexOf('972') === 0) d = d.slice(3);
+  if (d.indexOf('0') === 0) d = d.slice(1);
+  return d;
+}
+
+function findOrderByPhone_(phone) {
+  ensureSetup_();
+  var needle = normalizePhone_(phone);
+  if (!needle) return null;
+  var orders = getSpreadsheet_().getSheetByName('Orders');
+  if (!orders) return null;
+  var data = orders.getDataRange().getValues();
+  var match = null;
+  for (var i = 1; i < data.length; i++) {
+    if (normalizePhone_(data[i][2]) === needle) {
+      match = {
+        name: data[i][1],
+        color: data[i][4],
+        purchaseNumber: data[i][8] ? Number(data[i][8]) : i
+      };
+    }
+  }
+  return match;
+}
+
+function submitReviewRequest_(data) {
+  ensureSetup_();
+
+  var name = String(data.name || '').trim();
+  var phone = String(data.phone || '').trim();
+  var text = String(data.text || '').trim();
+  if (name.length < 2) return { ok: false, error: 'invalid_name' };
+  if (normalizePhone_(phone).length < 9) return { ok: false, error: 'invalid_phone' };
+  if (text.length < 10) return { ok: false, error: 'text_too_short' };
+  if (text.length > 500) return { ok: false, error: 'text_too_long' };
+
+  var stars = Number(data.stars);
+  if (isNaN(stars) || stars < 1) stars = 5;
+  if (stars > 5) stars = 5;
+
+  var order = findOrderByPhone_(phone);
+  var display = abbrevName_(name);
+  var color = String(data.color || '').trim();
+  if (!color && order && order.color) color = String(order.color);
+  if (color) display += ' · ' + color;
+
+  var purchaseLabel = order ? String(order.purchaseNumber) : 'לא_זוהה';
+  var adminNote = order ? 'phone_verified' : 'phone_unverified';
+
+  var sh = ensureReviewsPending_();
+  sh.appendRow([
+    new Date(),
+    'form',
+    purchaseLabel,
+    display,
+    stars,
+    text,
+    'ממתין',
+    adminNote
+  ]);
+
+  return { ok: true, message: 'submitted_pending_approval', verified: !!order };
+}
+
 function submitReview_(data) {
   var token = data && data.token;
   var validation = validateReviewToken_(token);
@@ -263,7 +329,8 @@ function placeOrder_(data) {
       data.color || '',
       data.note || '',
       data.product || '',
-      reviewToken
+      reviewToken,
+      newSold
     ]);
   }
 
@@ -298,6 +365,7 @@ function handle_(payload) {
   if (action === 'reviews') return getReviews_();
   if (action === 'reviewValidate') return validateReviewToken_(payload.token);
   if (action === 'reviewSubmit') return submitReview_(payload);
+  if (action === 'reviewRequest') return submitReviewRequest_(payload);
   if (action === 'order') return placeOrder_(payload);
   return { ok: false, error: 'unknown_action' };
 }

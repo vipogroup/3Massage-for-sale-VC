@@ -461,6 +461,21 @@ body.v4-page::before { display: none !important; }
     color: var(--lp-ink-muted);
 }
 
+.v4-page .lp-reviews-cta {
+    margin: 14px 0 0;
+    text-align: center;
+}
+
+.v4-page .lp-reviews-cta a {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--lp-blue);
+    text-decoration: none;
+}
+
 @media (max-width: 360px) {
     .v4-page .lp-buyer-row {
         grid-template-columns: 36px 1fr auto;
