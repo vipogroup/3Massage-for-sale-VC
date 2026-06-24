@@ -54,51 +54,75 @@
 
         <!-- Section 2 — מבצע + מלאי -->
         <section class="s2">
-            <div class="s2-panel">
+            <div class="s2-bg">
 
-                <!-- כותרת + LIVE -->
-                <div class="s2-head">
-                    <div>
-                        <h2 class="s2-title">מבצע מפעל<span> · לזמן מוגבל</span></h2>
-                        <p class="s2-subtitle">34 כורסאות נמכרו · נותרו <strong>16</strong> יחידות</p>
+                <!-- כרטיס טיימר -->
+                <div class="s2-card s2-card-timer">
+                    <div class="s2-card-head">
+                        <i class="fas fa-clock"></i>
+                        <span>המבצע נסגר בעוד</span>
+                        <div class="s2-live"><span class="s2-pulse"></span>LIVE</div>
                     </div>
-                    <div class="s2-live"><span class="s2-pulse"></span>LIVE</div>
+                    <div class="s2-timer">
+                        <div class="s2-t">
+                            <span id="s2h">11</span>
+                            <small>שעות</small>
+                        </div>
+                        <span class="s2-t-sep">:</span>
+                        <div class="s2-t">
+                            <span id="s2m">47</span>
+                            <small>דקות</small>
+                        </div>
+                        <span class="s2-t-sep">:</span>
+                        <div class="s2-t">
+                            <span id="s2s">32</span>
+                            <small>שניות</small>
+                        </div>
+                    </div>
+                    <p class="s2-sold">34 כורסאות נמכרו · נותרו <strong>16</strong> בלבד</p>
                 </div>
 
-                <!-- טיימר -->
-                <div class="s2-timer">
-                    <div class="s2-t"><span id="s2h">11</span><small>שעות</small></div>
-                    <div class="s2-t"><span id="s2m">47</span><small>דקות</small></div>
-                    <div class="s2-t"><span id="s2s">32</span><small>שניות</small></div>
+                <!-- כרטיס מלאי -->
+                <div class="s2-card s2-card-stock">
+                    <div class="s2-card-head">
+                        <i class="fas fa-boxes-stacked"></i>
+                        <span>מלאי לפי צבע</span>
+                    </div>
+                    <div class="s2-stock-list">
+                        <div class="s2-row s2-row-hot">
+                            <span class="s2-dot" style="background:#efe9df;border:1px solid #c4bfb5"></span>
+                            <span class="s2-name">שמנת</span>
+                            <div class="s2-bar-bg"><div class="s2-bar s2-bar-hot" style="width:13%"></div></div>
+                            <span class="s2-qty hot">2</span>
+                            <i class="fas fa-fire s2-fire"></i>
+                        </div>
+                        <div class="s2-row">
+                            <span class="s2-dot" style="background:#7d7d80"></span>
+                            <span class="s2-name">אפור</span>
+                            <div class="s2-bar-bg"><div class="s2-bar" style="width:33%"></div></div>
+                            <span class="s2-qty">5</span>
+                        </div>
+                        <div class="s2-row">
+                            <span class="s2-dot" style="background:#1c1c1e"></span>
+                            <span class="s2-name">שחור</span>
+                            <div class="s2-bar-bg"><div class="s2-bar" style="width:53%"></div></div>
+                            <span class="s2-qty">8</span>
+                        </div>
+                    </div>
+                    <div class="s2-progress">
+                        <div class="s2-progress-bar"><div class="s2-progress-fill" style="width:70%"></div></div>
+                        <span class="s2-progress-txt">70% נמכרו · 15 מתוך 50</span>
+                    </div>
                 </div>
-
-                <!-- גרף מלאי -->
-                <div class="s2-chart">
-                    <div class="s2-cr">
-                        <span class="s2-cd" style="background:#efe9df;border:1px solid #c4bfb5"></span>
-                        <span class="s2-cn">שמנת</span>
-                        <div class="s2-bar-wrap"><div class="s2-bar s2-bar-hot" style="width:13%"></div></div>
-                        <span class="s2-cv hot">2 <i class="fas fa-fire"></i></span>
-                    </div>
-                    <div class="s2-cr">
-                        <span class="s2-cd" style="background:#7d7d80"></span>
-                        <span class="s2-cn">אפור</span>
-                        <div class="s2-bar-wrap"><div class="s2-bar" style="width:33%"></div></div>
-                        <span class="s2-cv">5</span>
-                    </div>
-                    <div class="s2-cr">
-                        <span class="s2-cd" style="background:#1c1c1e"></span>
-                        <span class="s2-cn">שחור</span>
-                        <div class="s2-bar-wrap"><div class="s2-bar" style="width:53%"></div></div>
-                        <span class="s2-cv">8</span>
-                    </div>
-                </div>
-                <p class="s2-total">סה"כ <strong>15</strong> במלאי מתוך 50 · <span>70% נמכרו</span></p>
 
                 <!-- סרטון -->
                 <a href="#" class="s2-vid">
-                    <span class="s2-vid-icon"><i class="fas fa-play"></i></span>
-                    <span class="s2-vid-txt">צפו בסרטון הדגמה <small>2:14</small></span>
+                    <div class="s2-vid-play"><i class="fas fa-play"></i></div>
+                    <div class="s2-vid-info">
+                        <strong>צפו בכורסה בפעולה</strong>
+                        <small>סרטון הדגמה · 2:14</small>
+                    </div>
+                    <i class="fas fa-chevron-left s2-vid-arrow"></i>
                 </a>
 
             </div>
