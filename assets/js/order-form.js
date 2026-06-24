@@ -44,6 +44,9 @@
         msg += `מחיר: ${price}\n\n`;
         msg += `שם: ${data.name}\n`;
         msg += `טלפון: ${formatPhoneDisplay(data.phone)}\n`;
+        if (data.color) {
+            msg += `צבע: ${data.color}\n`;
+        }
         if (data.city) {
             msg += `עיר: ${data.city}\n`;
         }
@@ -129,6 +132,7 @@
         const name = ($('#orderName') && $('#orderName').value.trim()) || '';
         const phone = ($('#orderPhone') && $('#orderPhone').value.trim()) || '';
         const city = ($('#orderCity') && $('#orderCity').value.trim()) || '';
+        const color = ($('#orderColor') && $('#orderColor').value.trim()) || '';
         const note = ($('#orderNote') && $('#orderNote').value.trim()) || '';
 
         if (name.length < 2) {
@@ -147,7 +151,7 @@
             btn.textContent = 'שולח…';
         }
 
-        const orderData = { name, phone, city, note };
+        const orderData = { name, phone, city, color, note };
 
         try {
             if (StockApi.isEnabled()) {
@@ -207,6 +211,13 @@
       <input type="tel" id="orderPhone" class="order-input" required autocomplete="tel" inputmode="tel" placeholder="050-0000000">
       <label for="orderCity">עיר</label>
       <input type="text" id="orderCity" class="order-input" autocomplete="address-level2" placeholder="תל אביב">
+      <label for="orderColor">צבע כורסה</label>
+      <select id="orderColor" class="order-input">
+        <option value="">בחר צבע</option>
+        <option value="חום">חום</option>
+        <option value="בז'">בז'</option>
+        <option value="כחול">כחול</option>
+      </select>
       <label for="orderNote">הערות</label>
       <textarea id="orderNote" class="order-input order-textarea" rows="2" placeholder="צבע, שאלה, זמן מועדף…"></textarea>
       <button type="submit" class="order-btn order-btn-primary" id="orderSubmitBtn">

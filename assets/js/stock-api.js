@@ -107,6 +107,7 @@ const StockApi = (function () {
                 phone: order.phone,
                 city: order.city || '',
                 note: order.note || '',
+                color: order.color || '',
                 product: (appConfig && appConfig.productName) || ''
             })
         });
@@ -121,6 +122,26 @@ const StockApi = (function () {
             applyStock(data.totalUnits, data.soldUnits);
         }
         return data;
+    }
+
+    async function fetchBuyers() {
+        if (isEnabled()) {
+            try {
+                const sep = apiUrl().includes('?') ? '&' : '?';
+                const res = await fetch(
+                    `${apiUrl()}${sep}action=buyers&_=${Date.now()}`,
+                    { cache: 'no-store', redirect: 'follow' }
+                );
+                const text = await res.text();
+                const data = JSON.parse(text);
+                if (data.ok && Array.isArray(data.buyers) && data.buyers.length) {
+                    return data.buyers;
+                }
+            } catch (err) {
+                console.warn('StockApi: fetchBuyers failed', err);
+            }
+        }
+        return [];
     }
 
     function startPolling(ms) {
@@ -163,6 +184,7 @@ const StockApi = (function () {
     return {
         init,
         fetchStock,
+        fetchBuyers,
         submitOrder,
         saveUrl,
         isEnabled,
