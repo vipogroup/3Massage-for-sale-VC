@@ -112,7 +112,7 @@ body { padding-bottom: 80px; }
 .vp-pricing { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; margin-bottom: 5px; }
 .vp-price-now { font-size: 1.6rem; font-weight: 900; color: var(--navy); letter-spacing: -0.03em; line-height: 1; }
 .vp-price-was { font-size: 0.78rem; color: var(--ink-3); text-decoration: line-through; }
-.vp-badge-save { font-size: 0.6rem; font-weight: 800; background: var(--green); color: #fff; padding: 3px 9px; border-radius: 999px; white-space: nowrap; position: relative; top: -1px; }
+.vp-badge-save { font-size: 0.6rem; font-weight: 800; background: var(--gold); color: #fff; padding: 3px 9px; border-radius: 999px; white-space: nowrap; position: relative; top: -1px; }
 .vp-price-note { font-size: 0.68rem; color: var(--ink-2); margin-bottom: 12px; }
 .vp-price-note strong { color: var(--ink); font-weight: 700; }
 
@@ -174,14 +174,14 @@ body { padding-bottom: 80px; }
 .s2-live {
     display: inline-flex; align-items: center; gap: 5px;
     font-size: 0.54rem; font-weight: 800; letter-spacing: 0.08em;
-    color: #fff; background: #1a6b4a; border-radius: 999px;
+    color: #fff; background: var(--gold); border-radius: 999px;
     padding: 3px 9px 3px 7px;
 }
 .s2-pulse {
     width: 6px; height: 6px; border-radius: 50%;
-    background: #5bf7a5; animation: s2p 1.5s infinite; flex-shrink: 0;
+    background: #fff; animation: s2p 1.5s infinite; flex-shrink: 0;
 }
-@keyframes s2p { 0%,100%{box-shadow:0 0 0 0 rgba(91,247,165,.55)} 50%{box-shadow:0 0 0 5px rgba(91,247,165,0)} }
+@keyframes s2p { 0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,.55)} 50%{box-shadow:0 0 0 5px rgba(255,255,255,0)} }
 
 /* ── Timer card ── */
 .s2-timer {
