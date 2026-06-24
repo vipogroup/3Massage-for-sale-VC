@@ -35,5 +35,9 @@
   "buyersList": {
     "enabled": true,
     "maxVisible": 12
+  },
+  "reviews": {
+    "enabled": true,
+    "items": []
   }
 }

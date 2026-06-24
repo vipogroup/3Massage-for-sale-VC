@@ -202,6 +202,13 @@
                     <p class="lp-buyers-note">מוצג רק לרוכשים שאישרו פרסום · ללא חשיפת פרטים מלאים</p>
                 </section>
 
+                <section class="lp-reviews-section" id="lpReviewsSection" hidden aria-label="ביקורות לקוחות">
+                    <div class="lp-reviews-head">
+                        <h3 class="lp-reviews-title">מה הלקוחות אומרים</h3>
+                    </div>
+                    <div class="lp-reviews-list" id="lpReviewsList"></div>
+                </section>
+
                 <div class="lp-eyebrow">VIPO · Factory Direct</div>
 
                 <div class="lp-features">
@@ -613,6 +620,7 @@
     <script src="assets/js/product-loader.js"></script>
     <script src="assets/js/order-form.js"></script>
     <script src="assets/js/buyers-list.js"></script>
+    <script src="assets/js/reviews.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const joinButtons = document.querySelectorAll('.join-group-btn');

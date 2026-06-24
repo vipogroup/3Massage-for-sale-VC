@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIPO — ניהול רשימת רוכשים</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f1f5f9;
+            color: #0f172a;
+            margin: 0;
+            padding: 20px 16px 40px;
+            line-height: 1.5;
+        }
+        .wrap { max-width: 520px; margin: 0 auto; }
+        h1 { font-size: 1.25rem; margin: 0 0 6px; }
+        .sub { color: #64748b; margin: 0 0 20px; font-size: 0.9rem; }
+        .card {
+            background: #fff;
+            border-radius: 14px;
+            padding: 16px;
+            margin-bottom: 14px;
+            box-shadow: 0 2px 12px rgba(0,0,0,.06);
+        }
+        label { display: block; font-size: 0.85rem; font-weight: 600; margin: 10px 0 4px; }
+        input, select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+        }
+        .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            border: none;
+            border-radius: 12px;
+            padding: 12px 16px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+        .btn-primary { background: #2563eb; color: #fff; width: 100%; margin-top: 12px; }
+        .btn-secondary { background: #e2e8f0; color: #0f172a; width: 100%; margin-top: 8px; }
+        .btn-danger { background: #fee2e2; color: #b91c1c; padding: 6px 10px; font-size: 0.8rem; }
+        .buyer-item {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 8px;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 0.9rem;
+        }
+        .buyer-item:last-child { border-bottom: none; }
+        .buyer-meta { color: #64748b; font-size: 0.8rem; }
+        .note { font-size: 0.78rem; color: #64748b; margin-top: 12px; }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <h1>ניהול רשימת רוכשים</h1>
+        <p class="sub">הוסף רוכשים → הורד buyers.json → העתק לשורש הפרויקט → דחוף ל-GitHub</p>
+
+        <div class="card">
+            <h2 style="margin:0 0 8px;font-size:1rem;">רוכש חדש</h2>
+            <div class="row">
+                <div>
+                    <label for="num">מספר רכישה #</label>
+                    <input type="number" id="num" min="1" placeholder="28">
+                </div>
+                <div>
+                    <label for="date">תאריך</label>
+                    <input type="date" id="date">
+                </div>
+            </div>
+            <label for="name">שם מקוצר</label>
+            <input type="text" id="name" placeholder="דוד כ.">
+            <label for="color">צבע</label>
+            <select id="color">
+                <option value="חום">חום</option>
+                <option value="בז'">בז'</option>
+                <option value="כחול">כחול</option>
+            </select>
+            <button type="button" class="btn btn-primary" id="addBtn">הוסף לרשימה</button>
+        </div>
+
+        <div class="card">
+            <h2 style="margin:0 0 8px;font-size:1rem;">רשימה (<span id="count">0</span>)</h2>
+            <div id="list"></div>
+            <button type="button" class="btn btn-secondary" id="downloadBtn">הורד buyers.json</button>
+            <button type="button" class="btn btn-secondary" id="loadBtn">טען מ-buyers.json (אם קיים)</button>
+            <p class="note">שמות לדוגמה? מחק והחלף ברוכשים אמיתיים שאישרו פרסום.</p>
+        </div>
+    </div>
+    <script>
+        var buyers = [];
+
+        function render() {
+            var list = document.getElementById('list');
+            document.getElementById('count').textContent = buyers.length;
+            if (!buyers.length) {
+                list.innerHTML = '<p style="color:#94a3b8;margin:0">אין רוכשים עדיין</p>';
+                return;
+            }
+            buyers.sort(function (a, b) { return b.number - a.number; });
+            list.innerHTML = buyers.map(function (b, i) {
+                return '<div class="buyer-item">' +
+                    '<div><strong>#' + b.number + '</strong> ' + b.name +
+                    ' <span class="buyer-meta">· ' + b.color + ' · ' + b.date + '</span></div>' +
+                    '<button type="button" class="btn btn-danger" data-i="' + i + '">מחק</button></div>';
+            }).join('');
+            list.querySelectorAll('.btn-danger').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    buyers.splice(Number(btn.dataset.i), 1);
+                    render();
+                });
+            });
+        }
+
+        document.getElementById('addBtn').addEventListener('click', function () {
+            var num = Number(document.getElementById('num').value);
+            var name = document.getElementById('name').value.trim();
+            var color = document.getElementById('color').value;
+            var date = document.getElementById('date').value;
+            if (!num || !name) {
+                alert('נא למלא מספר ושם');
+                return;
+            }
+            buyers = buyers.filter(function (b) { return b.number !== num; });
+            buyers.push({ number: num, name: name, color: color, date: date });
+            render();
+            document.getElementById('name').value = '';
+        });
+
+        document.getElementById('downloadBtn').addEventListener('click', function () {
+            var blob = new Blob([JSON.stringify({ buyers: buyers.sort(function (a, b) { return b.number - a.number; }) }, null, 2)], { type: 'application/json' });
+            var a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'buyers.json';
+            a.click();
+        });
+
+        document.getElementById('loadBtn').addEventListener('click', function () {
+            fetch('../buyers.json')
+                .then(function (r) { return r.json(); })
+                .then(function (d) { buyers = d.buyers || []; render(); })
+                .catch(function () { alert('לא נמצא buyers.json'); });
+        });
+
+        document.getElementById('date').valueAsDate = new Date();
+        render();
+    </script>
+</body>
+</html>
