@@ -205,61 +205,41 @@ body { padding-bottom: 80px; }
     align-self: flex-start; margin-top: 4px;
 }
 
-.s2-sold {
-    text-align: center; font-size: 0.62rem; color: var(--ink-2); margin: 0;
+/* ── Stats row ── */
+.s2-stats {
+    display: flex; align-items: center; justify-content: center;
+    gap: 0; margin-bottom: 12px;
+    background: rgba(28,43,70,0.03);
+    border: 1px solid var(--line);
+    border-radius: 12px; overflow: hidden;
 }
-.s2-sold strong { color: #c0392b; font-weight: 800; }
+.s2-stat {
+    flex: 1; display: flex; flex-direction: column; align-items: center;
+    padding: 10px 4px;
+}
+.s2-stat-num {
+    font-size: 1.2rem; font-weight: 900; color: var(--navy);
+    line-height: 1; font-variant-numeric: tabular-nums;
+}
+.s2-stat-lbl {
+    font-size: 0.52rem; font-weight: 700; color: var(--ink-3);
+    text-transform: uppercase; letter-spacing: 0.04em; margin-top: 3px;
+}
+.s2-stat-div {
+    width: 1px; height: 28px; background: var(--line); flex-shrink: 0;
+}
+.s2-stat-alert .s2-stat-num { color: #c0392b; }
+.s2-stat-alert .s2-stat-lbl { color: #c0392b; }
 
-/* ── Stock card ── */
-.s2-stock-list {
-    display: flex; flex-direction: column; gap: 10px;
-    margin-bottom: 14px;
-}
-.s2-row {
-    display: flex; align-items: center; gap: 8px;
-}
-.s2-row-hot { position: relative; }
-.s2-dot {
-    width: 16px; height: 16px; border-radius: 50%; flex-shrink: 0;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-}
-.s2-name {
-    font-size: 0.72rem; font-weight: 700; color: var(--ink);
-    min-width: 38px; text-align: end;
-}
-.s2-bar-bg {
-    flex: 1; height: 12px; border-radius: 999px;
-    background: rgba(28,43,70,0.07);
-    overflow: hidden;
-}
-.s2-bar {
-    height: 100%; border-radius: 999px;
-    background: linear-gradient(90deg, var(--navy), #3a7bd5);
-    transition: width .8s ease;
-}
-.s2-bar.s2-bar-hot {
-    background: linear-gradient(90deg, #c0392b, #e74c3c);
-}
-.s2-qty {
-    font-size: 0.82rem; font-weight: 900; color: var(--navy);
-    min-width: 18px; text-align: center;
-    font-variant-numeric: tabular-nums;
-}
-.s2-qty.hot { color: #c0392b; }
-.s2-fire { font-size: 0.62rem; color: #e67e22; flex-shrink: 0; }
-
-/* progress summary */
-.s2-progress { display: flex; flex-direction: column; gap: 5px; }
+/* progress bar */
+.s2-progress { margin-bottom: 0; }
 .s2-progress-bar {
-    height: 6px; border-radius: 999px;
-    background: rgba(28,43,70,0.08); overflow: hidden;
+    height: 5px; border-radius: 999px;
+    background: rgba(28,43,70,0.07); overflow: hidden;
 }
 .s2-progress-fill {
     height: 100%; border-radius: 999px;
-    background: linear-gradient(90deg, var(--gold), #d4a85c);
-}
-.s2-progress-txt {
-    font-size: 0.6rem; color: var(--ink-3); text-align: center; font-weight: 600;
+    background: linear-gradient(90deg, var(--navy), #3a7bd5);
 }
 
 /* ── Video thumbnail ── */
