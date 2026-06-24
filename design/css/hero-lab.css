@@ -230,9 +230,9 @@ body { padding-bottom: 80px; }
     width: 1px; background: var(--line); flex-shrink: 0;
     align-self: stretch;
 }
-.s2-stat-alert { background: rgba(192,57,43,0.04); }
-.s2-stat-alert .s2-stat-num { color: #c0392b; }
-.s2-stat-alert .s2-stat-lbl { color: #c0392b; font-weight: 800; }
+.s2-stat-alert { background: rgba(26,107,74,0.04); }
+.s2-stat-alert .s2-stat-num { color: var(--green); }
+.s2-stat-alert .s2-stat-lbl { color: var(--green); font-weight: 800; }
 
 /* progress bar */
 .s2-progress { margin-bottom: 0; }
