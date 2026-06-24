@@ -57,8 +57,6 @@
                     <li><i class="fas fa-certificate"></i> תקן CE</li>
                     <li><i class="fas fa-truck-fast"></i> משלוח מהיר</li>
                 </ul>
-                <a href="#order" class="vp-cta" id="mainCta"><i class="fab fa-whatsapp"></i> הזמינו עכשיו במחיר מפעל</a>
-                <p class="vp-cta-sub">ללא חיוב אוטומטי · הזמנה מאובטחת</p>
             </div>
         </section>
 
@@ -212,12 +210,6 @@
         }
         tick(); setInterval(tick, 1000);
 
-        // Sticky CTA
-        var sticky = document.getElementById('vpSticky');
-        var hero   = document.querySelector('.vp-hero');
-        window.addEventListener('scroll', function () {
-            sticky.classList.toggle('is-on', hero.getBoundingClientRect().bottom < 0);
-        }, { passive: true });
     })();
     </script>
 </body>

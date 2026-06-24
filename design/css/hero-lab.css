@@ -30,6 +30,7 @@ html, body {
     max-width: var(--max);
     margin: 0 auto;
 }
+body { padding-bottom: 80px; }
 
 /* ══════════════════════════════
    Section 0 — Header
@@ -201,15 +202,13 @@ html, body {
    Sticky CTA
 ══════════════════════════════ */
 .vp-sticky {
-    position: fixed; bottom: 0; left: 50%; transform: translateX(-50%) translateY(100%);
+    position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
     width: 100%; max-width: var(--max); z-index: 200;
     padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
     background: rgba(255,255,255,0.96); backdrop-filter: blur(12px);
     border-top: 1px solid var(--line);
     box-shadow: 0 -4px 20px rgba(20,24,31,0.10);
-    transition: transform .3s cubic-bezier(.4,0,.2,1);
 }
-.vp-sticky.is-on { transform: translateX(-50%) translateY(0); }
 .vp-sticky-inner { display: flex; align-items: center; gap: 12px; }
 .vp-sticky-price { display: flex; flex-direction: column; }
 .vp-sticky-now { font-size: 1.15rem; font-weight: 900; color: var(--navy); line-height: 1; letter-spacing: -0.02em; }
