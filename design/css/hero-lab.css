@@ -288,24 +288,39 @@ body { padding-bottom: 80px; }
 }
 
 /* ══════════════════════════════
-   Section 3 — יתרונות + מפרט
+   Shared section card
 ══════════════════════════════ */
-.s3 {
-    padding: 24px 14px 28px;
-    background: var(--bg);
+.sec-card {
+    text-align: center;
+    padding: 24px 16px;
+    background: linear-gradient(180deg, #f7f8fb, #eef1f8);
+    border-radius: 18px;
+    border: 1px solid var(--line);
 }
-
-/* Section header */
-.s3-header { text-align: center; margin-bottom: 18px; }
-.s3-eyebrow {
-    display: inline-block;
+.sec-card-icon {
+    width: 48px; height: 48px; border-radius: 14px;
+    background: rgba(28,43,70,0.06);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; color: var(--navy);
+    margin-bottom: 10px;
+}
+.sec-card-eyebrow {
+    display: block;
     font-size: 0.56rem; font-weight: 800; letter-spacing: 0.12em;
     text-transform: uppercase; color: var(--gold);
     margin-bottom: 4px;
 }
-.s3-heading {
-    font-size: 1.05rem; font-weight: 900; color: var(--navy);
-    line-height: 1.3;
+.sec-card-title {
+    font-size: 0.95rem; font-weight: 900; color: var(--navy);
+    line-height: 1.3; margin-bottom: 16px;
+}
+
+/* ══════════════════════════════
+   Section 3 — יתרונות + מפרט
+══════════════════════════════ */
+.s3 {
+    padding: 20px 14px;
+    background: var(--bg);
 }
 
 /* Benefits — 2×2 grid */
@@ -315,13 +330,12 @@ body { padding-bottom: 80px; }
 }
 .s3-ben {
     display: flex; flex-direction: column; align-items: center; text-align: center;
-    padding: 16px 10px 14px;
-    background: var(--bg);
-    border: 1px solid var(--line);
+    padding: 14px 10px 12px;
+    background: rgba(255,255,255,0.7);
     border-radius: 14px;
-    transition: box-shadow .2s;
+    transition: background .2s;
 }
-.s3-ben:hover { box-shadow: 0 4px 16px rgba(28,43,70,0.08); }
+.s3-ben:hover { background: rgba(255,255,255,0.95); }
 .s3-ben-icon {
     width: 44px; height: 44px; border-radius: 12px;
     display: flex; align-items: center; justify-content: center;
@@ -341,11 +355,11 @@ body { padding-bottom: 80px; }
 
 /* Specs card */
 .s3-specs-card {
-    background: var(--bg);
-    border: 1px solid var(--line);
+    background: rgba(255,255,255,0.7);
     border-radius: 16px;
     padding: 16px;
-    box-shadow: 0 2px 12px rgba(28,43,70,0.04);
+    margin-top: 16px;
+    text-align: start;
 }
 .s3-specs-title {
     font-size: 0.76rem; font-weight: 800; color: var(--navy);
@@ -375,15 +389,8 @@ body { padding-bottom: 80px; }
    Section 4 — ביקורות
 ══════════════════════════════ */
 .s4 {
-    padding: 24px 14px 28px;
-    background: linear-gradient(180deg, var(--bg) 0%, #f7f8fb 100%);
-}
-.s4-header { text-align: center; margin-bottom: 16px; }
-.s4-eyebrow {
-    display: inline-block;
-    font-size: 0.56rem; font-weight: 800; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--gold);
-    margin-bottom: 6px;
+    padding: 20px 14px;
+    background: var(--bg);
 }
 .s4-rating-row {
     display: flex; align-items: center; justify-content: center; gap: 6px;
@@ -395,10 +402,9 @@ body { padding-bottom: 80px; }
 .s4-list { display: flex; flex-direction: column; gap: 10px; }
 .s4-card {
     padding: 14px;
-    background: var(--bg);
-    border: 1px solid var(--line);
+    background: rgba(255,255,255,0.7);
     border-radius: 14px;
-    box-shadow: 0 2px 10px rgba(28,43,70,0.04);
+    text-align: start;
 }
 .s4-card-top {
     display: flex; align-items: center; gap: 10px;
@@ -428,21 +434,18 @@ body { padding-bottom: 80px; }
    Section 5 — שאלות נפוצות
 ══════════════════════════════ */
 .s5 {
-    padding: 24px 14px 32px;
+    padding: 20px 14px;
     background: var(--bg);
-}
-.s5-heading {
-    font-size: 1rem; font-weight: 900; color: var(--navy);
-    text-align: center; margin-bottom: 14px;
 }
 .s5-acc { display: flex; flex-direction: column; gap: 8px; }
 .s5-item {
-    border: 1px solid var(--line); border-radius: 12px;
-    background: var(--bg);
+    border-radius: 12px;
+    background: rgba(255,255,255,0.7);
     overflow: hidden;
-    transition: box-shadow .2s;
+    transition: background .2s;
+    text-align: start;
 }
-.s5-item[open] { box-shadow: 0 4px 16px rgba(28,43,70,0.06); }
+.s5-item[open] { background: rgba(255,255,255,0.95); }
 .s5-item summary {
     display: flex; align-items: center; justify-content: space-between;
     padding: 12px 14px;
@@ -465,17 +468,8 @@ body { padding-bottom: 80px; }
    Section 6 — גלריה
 ══════════════════════════════ */
 .s6 {
-    padding: 24px 14px 28px;
-    background: linear-gradient(180deg, #f7f8fb 0%, var(--bg) 100%);
-}
-.s6-header { text-align: center; margin-bottom: 14px; }
-.s6-eyebrow {
-    display: inline-block;
-    font-size: 0.56rem; font-weight: 800; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--gold); margin-bottom: 4px;
-}
-.s6-heading {
-    font-size: 1.05rem; font-weight: 900; color: var(--navy); line-height: 1.3;
+    padding: 20px 14px;
+    background: var(--bg);
 }
 
 .s6-grid {
