@@ -231,7 +231,7 @@ body { padding-bottom: 80px; }
     align-self: stretch;
 }
 .s2-stat-alert { background: rgba(28,43,70,0.03); }
-.s2-stat-alert .s2-stat-num { color: var(--navy); }
+.s2-stat-alert .s2-stat-num { color: var(--gold); }
 .s2-stat-alert .s2-stat-lbl { color: var(--gold); font-weight: 800; }
 
 /* progress bar */
