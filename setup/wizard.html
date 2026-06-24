@@ -3,165 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VIPO — הגדרת מלאי אוטומטי</title>
+    <title>VIPO — Deploy מלא (מלאי + רוכשים + ביקורות)</title>
     <style>
         * { box-sizing: border-box; }
-        body {
-            font-family:Segoe UI, Arial, sans-serif;
-            background:#f1f5f9;
-            color:#0f172a;
-            margin:0;
-            padding:20px 16px 40px;
-            line-height:1.5;
-        }
-        .wrap { max-width:520px; margin:0 auto; }
-        h1 { font-size:1.35rem; margin:0 0 8px; }
-        .sub { color:#64748b; margin:0 0 20px; font-size:0.95rem; }
-        .step {
-            background:#fff;
-            border-radius:14px;
-            padding:18px;
-            margin-bottom:14px;
-            box-shadow:0 2px 12px rgba(0,0,0,.06);
-        }
-        .step-num {
-            display:inline-block;
-            background:#2563eb;
-            color:#fff;
-            width:28px;height:28px;
-            border-radius:50%;
-            text-align:center;
-            line-height:28px;
-            font-weight:700;
-            font-size:0.85rem;
-            margin-left:8px;
-        }
-        .step h2 { font-size:1.05rem; margin:0 0 10px; display:flex; align-items:center; }
-        .btn {
-            display:block;
-            width:100%;
-            padding:14px;
-            border:none;
-            border-radius:12px;
-            font-size:1rem;
-            font-weight:700;
-            cursor:pointer;
-            text-align:center;
-            text-decoration:none;
-            margin-top:10px;
-        }
-        .btn-primary { background:#2563eb; color:#fff; }
-        .btn-green { background:#25d366; color:#fff; }
-        .btn-gray { background:#e2e8f0; color:#334155; }
-        input, textarea {
-            width:100%;
-            padding:12px;
-            border:1px solid #cbd5e1;
-            border-radius:10px;
-            font-size:0.95rem;
-            margin:8px 0;
-        }
-        textarea { min-height:120px; font-family:Consolas, monospace; font-size:0.8rem; }
-        .ok { color:#15803d; font-size:0.9rem; margin-top:8px; }
-        .err { color:#dc2626; font-size:0.9rem; margin-top:8px; }
-        .hint { font-size:0.85rem; color:#64748b; margin:6px 0; }
-        code { background:#f1f5f9; padding:2px 6px; border-radius:4px; font-size:0.85rem; }
-        .hidden { display:none; }
+        body { font-family: Segoe UI, Arial, sans-serif; background: #f1f5f9; color: #0f172a; margin: 0; padding: 20px 16px 40px; line-height: 1.5; }
+        .wrap { max-width: 520px; margin: 0 auto; }
+        h1 { font-size: 1.35rem; margin: 0 0 8px; }
+        .sub { color: #64748b; margin: 0 0 20px; font-size: 0.95rem; }
+        .step { background: #fff; border-radius: 14px; padding: 18px; margin-bottom: 14px; box-shadow: 0 2px 12px rgba(0,0,0,.06); }
+        .step-num { display: inline-block; background: #2563eb; color: #fff; width: 28px; height: 28px; border-radius: 50%; text-align: center; line-height: 28px; font-weight: 700; font-size: 0.85rem; margin-left: 8px; }
+        .step h2 { font-size: 1.05rem; margin: 0 0 10px; display: flex; align-items: center; }
+        .btn { display: block; width: 100%; padding: 14px; border: none; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; text-align: center; text-decoration: none; margin-top: 10px; }
+        .btn-primary { background: #2563eb; color: #fff; }
+        .btn-green { background: #25d366; color: #fff; }
+        .btn-gray { background: #e2e8f0; color: #334155; }
+        input, textarea { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 0.95rem; margin: 8px 0; }
+        textarea { min-height: 100px; font-family: Consolas, monospace; font-size: 0.75rem; }
+        .ok { color: #15803d; font-size: 0.9rem; margin-top: 8px; }
+        .err { color: #dc2626; font-size: 0.9rem; margin-top: 8px; }
+        .warn { color: #b45309; font-size: 0.9rem; margin-top: 8px; }
+        .hint { font-size: 0.85rem; color: #64748b; margin: 6px 0; }
+        code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 0.85rem; }
+        .hidden { display: none; }
+        .check-list { list-style: none; padding: 0; margin: 12px 0 0; }
+        .check-list li { padding: 8px 0; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; }
+        .check-list li.ok-item::before { content: '✅ '; }
+        .check-list li.fail-item::before { content: '❌ '; }
+        .alert { background: #fff7ed; border: 1px solid #fed7aa; border-radius: 10px; padding: 12px; font-size: 0.88rem; margin-bottom: 12px; }
     </style>
 </head>
 <body>
 <div class="wrap">
-    <h1>הגדרת מלאי אוטומטי</h1>
-    <p class="sub">3 כפתורים — בלי למלא תאים ידנית. הגיליון נבנה לבד.</p>
+    <h1>Deploy — חיבור Google מלא</h1>
+    <p class="sub">מלאי · הזמנות · רשימת רוכשים · ביקורות (א+ב)</p>
+
+    <div class="alert">
+        <strong>סטטוס נוכחי:</strong> המלאי עובד, אבל ביקורות ורוכשים דורשים <strong>Deploy מחדש</strong> עם הקוד המעודכן.
+    </div>
 
     <div class="step">
-        <h2><span class="step-num">1</span> צור גיליון Google</h2>
-        <p class="hint">לחץ — ייפתח גיליון ריק חדש.</p>
-        <a class="btn btn-primary" href="https://sheets.new" target="_blank" rel="noopener">+ גיליון חדש</a>
-        <p class="hint">אחרי שנפתח — העתק את הקישור מלמעלה (שורת הכתובת).</p>
-        <label for="sheetUrl">הדבק כאן את הקישור לגיליון:</label>
-        <input type="url" id="sheetUrl" placeholder="https://docs.google.com/spreadsheets/d/xxxxx/edit">
+        <h2><span class="step-num">1</span> גיליון Google</h2>
+        <p class="hint">פתח את הגיליון הקיים או צור חדש.</p>
+        <a class="btn btn-primary" href="https://docs.google.com/spreadsheets/d/1zu6rf_ZklwrYwqC_mwzFjsknavedQX_dKC3EuwnEEVs/edit" target="_blank" rel="noopener">פתח את הגיליון של VIPO</a>
+        <label for="sheetUrl">או הדבק קישור אחר:</label>
+        <input type="url" id="sheetUrl" placeholder="https://docs.google.com/spreadsheets/d/.../edit">
         <p id="sheetIdMsg" class="ok hidden"></p>
     </div>
 
-    <div class="step" id="step2">
-        <h2><span class="step-num">2</span> העתק קוד (מוכן עם המזהה שלך)</h2>
-        <p class="hint">בגיליון: <strong>תוספים → Apps Script</strong> → מחק הכל → הדבק → שמור.</p>
-        <button type="button" class="btn btn-gray" id="copyScriptBtn" disabled>העתק קוד ללוח</button>
-        <textarea id="scriptPreview" readonly class="hidden" aria-hidden="true"></textarea>
-        <p class="hint">Deploy → New deployment → Web app → Execute as: Me → Anyone → Deploy</p>
+    <div class="step">
+        <h2><span class="step-num">2</span> עדכן Apps Script</h2>
+        <p class="hint">בגיליון: <strong>תוספים → Apps Script</strong></p>
+        <ol class="hint">
+            <li>מחק את כל הקוד הישן</li>
+            <li>לחץ "העתק קוד" למטה והדבק</li>
+            <li>שמור (Ctrl+S)</li>
+        </ol>
+        <button type="button" class="btn btn-gray" id="copyScriptBtn" disabled>העתק קוד מעודכן</button>
+        <textarea id="scriptPreview" readonly class="hidden"></textarea>
     </div>
 
     <div class="step">
-        <h2><span class="step-num">3</span> חבר לאתר</h2>
-        <label for="webAppUrl">הדבק כתובת Web App (מסתיימת ב-/exec):</label>
+        <h2><span class="step-num">3</span> Deploy חדש (חובה!)</h2>
+        <p class="hint"><strong>Deploy → Manage deployments → Edit ✏️ → New version → Deploy</strong></p>
+        <p class="hint">Execute as: <code>Me</code> · Who has access: <code>Anyone</code></p>
+        <label for="webAppUrl">כתובת Web App (מסתיימת ב-/exec):</label>
         <input type="url" id="webAppUrl" placeholder="https://script.google.com/macros/s/.../exec">
-        <button type="button" class="btn btn-green" id="testBtn">בדוק חיבור + אתחל גיליון</button>
+    </div>
+
+    <div class="step">
+        <h2><span class="step-num">4</span> בדיקת חיבור</h2>
+        <button type="button" class="btn btn-green" id="testBtn">בדוק הכל</button>
+        <ul class="check-list" id="checkList"></ul>
         <p id="testMsg"></p>
         <div id="configBlock" class="hidden">
-            <p class="hint">העתק ל-<code>config.json</code> או שמור כ-<code>order-api.json</code> בשורש האתר:</p>
-            <textarea id="configOut" readonly rows="6"></textarea>
-            <button type="button" class="btn btn-gray" id="copyConfigBtn">העתק config</button>
+            <textarea id="configOut" readonly rows="5"></textarea>
+            <button type="button" class="btn btn-gray" id="copyConfigBtn">העתק order-api.json</button>
         </div>
     </div>
 </div>
 
 <script>
-const SCRIPT_TEMPLATE = `/** VIPO — הדבק ב-Apps Script */
-const SHEET_ID = '{{SHEET_ID}}';
-const DEFAULT_TOTAL = 54;
-const DEFAULT_SOLD = 25;
+const DEFAULT_SHEET_URL = 'https://docs.google.com/spreadsheets/d/1zu6rf_ZklwrYwqC_mwzFjsknavedQX_dKC3EuwnEEVs/edit';
+const DEFAULT_WEBAPP = 'https://script.google.com/macros/s/AKfycbxtWO3xllFPKTNIaB5tcC0iTZ7y0kOH7CT9HcWIxBnSTPZOVdixWfNoofoXtAfWFKZN/exec';
 
-function getSpreadsheet_() {
-  try {
-    const active = SpreadsheetApp.getActiveSpreadsheet();
-    if (active) return active;
-  } catch (e) { /* standalone script */ }
-  return SpreadsheetApp.openById(SHEET_ID);
-}
-
-function ensureSetup_() {
-  const ss = getSpreadsheet_();
-  if (!ss.getSheetByName('Stock')) {
-    const s = ss.insertSheet('Stock');
-    s.getRange(1,1,2,2).setValues([['totalUnits',DEFAULT_TOTAL],['soldUnits',DEFAULT_SOLD]]);
-  }
-  if (!ss.getSheetByName('Orders')) {
-    const o = ss.insertSheet('Orders');
-    o.getRange(1,1,1,6).setValues([['תאריך','שם','טלפון','עיר','הערות','מוצר']]);
-  }
-}
-
-function getStock_() {
-  ensureSetup_();
-  const sh = getSpreadsheet_().getSheetByName('Stock');
-  const t = Number(sh.getRange(1,2).getValue())||0;
-  const s = Number(sh.getRange(2,2).getValue())||0;
-  return { totalUnits:t, soldUnits:s, remaining:Math.max(0,t-s) };
-}
-
-function placeOrder_(d) {
-  const st = getStock_();
-  if (st.remaining<=0) return { ok:false, error:'sold_out', ...st, remaining:0 };
-  const or = getSpreadsheet_().getSheetByName('Orders');
-  if (or) or.appendRow([new Date(),d.name||'',d.phone||'',d.city||'',d.note||'',d.product||'']);
-  getSpreadsheet_().getSheetByName('Stock').getRange(2,2).setValue(st.soldUnits+1);
-  return { ok:true, totalUnits:st.totalUnits, soldUnits:st.soldUnits+1, remaining:st.remaining-1 };
-}
-
-function handle_(p) {
-  const a = (p&&p.action)||'stock';
-  if (a==='setup'||a==='stock') { const s=getStock_(); return { ok:true, ...s }; }
-  if (a==='order') return placeOrder_(p);
-  return { ok:false, error:'unknown_action' };
-}
-
-function doGet(e) { return ContentService.createTextOutput(JSON.stringify(handle_({action:e.parameter.action||'stock'}))).setMimeType(ContentService.MimeType.JSON); }
-function doPost(e) { let p={}; try{p=JSON.parse(e.postData.contents);}catch(e){return ContentService.createTextOutput(JSON.stringify({ok:false,error:'invalid_json'})).setMimeType(ContentService.MimeType.JSON);} return ContentService.createTextOutput(JSON.stringify(handle_(p))).setMimeType(ContentService.MimeType.JSON); }`;
+let scriptSource = '';
 
 function extractSheetId(url) {
     const m = String(url).match(/\/spreadsheets\/d\/([a-zA-Z0-9-_]+)/);
     return m ? m[1] : '';
+}
+
+function buildScript(sheetId) {
+    return scriptSource.replace("const SHEET_ID = 'PUT_YOUR_SHEET_ID_HERE';", "const SHEET_ID = '" + sheetId + "';");
 }
 
 const sheetUrl = document.getElementById('sheetUrl');
@@ -170,83 +103,99 @@ const copyScriptBtn = document.getElementById('copyScriptBtn');
 const scriptPreview = document.getElementById('scriptPreview');
 const testBtn = document.getElementById('testBtn');
 const testMsg = document.getElementById('testMsg');
+const checkList = document.getElementById('checkList');
 const configBlock = document.getElementById('configBlock');
 const configOut = document.getElementById('configOut');
 const copyConfigBtn = document.getElementById('copyConfigBtn');
+const webAppUrl = document.getElementById('webAppUrl');
 
 let currentSheetId = '';
 
-sheetUrl.addEventListener('input', () => {
+function updateSheetId() {
     currentSheetId = extractSheetId(sheetUrl.value.trim());
     if (currentSheetId) {
         sheetIdMsg.textContent = 'מזהה גיליון: ' + currentSheetId;
         sheetIdMsg.classList.remove('hidden');
-        scriptPreview.value = SCRIPT_TEMPLATE.replace('{{SHEET_ID}}', currentSheetId);
-        copyScriptBtn.disabled = false;
+        copyScriptBtn.disabled = !scriptSource;
     } else {
         sheetIdMsg.classList.add('hidden');
         copyScriptBtn.disabled = true;
     }
-});
+}
+
+sheetUrl.addEventListener('input', updateSheetId);
 
 copyScriptBtn.addEventListener('click', async () => {
-    if (!currentSheetId) return;
-    const code = SCRIPT_TEMPLATE.replace('{{SHEET_ID}}', currentSheetId);
+    if (!currentSheetId || !scriptSource) return;
+    const code = buildScript(currentSheetId);
     try {
         await navigator.clipboard.writeText(code);
         copyScriptBtn.textContent = 'הועתק ✓';
-        setTimeout(() => { copyScriptBtn.textContent = 'העתק קוד ללוח'; }, 2000);
+        setTimeout(() => { copyScriptBtn.textContent = 'העתק קוד מעודכן'; }, 2000);
     } catch (e) {
         scriptPreview.classList.remove('hidden');
         scriptPreview.value = code;
-        scriptPreview.select();
     }
 });
 
+async function testAction(url, action) {
+    const sep = url.includes('?') ? '&' : '?';
+    const res = await fetch(url + sep + 'action=' + action + '&_=' + Date.now());
+    return res.json();
+}
+
+function addCheck(label, ok, detail) {
+    const li = document.createElement('li');
+    li.className = ok ? 'ok-item' : 'fail-item';
+    li.textContent = label + (detail ? ' — ' + detail : '');
+    checkList.appendChild(li);
+}
+
 testBtn.addEventListener('click', async () => {
-    const url = document.getElementById('webAppUrl').value.trim();
+    const url = webAppUrl.value.trim();
+    checkList.innerHTML = '';
     testMsg.className = '';
     testMsg.textContent = 'בודק…';
+    configBlock.classList.add('hidden');
+
     if (!url.includes('script.google.com')) {
         testMsg.className = 'err';
-        testMsg.textContent = 'כתובת לא תקינה — צריך Web App מ-Google';
+        testMsg.textContent = 'כתובת Web App לא תקינה';
         return;
     }
+
     try {
-        const sep = url.includes('?') ? '&' : '?';
-        const res = await fetch(url + sep + 'action=setup&_=' + Date.now());
-        const data = await res.json();
-        if (data.ok) {
+        const setup = await testAction(url, 'setup');
+        addCheck('Setup + גיליונות', setup.ok, setup.ok ? setup.remaining + ' נותרו' : setup.error);
+
+        const stock = await testAction(url, 'stock');
+        addCheck('מלאי (stock)', stock.ok, stock.ok ? stock.soldUnits + '/' + stock.totalUnits : stock.error);
+
+        const buyers = await testAction(url, 'buyers');
+        const buyersOk = buyers.ok && Array.isArray(buyers.buyers);
+        addCheck('רשימת רוכשים (buyers)', buyersOk, buyersOk ? buyers.buyers.length + ' רוכשים' : (buyers.error || 'unknown_action'));
+
+        const reviews = await testAction(url, 'reviews');
+        const reviewsOk = reviews.ok && Array.isArray(reviews.reviews);
+        addCheck('ביקורות (reviews)', reviewsOk, reviewsOk ? reviews.reviews.length + ' מאושרות' : (reviews.error || 'unknown_action'));
+
+        const allOk = setup.ok && stock.ok && buyersOk && reviewsOk;
+        if (allOk) {
             testMsg.className = 'ok';
-            testMsg.textContent = 'עובד! מלאי: ' + data.remaining + ' נותרו (' + data.soldUnits + '/' + data.totalUnits + ' נמכרו). בדוק את הגיליון — Stock ו-Orders נוצרו.';
+            testMsg.textContent = 'הכל מחובר! האתר יכול לקבל הזמנות, ביקורות ורשימת רוכשים.';
             configOut.value = JSON.stringify({ enabled: true, url: url }, null, 2);
             configBlock.classList.remove('hidden');
-            try {
-                localStorage.setItem('vipo-order-api-url', url);
-            } catch (e) { /* ignore */ }
-            if (typeof StockApi !== 'undefined' && StockApi.saveUrl) {
-                StockApi.saveUrl(url);
-            }
-            const blob = new Blob([configOut.value], { type: 'application/json' });
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(blob);
-            a.download = 'order-api.json';
-            a.textContent = 'הורד order-api.json';
-            a.className = 'btn btn-gray';
-            a.style.display = 'block';
-            a.style.marginTop = '10px';
-            a.style.textAlign = 'center';
-            if (!document.getElementById('downloadOrderApi')) {
-                a.id = 'downloadOrderApi';
-                configBlock.appendChild(a);
-            }
+            try { localStorage.setItem('vipo-order-api-url', url); } catch (e) {}
+        } else if (setup.ok && stock.ok) {
+            testMsg.className = 'warn';
+            testMsg.textContent = 'מלאי עובד — אבל חסר Deploy של הקוד החדש (buyers/reviews). חזור לשלב 2+3.';
         } else {
             testMsg.className = 'err';
-            testMsg.textContent = 'שגיאה: ' + (data.error || 'לא ידוע');
+            testMsg.textContent = 'יש בעיה בחיבור. בדוק Deploy ו-Anyone.';
         }
     } catch (e) {
         testMsg.className = 'err';
-        testMsg.textContent = 'לא הצליח להתחבר. ודא ש-Deploy הוא Anyone ושמרת את הסקריפט.';
+        testMsg.textContent = 'לא הצליח להתחבר לשרת.';
     }
 });
 
@@ -254,11 +203,24 @@ copyConfigBtn.addEventListener('click', async () => {
     try {
         await navigator.clipboard.writeText(configOut.value);
         copyConfigBtn.textContent = 'הועתק ✓';
-        setTimeout(() => { copyConfigBtn.textContent = 'העתק config'; }, 2000);
-    } catch (e) {
-        configOut.select();
-    }
+        setTimeout(() => { copyConfigBtn.textContent = 'העתק order-api.json'; }, 2000);
+    } catch (e) { configOut.select(); }
 });
+
+fetch('google-apps-script-stock-order.gs')
+    .then(r => r.text())
+    .then(text => {
+        scriptSource = text;
+        copyScriptBtn.disabled = !currentSheetId;
+    })
+    .catch(() => {
+        testMsg.className = 'warn';
+        testMsg.textContent = 'פתח דרך GitHub Pages או העתק ידנית מ-setup/google-apps-script-stock-order.gs';
+    });
+
+sheetUrl.value = DEFAULT_SHEET_URL;
+webAppUrl.value = DEFAULT_WEBAPP;
+updateSheetId();
 </script>
 </body>
 </html>

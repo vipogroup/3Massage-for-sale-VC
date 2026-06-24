@@ -12,7 +12,7 @@
   "specFile": "product-spec.html",
   "participants": 25,
   "totalUnits": 54,
-  "soldUnits": 25,
+  "soldUnits": 28,
   "stockLive": {
     "enabled": false,
     "binId": "",

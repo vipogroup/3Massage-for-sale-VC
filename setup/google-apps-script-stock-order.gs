@@ -12,6 +12,10 @@ const REVIEW_SITE_URL = 'https://vipogroup.github.io/3Massage-for-sale-VC/review
 const REVIEW_TOKEN_DAYS = 90;
 
 function getSpreadsheet_() {
+  try {
+    var active = SpreadsheetApp.getActiveSpreadsheet();
+    if (active) return active;
+  } catch (e) { /* standalone script */ }
   return SpreadsheetApp.openById(SHEET_ID);
 }
 

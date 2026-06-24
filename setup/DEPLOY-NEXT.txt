@@ -1,0 +1,30 @@
+שלב הבא — Deploy Google (חובה)
+================================
+
+למה?
+----
+המלאי עובד, אבל ביקורות ורוכשים מהגיליון — לא (קוד ישן בשרת).
+
+מה לעשות (5 דקות)
+------------------
+1. פתח: setup/wizard.html בדפדפן
+   (או: https://vipogroup.github.io/3Massage-for-sale-VC/setup/wizard.html)
+
+2. שלב 2 — העתק קוד מעודכן → Apps Script → הדבק → שמור
+
+3. שלב 3 — Deploy → Manage deployments → Edit → New version → Deploy
+   (לא מספיק רק לשמור!)
+
+4. שלב 4 — "בדוק הכל" — צריך 4 סימוני ✅
+
+אחרי Deploy
+-----------
+• טופס ביקורת (review-request.html) → נכנס ל-ReviewsPending
+• קישור אישי (review.html?token=...) → עובד אחרי הזמנה
+• רשימת רוכשים — מגיליון PublicBuyers (הצג_באתר=כן)
+• ביקורות באתר — רק status=מאושר ב-ReviewsPending
+
+אישור ביקורות
+--------------
+גיליון ReviewsPending → עמודה status:
+  ממתין → מאושר (באתר) / נדחה (לא)
