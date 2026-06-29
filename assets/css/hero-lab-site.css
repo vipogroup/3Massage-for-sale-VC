@@ -75,7 +75,7 @@ html {
 }
 
 body {
-    padding-bottom: 72px;
+    padding-bottom: 88px;
 }
 
 .vp-header {
@@ -322,16 +322,45 @@ main .vp-orb {
 }
 
 .vp-sticky {
-    padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
+    padding: 14px 16px calc(14px + env(safe-area-inset-bottom));
+}
+
+.vp-sticky-inner {
+    gap: 12px;
+    align-items: stretch;
+}
+
+.vp-sticky-price {
+    flex: 0 0 auto;
+    justify-content: center;
+    min-width: 96px;
+    padding-inline-end: 4px;
 }
 
 .vp-sticky-now {
-    font-size: 1.22rem;
+    font-size: 1.55rem;
+}
+
+.vp-sticky-was {
+    font-size: 0.82rem;
+    margin-top: 2px;
 }
 
 .vp-sticky-btn {
-    min-height: 46px;
-    font-size: 0.86rem;
+    flex: 1;
+    min-height: 56px;
+    font-size: 1.05rem;
+    font-weight: 800;
+    gap: 10px;
+    border-radius: 14px;
+}
+
+.vp-sticky-btn i {
+    font-size: 1.2rem;
+}
+
+.vp-sticky-btn .btn-text {
+    letter-spacing: 0.01em;
 }
 
 .s2-timer {
