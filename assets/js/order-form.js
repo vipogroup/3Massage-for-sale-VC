@@ -2,6 +2,12 @@
  * טופס הזמנה → וואטסאפ + עדכון מלאי (כש-StockApi מחובר)
  */
 (function () {
+    const COLOR_OPTIONS = [
+        { value: 'חום', hex: '#8b5e34' },
+        { value: "בז'", hex: '#d4c4a8' },
+        { value: 'כחול', hex: '#4a6fa5' }
+    ];
+
     let appConfig = null;
     let isSubmitting = false;
 
@@ -127,6 +133,39 @@
         if (overlay) overlay.hidden = true;
         document.body.classList.remove('order-open');
         setStatus('');
+        resetColorSelection();
+    }
+
+    function getSelectedColor() {
+        const input = $('#orderColor');
+        return input ? input.value.trim() : '';
+    }
+
+    function setSelectedColor(value) {
+        const input = $('#orderColor');
+        const field = $('#orderColorField');
+        if (input) input.value = value || '';
+        if (field) field.classList.remove('is-error');
+        document.querySelectorAll('.order-color-swatch').forEach((btn) => {
+            const selected = btn.dataset.color === value;
+            btn.classList.toggle('is-on', selected);
+            btn.setAttribute('aria-pressed', selected ? 'true' : 'false');
+        });
+    }
+
+    function resetColorSelection() {
+        setSelectedColor('');
+    }
+
+    function bindColorSwatches() {
+        const field = $('#orderColorField');
+        if (!field) return;
+        field.addEventListener('click', (e) => {
+            const btn = e.target.closest('.order-color-swatch');
+            if (!btn || !field.contains(btn)) return;
+            setSelectedColor(btn.dataset.color || '');
+            setStatus('');
+        });
     }
 
     async function handleSubmit(e) {
@@ -138,7 +177,7 @@
         const name = ($('#orderName') && $('#orderName').value.trim()) || '';
         const phone = ($('#orderPhone') && $('#orderPhone').value.trim()) || '';
         const city = ($('#orderCity') && $('#orderCity').value.trim()) || '';
-        const color = ($('#orderColor') && $('#orderColor').value.trim()) || '';
+        const color = getSelectedColor();
         const note = ($('#orderNote') && $('#orderNote').value.trim()) || '';
 
         if (name.length < 2) {
@@ -151,8 +190,12 @@
         }
         if (!color) {
             setStatus('נא לבחור צבע כורסה', 'error');
-            const colorEl = $('#orderColor');
-            if (colorEl) colorEl.focus();
+            const colorField = $('#orderColorField');
+            if (colorField) {
+                colorField.classList.add('is-error');
+                const firstSwatch = colorField.querySelector('.order-color-swatch');
+                if (firstSwatch) firstSwatch.focus();
+            }
             return;
         }
 
@@ -232,13 +275,17 @@
         <input type="text" id="orderName" class="order-input" required autocomplete="name" placeholder="ישראל ישראלי">
         <label for="orderPhone">נייד *</label>
         <input type="tel" id="orderPhone" class="order-input" required autocomplete="tel" inputmode="tel" placeholder="050-0000000">
-        <label for="orderColor">צבע כורסה *</label>
-        <select id="orderColor" class="order-input" required>
-          <option value="" disabled selected hidden>בחר צבע</option>
-          <option value="חום">חום</option>
-          <option value="בז'">בז'</option>
-          <option value="כחול">כחול</option>
-        </select>
+        <label id="orderColorLabel">צבע כורסה *</label>
+        <div class="order-color-field" id="orderColorField">
+          <input type="hidden" id="orderColor" value="">
+          <div class="order-color-swatches" role="radiogroup" aria-labelledby="orderColorLabel">
+            ${COLOR_OPTIONS.map((c) => `
+            <button type="button" class="order-color-swatch" data-color="${c.value}" aria-label="${c.value}" aria-pressed="false">
+              <span class="order-color-swatch-dot" style="--swatch:${c.hex}"></span>
+              <span class="order-color-swatch-label">${c.value}</span>
+            </button>`).join('')}
+          </div>
+        </div>
         <label for="orderCity">עיר</label>
         <input type="text" id="orderCity" class="order-input" autocomplete="address-level2" placeholder="תל אביב">
         <label for="orderNote">הערות</label>
@@ -264,6 +311,7 @@
         });
         $('#orderCloseBtn').addEventListener('click', closeForm);
         $('#orderForm').addEventListener('submit', handleSubmit);
+        bindColorSwatches();
     }
 
     function bindTriggers() {
@@ -280,11 +328,12 @@
         const note = $('#orderApiNote');
         if (!note) return;
         if (StockApi.isEnabled()) {
+            note.hidden = false;
             note.textContent = 'המלאי באתר יתעדכן אוטומטית עם שליחת ההזמנה.';
             note.classList.remove('is-muted');
         } else {
-            note.textContent = 'ההזמנה תישלח אליך בוואטסאפ. לעדכון מלאי אוטומטי — יש לחבר Google Sheet (הסבר ב-setup).';
-            note.classList.add('is-muted');
+            note.hidden = true;
+            note.textContent = '';
         }
     }
 
