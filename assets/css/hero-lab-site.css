@@ -150,6 +150,45 @@ button.join-group-btn.is-sold-out {
     text-align: center;
 }
 
+.lp-buyers-list.is-collapsed {
+    position: relative;
+}
+
+.lp-buyers-list.is-collapsed::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 28px;
+    background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.95));
+    pointer-events: none;
+}
+
+.lp-buyers-toggle {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px 14px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--bg-alt);
+    color: var(--navy);
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.lp-buyers-toggle:hover {
+    background: #eef1f5;
+}
+
+.lp-buyer-color.is-brown { background: #f5ebe0; color: #7c4a1e; }
+.lp-buyer-color.is-beige { background: #f3efe6; color: #6b5c45; }
+.lp-buyer-color.is-blue { background: #e8eef6; color: #1c4a7a; }
+.lp-buyer-color.is-neutral { background: var(--bg-alt); color: var(--ink-2); }
+
 /* Dynamic reviews in s4 */
 .s4-list .lp-review-card {
     background: rgba(255, 255, 255, 0.06);

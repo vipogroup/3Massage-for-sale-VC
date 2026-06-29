@@ -34,7 +34,8 @@
   },
   "buyersList": {
     "enabled": true,
-    "maxVisible": 12
+    "initialVisible": 5,
+    "maxVisible": 25
   },
   "reviews": {
     "enabled": true,
