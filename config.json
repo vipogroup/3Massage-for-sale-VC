@@ -33,7 +33,7 @@
     },
     "basePrice": 400,
     "includedKm": 40,
-    "extraPer10Km": 100
+    "extraPer10Km": 50
   },
   "shipment": {
     "currentStage": "shipped"
