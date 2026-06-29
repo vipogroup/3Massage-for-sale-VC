@@ -181,7 +181,7 @@
         setStatus('');
         updatePriceSummary();
         const nameInput = $('#orderName');
-        if (nameInput) {
+        if (nameInput && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
             nameInput.focus();
         }
     }

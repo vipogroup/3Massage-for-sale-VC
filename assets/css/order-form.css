@@ -3,6 +3,7 @@
     position: fixed;
     inset: 0;
     z-index: 10040;
+    font-size: 16px;
     background:
         radial-gradient(120% 60% at 50% -10%, #ffffff 0%, var(--cream, #f4f6f9) 38%, transparent 72%),
         linear-gradient(180deg, var(--paper, #fbfcfd) 0%, var(--ivory, #edf1f6) 100%);
@@ -227,7 +228,7 @@ body.order-open {
     padding: 12px 14px;
     border: 1px solid var(--line, #e3e8ef);
     border-radius: 12px;
-    font-size: 1rem;
+    font-size: 16px;
     font-family: inherit;
     margin-bottom: 12px;
     background: #fff;

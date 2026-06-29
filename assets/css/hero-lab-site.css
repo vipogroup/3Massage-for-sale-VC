@@ -72,6 +72,15 @@ button.join-group-btn.is-sold-out {
 /* ── Compact layout: smaller content, header stays full size ── */
 html {
     font-size: 14px;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+/* iOS Safari zooms focused inputs below 16px — keep form fields at 16px */
+input,
+select,
+textarea {
+    font-size: 16px;
 }
 
 body {
