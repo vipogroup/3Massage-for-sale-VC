@@ -15,15 +15,33 @@
         { value: 'מזומן במסירה', label: 'מזומן במסירה' }
     ];
 
-    const DELIVERY_BASE = 400;
-    const DELIVERY_INCLUDED_KM = 40;
-    const DELIVERY_EXTRA_PER_10KM = 100;
+    const DEFAULT_ORIGIN = { name: 'באר יעקב', lat: 31.9386, lon: 34.8374 };
+    const DEFAULT_DELIVERY = { basePrice: 400, includedKm: 40, extraPer10Km: 100 };
 
     let appConfig = null;
     let isSubmitting = false;
+    let calculatedDistanceKm = null;
+    let distanceCalcStatus = 'idle';
+    let distanceCalcTimer = null;
+    let distanceCalcRequestId = 0;
 
     function $(sel) {
         return document.querySelector(sel);
+    }
+
+    function getDeliverySettings() {
+        const cfg = (appConfig && appConfig.delivery) || {};
+        const origin = cfg.origin || {};
+        return {
+            origin: {
+                name: origin.name || DEFAULT_ORIGIN.name,
+                lat: Number(origin.lat || DEFAULT_ORIGIN.lat),
+                lon: Number(origin.lon || DEFAULT_ORIGIN.lon)
+            },
+            basePrice: Number(cfg.basePrice || DEFAULT_DELIVERY.basePrice),
+            includedKm: Number(cfg.includedKm || DEFAULT_DELIVERY.includedKm),
+            extraPer10Km: Number(cfg.extraPer10Km || DEFAULT_DELIVERY.extraPer10Km)
+        };
     }
 
     function normalizePhone(raw) {
@@ -64,16 +82,151 @@
     }
 
     function calcDeliveryCost(km) {
+        const settings = getDeliverySettings();
         const distance = Number(km);
         if (!distance || distance <= 0) return null;
-        if (distance <= DELIVERY_INCLUDED_KM) return DELIVERY_BASE;
-        const extraBlocks = Math.ceil((distance - DELIVERY_INCLUDED_KM) / 10);
-        return DELIVERY_BASE + extraBlocks * DELIVERY_EXTRA_PER_10KM;
+        if (distance <= settings.includedKm) return settings.basePrice;
+        const extraBlocks = Math.ceil((distance - settings.includedKm) / 10);
+        return settings.basePrice + extraBlocks * settings.extraPer10Km;
+    }
+
+    function formatDistance(km) {
+        const n = Number(km);
+        if (!n) return '';
+        return (Math.round(n * 10) / 10).toLocaleString('he-IL');
+    }
+
+    function getAddressFields() {
+        return {
+            city: ($('#orderDelCity') && $('#orderDelCity').value.trim()) || '',
+            street: ($('#orderDelStreet') && $('#orderDelStreet').value.trim()) || '',
+            houseNumber: ($('#orderDelHouse') && $('#orderDelHouse').value.trim()) || '',
+            apartment: ($('#orderDelApt') && $('#orderDelApt').value.trim()) || '',
+            zip: String(($('#orderDelZip') && $('#orderDelZip').value) || '').replace(/\D/g, '')
+        };
+    }
+
+    function hasCompleteAddress(fields) {
+        return fields.city.length >= 2 &&
+            fields.street.length >= 2 &&
+            fields.houseNumber.length >= 1 &&
+            validateZip(fields.zip);
+    }
+
+    function buildAddressFull(fields) {
+        return [fields.street, fields.houseNumber, fields.apartment, fields.city, fields.zip]
+            .filter(Boolean)
+            .join(', ');
+    }
+
+    function setDistanceStatus(message, type) {
+        const el = $('#orderDistanceStatus');
+        if (!el) return;
+        el.textContent = message || '';
+        el.className = 'order-distance-status' + (type ? ' is-' + type : '');
+    }
+
+    function resetDistanceCalculation() {
+        if (distanceCalcTimer) {
+            clearTimeout(distanceCalcTimer);
+            distanceCalcTimer = null;
+        }
+        distanceCalcRequestId += 1;
+        calculatedDistanceKm = null;
+        distanceCalcStatus = 'idle';
+        setDistanceStatus('', '');
+    }
+
+    async function geocodeAddress(fields) {
+        const params = new URLSearchParams({
+            format: 'json',
+            limit: '1',
+            countrycodes: 'il',
+            street: fields.street + ' ' + fields.houseNumber,
+            city: fields.city,
+            postalcode: fields.zip
+        });
+        const res = await fetch('https://nominatim.openstreetmap.org/search?' + params.toString(), {
+            headers: { Accept: 'application/json' }
+        });
+        if (!res.ok) throw new Error('geocode_failed');
+        const data = await res.json();
+        if (!Array.isArray(data) || !data.length) throw new Error('address_not_found');
+        return {
+            lat: Number(data[0].lat),
+            lon: Number(data[0].lon)
+        };
+    }
+
+    async function fetchDrivingDistanceKm(origin, destination) {
+        const coords = origin.lon + ',' + origin.lat + ';' + destination.lon + ',' + destination.lat;
+        const url = 'https://router.project-osrm.org/route/v1/driving/' +
+            coords + '?overview=false&alternatives=false';
+        const res = await fetch(url, { headers: { Accept: 'application/json' } });
+        if (!res.ok) throw new Error('route_failed');
+        const data = await res.json();
+        if (data.code !== 'Ok' || !data.routes || !data.routes.length) {
+            throw new Error('route_not_found');
+        }
+        return data.routes[0].distance / 1000;
+    }
+
+    async function calculateDeliveryDistance() {
+        const fields = getAddressFields();
+        if (!hasCompleteAddress(fields)) {
+            resetDistanceCalculation();
+            if (getChoiceValue('#orderDelivery') === 'delivery') {
+                setDistanceStatus('הזינ/י כתובת מלאה — המרחק יחושב אוטומטית מ' + getDeliverySettings().origin.name, '');
+            }
+            updatePriceSummary();
+            return;
+        }
+
+        const requestId = ++distanceCalcRequestId;
+        distanceCalcStatus = 'loading';
+        calculatedDistanceKm = null;
+        const originName = getDeliverySettings().origin.name;
+        setDistanceStatus('מחשב מרחק נסיעה מ' + originName + '…', 'loading');
+        updatePriceSummary();
+
+        try {
+            const origin = getDeliverySettings().origin;
+            const destination = await geocodeAddress(fields);
+            const km = await fetchDrivingDistanceKm(origin, destination);
+            if (requestId !== distanceCalcRequestId) return;
+
+            calculatedDistanceKm = km;
+            distanceCalcStatus = 'ready';
+            setDistanceStatus(
+                'מרחק נסיעה משוער: ' + formatDistance(km) + ' ק"מ מ' + originName,
+                'ready'
+            );
+        } catch (err) {
+            if (requestId !== distanceCalcRequestId) return;
+            calculatedDistanceKm = null;
+            distanceCalcStatus = 'error';
+            setDistanceStatus('לא הצלחנו לזהות את הכתובת — בדוק/י את הפרטים', 'error');
+        }
+
+        updatePriceSummary();
+    }
+
+    function scheduleDistanceCalculation() {
+        if (getChoiceValue('#orderDelivery') !== 'delivery') return;
+        if (distanceCalcTimer) clearTimeout(distanceCalcTimer);
+        distanceCalcStatus = 'idle';
+        calculatedDistanceKm = null;
+        setDistanceStatus('מעדכן חישוב מרחק…', 'loading');
+        updatePriceSummary();
+        distanceCalcTimer = setTimeout(function () {
+            distanceCalcTimer = null;
+            calculateDeliveryDistance();
+        }, 900);
     }
 
     function getSellerWhatsAppUrl(message) {
         const phone = normalizePhone((appConfig && appConfig.contactPhone) || '587009938');
-        return `https://wa.me/972${phone}?text=${encodeURIComponent(message)}`;
+        return 'https://wa.me/972' + phone + '?text=' + encodeURIComponent(message);
     }
 
     function buildOrderNote(data) {
@@ -83,7 +236,7 @@
         parts.push(data.deliveryType === 'delivery' ? 'משלוח עד הבית' : 'איסוף עצמי');
         if (data.deliveryType === 'delivery') {
             parts.push('כתובת: ' + data.addressFull);
-            parts.push('מרחק: ' + data.distanceKm + ' ק"מ');
+            parts.push('מרחק: ' + formatDistance(data.distanceKm) + ' ק"מ');
             parts.push('משלוח: ' + formatMoney(data.deliveryCost));
         }
         parts.push('סה"כ: ' + formatMoney(data.totalPrice));
@@ -92,37 +245,37 @@
 
     function buildOrderMessage(data, orderResult) {
         const product = (appConfig && appConfig.productName) || 'כורסת עיסוי VC - LUXURY';
-        let msg = `🛒 *הזמנה חדשה מהאתר*\n\n`;
-        msg += `מוצר: ${product}\n`;
-        msg += `מחיר כורסה: ${formatMoney(data.productPrice)}\n`;
+        let msg = '🛒 *הזמנה חדשה מהאתר*\n\n';
+        msg += 'מוצר: ' + product + '\n';
+        msg += 'מחיר כורסה: ' + formatMoney(data.productPrice) + '\n';
         if (data.deliveryType === 'delivery') {
-            msg += `משלוח (${data.distanceKm} ק"מ): ${formatMoney(data.deliveryCost)}\n`;
+            msg += 'משלוח (' + formatDistance(data.distanceKm) + ' ק"מ): ' + formatMoney(data.deliveryCost) + '\n';
         } else {
-            msg += `משלוח: איסוף עצמי (ללא עלות)\n`;
+            msg += 'משלוח: איסוף עצמי (ללא עלות)\n';
         }
-        msg += `*סה"כ: ${formatMoney(data.totalPrice)}*\n`;
-        msg += `תשלום: ${data.payment}\n\n`;
-        msg += `שם: ${data.name}\n`;
-        msg += `טלפון: ${formatPhoneDisplay(data.phone)}\n`;
+        msg += '*סה"כ: ' + formatMoney(data.totalPrice) + '*\n';
+        msg += 'תשלום: ' + data.payment + '\n\n';
+        msg += 'שם: ' + data.name + '\n';
+        msg += 'טלפון: ' + formatPhoneDisplay(data.phone) + '\n';
         if (data.color) {
-            msg += `צבע: ${data.color}\n`;
+            msg += 'צבע: ' + data.color + '\n';
         }
         if (data.deliveryType === 'delivery') {
-            msg += `עיר: ${data.city}\n`;
-            msg += `כתובת: ${data.street} ${data.houseNumber}`;
-            if (data.apartment) msg += `, ${data.apartment}`;
-            msg += `\nמיקוד: ${data.zip}\n`;
+            msg += 'עיר: ' + data.city + '\n';
+            msg += 'כתובת: ' + data.street + ' ' + data.houseNumber;
+            if (data.apartment) msg += ', ' + data.apartment;
+            msg += '\nמיקוד: ' + data.zip + '\n';
         }
         if (data.note) {
-            msg += `הערות: ${data.note}\n`;
+            msg += 'הערות: ' + data.note + '\n';
         }
         if (orderResult && orderResult.purchaseNumber) {
-            msg += `\nמספר רכישה: #${orderResult.purchaseNumber}`;
+            msg += '\nמספר רכישה: #' + orderResult.purchaseNumber;
         }
         if (orderResult && orderResult.reviewUrl) {
-            msg += `\n\n⭐ *קישור ביקורת ללקוח* (העבר לאחר אישור):\n${orderResult.reviewUrl}`;
+            msg += '\n\n⭐ *קישור ביקורת ללקוח* (העבר לאחר אישור):\n' + orderResult.reviewUrl;
         }
-        msg += `\n\n_נשלח מדף הנחיתה_`;
+        msg += '\n\n_נשלח מדף הנחיתה_';
         return msg;
     }
 
@@ -147,7 +300,7 @@
 
     function updateSoldOutUI() {
         const soldOut = isSoldOut();
-        document.querySelectorAll('.join-group-btn').forEach(btn => {
+        document.querySelectorAll('.join-group-btn').forEach(function (btn) {
             if (soldOut) {
                 btn.classList.add('is-sold-out');
                 const textEl = btn.querySelector('.btn-text');
@@ -167,9 +320,7 @@
     }
 
     function openForm(e) {
-        if (e) {
-            e.preventDefault();
-        }
+        if (e) e.preventDefault();
         if (isSoldOut()) {
             setStatus('המלאי אזל במחיר המכולה.', 'error');
             return;
@@ -192,7 +343,7 @@
         if (input) input.value = '';
         if (field) {
             field.classList.remove('is-error');
-            field.querySelectorAll('.order-choice-btn').forEach((btn) => {
+            field.querySelectorAll('.order-choice-btn').forEach(function (btn) {
                 btn.classList.remove('is-on');
                 btn.setAttribute('aria-pressed', 'false');
             });
@@ -205,10 +356,11 @@
         resetChoiceField('#orderDeliveryField', '#orderDelivery');
         const panel = $('#orderDeliveryPanel');
         if (panel) panel.hidden = true;
-        ['#orderDelCity', '#orderDelStreet', '#orderDelHouse', '#orderDelApt', '#orderDelZip', '#orderDelKm'].forEach((sel) => {
+        ['#orderDelCity', '#orderDelStreet', '#orderDelHouse', '#orderDelApt', '#orderDelZip'].forEach(function (sel) {
             const el = $(sel);
             if (el) el.value = '';
         });
+        resetDistanceCalculation();
         updatePriceSummary();
     }
 
@@ -230,7 +382,7 @@
         const field = $('#orderColorField');
         if (input) input.value = value || '';
         if (field) field.classList.remove('is-error');
-        document.querySelectorAll('.order-color-swatch').forEach((btn) => {
+        document.querySelectorAll('.order-color-swatch').forEach(function (btn) {
             const selected = btn.dataset.color === value;
             btn.classList.toggle('is-on', selected);
             btn.setAttribute('aria-pressed', selected ? 'true' : 'false');
@@ -247,7 +399,7 @@
         if (input) input.value = value || '';
         if (field) {
             field.classList.remove('is-error');
-            field.querySelectorAll('.order-choice-btn').forEach((btn) => {
+            field.querySelectorAll('.order-choice-btn').forEach(function (btn) {
                 const selected = btn.dataset.value === value;
                 btn.classList.toggle('is-on', selected);
                 btn.setAttribute('aria-pressed', selected ? 'true' : 'false');
@@ -265,34 +417,66 @@
         const panel = $('#orderDeliveryPanel');
         if (!panel) return;
         panel.hidden = deliveryType !== 'delivery';
+        if (deliveryType === 'delivery') {
+            const settings = getDeliverySettings();
+            setDistanceStatus('הזינ/י כתובת מלאה — המרחק יחושב אוטומטית מ' + settings.origin.name, '');
+        } else {
+            resetDistanceCalculation();
+        }
         updatePriceSummary();
     }
 
     function updatePriceSummary() {
+        const settings = getDeliverySettings();
         const productPrice = getProductPrice();
         const deliveryType = getChoiceValue('#orderDelivery');
-        const kmInput = $('#orderDelKm');
-        const km = kmInput ? kmInput.value.trim() : '';
-        const deliveryCost = deliveryType === 'delivery' ? calcDeliveryCost(km) : 0;
+        const deliveryCost = deliveryType === 'delivery' && calculatedDistanceKm != null
+            ? calcDeliveryCost(calculatedDistanceKm)
+            : null;
         const total = productPrice + (deliveryCost || 0);
 
         const productEl = $('#orderProductPrice');
         const deliveryLine = $('#orderDeliveryLine');
+        const deliveryLabelEl = $('#orderDeliveryLabelText');
         const deliveryPriceEl = $('#orderDeliveryPrice');
         const totalEl = $('#orderTotalPrice');
 
         if (productEl) productEl.textContent = formatMoney(productPrice);
         if (deliveryLine) deliveryLine.hidden = deliveryType !== 'delivery';
-        if (deliveryPriceEl) {
-            deliveryPriceEl.textContent = deliveryCost != null ? formatMoney(deliveryCost) : '—';
+        if (deliveryLabelEl) {
+            deliveryLabelEl.textContent = calculatedDistanceKm != null
+                ? 'משלוח (' + formatDistance(calculatedDistanceKm) + ' ק"מ)'
+                : 'משלוח';
         }
-        if (totalEl) totalEl.textContent = formatMoney(total);
+        if (deliveryPriceEl) {
+            if (deliveryType !== 'delivery') {
+                deliveryPriceEl.textContent = '—';
+            } else if (distanceCalcStatus === 'loading') {
+                deliveryPriceEl.textContent = '…';
+            } else if (deliveryCost != null) {
+                deliveryPriceEl.textContent = formatMoney(deliveryCost);
+            } else {
+                deliveryPriceEl.textContent = '—';
+            }
+        }
+        if (totalEl) {
+            totalEl.textContent = formatMoney(
+                deliveryType === 'delivery' && deliveryCost == null ? productPrice : total
+            );
+        }
+
+        const hint = $('#orderDeliveryHint');
+        if (hint) {
+            hint.textContent = 'משלוח כורסה מ' + settings.origin.name + ': ' +
+                formatMoney(settings.basePrice) + ' עד ' + settings.includedKm +
+                ' ק"מ · מעל כך ' + formatMoney(settings.extraPer10Km) + ' לכל 10 ק"מ';
+        }
     }
 
     function bindColorSwatches() {
         const field = $('#orderColorField');
         if (!field) return;
-        field.addEventListener('click', (e) => {
+        field.addEventListener('click', function (e) {
             const btn = e.target.closest('.order-color-swatch');
             if (!btn || !field.contains(btn)) return;
             setSelectedColor(btn.dataset.color || '');
@@ -303,7 +487,7 @@
     function bindChoiceGroup(fieldSelector, inputSelector, onChange) {
         const field = $(fieldSelector);
         if (!field) return;
-        field.addEventListener('click', (e) => {
+        field.addEventListener('click', function (e) {
             const btn = e.target.closest('.order-choice-btn');
             if (!btn || !field.contains(btn)) return;
             setChoiceValue(fieldSelector, inputSelector, btn.dataset.value || '');
@@ -315,41 +499,34 @@
     function bindDeliveryInputs() {
         const panel = $('#orderDeliveryPanel');
         if (!panel) return;
-        panel.addEventListener('input', updatePriceSummary);
+        panel.addEventListener('input', scheduleDistanceCalculation);
+        panel.addEventListener('change', scheduleDistanceCalculation);
     }
 
     function collectFormData() {
         const deliveryType = getChoiceValue('#orderDelivery');
-        const km = ($('#orderDelKm') && $('#orderDelKm').value.trim()) || '';
+        const fields = getAddressFields();
         const productPrice = getProductPrice();
-        const deliveryCost = deliveryType === 'delivery' ? (calcDeliveryCost(km) || 0) : 0;
-        const city = deliveryType === 'delivery' ? (($('#orderDelCity') && $('#orderDelCity').value.trim()) || '') : '';
-        const street = deliveryType === 'delivery' ? (($('#orderDelStreet') && $('#orderDelStreet').value.trim()) || '') : '';
-        const houseNumber = deliveryType === 'delivery' ? (($('#orderDelHouse') && $('#orderDelHouse').value.trim()) || '') : '';
-        const apartment = deliveryType === 'delivery' ? (($('#orderDelApt') && $('#orderDelApt').value.trim()) || '') : '';
-        const zip = deliveryType === 'delivery' ? String(($('#orderDelZip') && $('#orderDelZip').value) || '').replace(/\D/g, '') : '';
-
-        let addressFull = '';
-        if (deliveryType === 'delivery') {
-            addressFull = [street, houseNumber, apartment, city, zip].filter(Boolean).join(', ');
-        }
+        const deliveryCost = deliveryType === 'delivery' && calculatedDistanceKm != null
+            ? (calcDeliveryCost(calculatedDistanceKm) || 0)
+            : 0;
 
         return {
             name: ($('#orderName') && $('#orderName').value.trim()) || '',
             phone: ($('#orderPhone') && $('#orderPhone').value.trim()) || '',
             color: getSelectedColor(),
             payment: getChoiceValue('#orderPayment'),
-            deliveryType,
-            city,
-            street,
-            houseNumber,
-            apartment,
-            zip,
-            distanceKm: km,
-            deliveryCost,
-            productPrice,
+            deliveryType: deliveryType,
+            city: deliveryType === 'delivery' ? fields.city : '',
+            street: deliveryType === 'delivery' ? fields.street : '',
+            houseNumber: deliveryType === 'delivery' ? fields.houseNumber : '',
+            apartment: deliveryType === 'delivery' ? fields.apartment : '',
+            zip: deliveryType === 'delivery' ? fields.zip : '',
+            distanceKm: deliveryType === 'delivery' ? calculatedDistanceKm : null,
+            deliveryCost: deliveryCost,
+            productPrice: productPrice,
             totalPrice: productPrice + deliveryCost,
-            addressFull,
+            addressFull: deliveryType === 'delivery' ? buildAddressFull(fields) : '',
             note: ($('#orderNote') && $('#orderNote').value.trim()) || ''
         };
     }
@@ -386,29 +563,33 @@
             return false;
         }
         if (data.deliveryType === 'delivery') {
-            if (!data.city || data.city.length < 2) {
+            const fields = getAddressFields();
+            if (!fields.city || fields.city.length < 2) {
                 setStatus('נא להזין עיר למשלוח', 'error');
                 $('#orderDelCity') && $('#orderDelCity').focus();
                 return false;
             }
-            if (!data.street || data.street.length < 2) {
+            if (!fields.street || fields.street.length < 2) {
                 setStatus('נא להזין רחוב', 'error');
                 $('#orderDelStreet') && $('#orderDelStreet').focus();
                 return false;
             }
-            if (!data.houseNumber) {
+            if (!fields.houseNumber) {
                 setStatus('נא להזין מספר בית', 'error');
                 $('#orderDelHouse') && $('#orderDelHouse').focus();
                 return false;
             }
-            if (!validateZip(data.zip)) {
+            if (!validateZip(fields.zip)) {
                 setStatus('נא להזין מיקוד תקין (5–7 ספרות)', 'error');
                 $('#orderDelZip') && $('#orderDelZip').focus();
                 return false;
             }
-            if (!data.distanceKm || calcDeliveryCost(data.distanceKm) == null) {
-                setStatus('נא להזין מרחק משוער בק"מ (מספר חיובי)', 'error');
-                $('#orderDelKm') && $('#orderDelKm').focus();
+            if (distanceCalcStatus === 'loading') {
+                setStatus('מחשבים מרחק משלוח — נא להמתין רגע', 'info');
+                return false;
+            }
+            if (distanceCalcStatus === 'error' || calculatedDistanceKm == null) {
+                setStatus('לא ניתן לחשב משלוח — בדוק/י את הכתובת', 'error');
                 return false;
             }
         }
@@ -417,14 +598,20 @@
 
     async function handleSubmit(e) {
         e.preventDefault();
-        if (isSubmitting || isSoldOut()) {
-            return;
+        if (isSubmitting || isSoldOut()) return;
+
+        if (getChoiceValue('#orderDelivery') === 'delivery' && hasCompleteAddress(getAddressFields())) {
+            if (distanceCalcStatus === 'loading') {
+                setStatus('מחשבים מרחק משלוח — נא להמתין רגע', 'info');
+                return;
+            }
+            if (calculatedDistanceKm == null || distanceCalcStatus === 'error') {
+                await calculateDeliveryDistance();
+            }
         }
 
         const data = collectFormData();
-        if (!validateFormData(data)) {
-            return;
-        }
+        if (!validateFormData(data)) return;
 
         isSubmitting = true;
         const btn = $('#orderSubmitBtn');
@@ -463,8 +650,7 @@
                 setStatus('פותחים וואטסאפ…', 'info');
             }
 
-            const waUrl = getSellerWhatsAppUrl(buildOrderMessage(data, orderResult));
-            window.open(waUrl, '_blank', 'noopener');
+            window.open(getSellerWhatsAppUrl(buildOrderMessage(data, orderResult)), '_blank', 'noopener');
 
             setStatus(
                 StockApi.isEnabled()
@@ -491,6 +677,7 @@
     function buildUI() {
         if ($('#orderOverlay')) return;
 
+        const settings = getDeliverySettings();
         const overlay = document.createElement('div');
         overlay.id = 'orderOverlay';
         overlay.hidden = true;
@@ -514,19 +701,22 @@
         <div class="order-color-field" id="orderColorField">
           <input type="hidden" id="orderColor" value="">
           <div class="order-color-swatches" role="radiogroup" aria-labelledby="orderColorLabel">
-            ${COLOR_OPTIONS.map((c) => `
+            ${COLOR_OPTIONS.map(function (c) {
+                return `
             <button type="button" class="order-color-swatch" data-color="${c.value}" aria-label="${c.value}" aria-pressed="false">
               <span class="order-color-swatch-dot" style="--swatch:${c.hex}"></span>
               <span class="order-color-swatch-label">${c.value}</span>
-            </button>`).join('')}
+            </button>`;
+            }).join('')}
           </div>
         </div>
         <label id="orderPaymentLabel">אופן תשלום *</label>
         <div class="order-choice-field" id="orderPaymentField">
           <input type="hidden" id="orderPayment" value="">
           <div class="order-choice-grid" role="radiogroup" aria-labelledby="orderPaymentLabel">
-            ${PAYMENT_OPTIONS.map((p) => `
-            <button type="button" class="order-choice-btn" data-value="${p.value}" aria-pressed="false">${p.label}</button>`).join('')}
+            ${PAYMENT_OPTIONS.map(function (p) {
+                return `<button type="button" class="order-choice-btn" data-value="${p.value}" aria-pressed="false">${p.label}</button>`;
+            }).join('')}
           </div>
         </div>
         <label id="orderDeliveryLabel">קבלת ההזמנה *</label>
@@ -539,12 +729,12 @@
             </button>
             <button type="button" class="order-choice-btn order-choice-btn-wide" data-value="delivery" aria-pressed="false">
               <span class="order-choice-title">משלוח עד הבית</span>
-              <span class="order-choice-sub">מ-${formatMoney(DELIVERY_BASE)}</span>
+              <span class="order-choice-sub">מ-${formatMoney(settings.basePrice)}</span>
             </button>
           </div>
         </div>
         <div class="order-delivery-panel" id="orderDeliveryPanel" hidden>
-          <p class="order-panel-hint">משלוח כורסה: ${formatMoney(DELIVERY_BASE)} עד ${DELIVERY_INCLUDED_KM} ק"מ · מעל כך ${formatMoney(DELIVERY_EXTRA_PER_10KM)} לכל 10 ק"מ</p>
+          <p class="order-panel-hint" id="orderDeliveryHint"></p>
           <label for="orderDelCity">עיר *</label>
           <input type="text" id="orderDelCity" class="order-input" autocomplete="address-level2" placeholder="תל אביב">
           <div class="order-field-row">
@@ -567,8 +757,7 @@
               <input type="text" id="orderDelZip" class="order-input" inputmode="numeric" autocomplete="postal-code" placeholder="1234567" maxlength="7">
             </div>
           </div>
-          <label for="orderDelKm">מרחק משוער מהמרכז (ק"מ) *</label>
-          <input type="number" id="orderDelKm" class="order-input" min="1" step="1" inputmode="numeric" placeholder="35">
+          <p class="order-distance-status" id="orderDistanceStatus" aria-live="polite"></p>
         </div>
         <label for="orderNote">הערות</label>
         <textarea id="orderNote" class="order-input order-textarea" rows="2" placeholder="שאלה, זמן מועדף…"></textarea>
@@ -580,7 +769,7 @@
               <span id="orderProductPrice" class="order-product-price">₪2,900</span>
             </div>
             <div class="order-price-line" id="orderDeliveryLine" hidden>
-              <span>משלוח</span>
+              <span id="orderDeliveryLabelText">משלוח</span>
               <span id="orderDeliveryPrice">—</span>
             </div>
             <div class="order-price-line order-price-line-total">
@@ -606,7 +795,7 @@
 </div>`;
         document.body.appendChild(overlay);
 
-        overlay.addEventListener('click', (ev) => {
+        overlay.addEventListener('click', function (ev) {
             if (ev.target === overlay) closeForm();
         });
         $('#orderCloseBtn').addEventListener('click', closeForm);
@@ -615,14 +804,13 @@
         bindChoiceGroup('#orderPaymentField', '#orderPayment');
         bindChoiceGroup('#orderDeliveryField', '#orderDelivery', toggleDeliveryPanel);
         bindDeliveryInputs();
+        updatePriceSummary();
     }
 
     function bindTriggers() {
-        document.addEventListener('click', (e) => {
+        document.addEventListener('click', function (e) {
             const btn = e.target.closest('.join-group-btn');
-            if (!btn || btn.classList.contains('is-sold-out')) {
-                return;
-            }
+            if (!btn || btn.classList.contains('is-sold-out')) return;
             openForm(e);
         });
     }
@@ -649,11 +837,11 @@
         updatePriceSummary();
     }
 
-    document.addEventListener('vipo:config-loaded', (e) => {
+    document.addEventListener('vipo:config-loaded', function (e) {
         init(e.detail || {});
     });
 
-    document.addEventListener('vipo:stock-updated', () => {
+    document.addEventListener('vipo:stock-updated', function () {
         updateSoldOutUI();
     });
 })();

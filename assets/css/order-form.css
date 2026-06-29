@@ -425,6 +425,28 @@ body.order-open {
     text-align: center;
 }
 
+.order-distance-status {
+    margin: -4px 0 12px;
+    min-height: 1.2em;
+    font-size: 0.76rem;
+    font-weight: 700;
+    line-height: 1.45;
+    text-align: center;
+    color: var(--ink-3, #8b95a6);
+}
+
+.order-distance-status.is-loading {
+    color: var(--accent, #3c5070);
+}
+
+.order-distance-status.is-ready {
+    color: var(--green, #1a6b4a);
+}
+
+.order-distance-status.is-error {
+    color: #dc2626;
+}
+
 .order-field-row {
     display: grid;
     grid-template-columns: 1fr 88px;

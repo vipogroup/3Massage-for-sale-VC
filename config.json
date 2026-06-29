@@ -25,6 +25,16 @@
     "sheetId": "1zu6rf_ZklwrYwqC_mwzFjsknavedQX_dKC3EuwnEEVs"
   },
   "contactPhone": "0587009938",
+  "delivery": {
+    "origin": {
+      "name": "באר יעקב",
+      "lat": 31.9386,
+      "lon": 34.8374
+    },
+    "basePrice": 400,
+    "includedKm": 40,
+    "extraPer10Km": 100
+  },
   "shipment": {
     "currentStage": "shipped"
   },
