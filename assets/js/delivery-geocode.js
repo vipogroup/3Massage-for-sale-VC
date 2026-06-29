@@ -98,7 +98,25 @@
 
     function lookupByZip(zip) {
         if (!zipIndex || !zip) return null;
-        return zipIndex[zip] || null;
+        if (zipIndex[zip]) return zipIndex[zip];
+
+        // Israel Post street zips often share a prefix with the settlement's general zip.
+        for (let len = 5; len >= 4; len -= 1) {
+            const prefix = zip.slice(0, len);
+            const matches = Object.keys(zipIndex).filter(function (key) {
+                return key.startsWith(prefix);
+            });
+            if (!matches.length) continue;
+            if (matches.length === 1) return zipIndex[matches[0]];
+
+            const general = matches.find(function (key) { return key.endsWith('00'); });
+            if (general) return zipIndex[general];
+
+            matches.sort();
+            return zipIndex[matches[0]];
+        }
+
+        return null;
     }
 
     function sleep(ms) {
