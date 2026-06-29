@@ -154,7 +154,8 @@
         const btn = $('#orderSubmitBtn');
         if (btn) {
             btn.disabled = true;
-            btn.textContent = 'שולח…';
+            const textEl = btn.querySelector('.order-btn-text');
+            if (textEl) textEl.textContent = 'שולח…';
         }
 
         const orderData = { name, phone, city, color, note };
@@ -192,7 +193,8 @@
             isSubmitting = false;
             if (btn) {
                 btn.disabled = false;
-                btn.innerHTML = '<span>שלח הזמנה בוואטסאפ</span> <i class="fab fa-whatsapp"></i>';
+                const textEl = btn.querySelector('.order-btn-text');
+                if (textEl) textEl.textContent = 'שלח הזמנה בוואטסאפ';
             }
         }
     }
@@ -211,30 +213,42 @@
     <span class="order-sheet-header-spacer" aria-hidden="true"></span>
   </header>
   <div class="order-sheet-body">
-    <p class="order-lead">מלא פרטים — נפתח וואטסאפ עם ההזמנה שלך</p>
+    <div class="order-price-card">
+      <span class="order-price-label">מחיר מכולה · VIPO</span>
+      <span class="order-price-now current-price">₪2,900</span>
+      <span class="order-price-was original-price">₪12,000</span>
+    </div>
+    <p class="order-lead">מלא/י פרטים — נפתח וואטסאפ עם ההזמנה שלך</p>
     <p class="order-api-note" id="orderApiNote"></p>
-    <form id="orderForm" novalidate>
-      <label for="orderName">שם מלא *</label>
-      <input type="text" id="orderName" class="order-input" required autocomplete="name" placeholder="ישראל ישראלי">
-      <label for="orderPhone">נייד *</label>
-      <input type="tel" id="orderPhone" class="order-input" required autocomplete="tel" inputmode="tel" placeholder="050-0000000">
-      <label for="orderCity">עיר</label>
-      <input type="text" id="orderCity" class="order-input" autocomplete="address-level2" placeholder="תל אביב">
-      <label for="orderColor">צבע כורסה</label>
-      <select id="orderColor" class="order-input">
-        <option value="">בחר צבע</option>
-        <option value="חום">חום</option>
-        <option value="בז'">בז'</option>
-        <option value="כחול">כחול</option>
-      </select>
-      <label for="orderNote">הערות</label>
-      <textarea id="orderNote" class="order-input order-textarea" rows="2" placeholder="צבע, שאלה, זמן מועדף…"></textarea>
-      <button type="submit" class="order-btn order-btn-primary" id="orderSubmitBtn">
-        <span>שלח הזמנה בוואטסאפ</span> <i class="fab fa-whatsapp"></i>
-      </button>
-      <p class="order-form-status" id="orderFormStatus" aria-live="polite"></p>
-      <p class="order-fine">בלחיצה תועבר/י לוואטסאפ עם פרטי ההזמנה. אין חיוב אוטומטי.</p>
-    </form>
+    <div class="order-form-card">
+      <form id="orderForm" novalidate>
+        <label for="orderName">שם מלא *</label>
+        <input type="text" id="orderName" class="order-input" required autocomplete="name" placeholder="ישראל ישראלי">
+        <label for="orderPhone">נייד *</label>
+        <input type="tel" id="orderPhone" class="order-input" required autocomplete="tel" inputmode="tel" placeholder="050-0000000">
+        <label for="orderCity">עיר</label>
+        <input type="text" id="orderCity" class="order-input" autocomplete="address-level2" placeholder="תל אביב">
+        <label for="orderColor">צבע כורסה</label>
+        <select id="orderColor" class="order-input">
+          <option value="">בחר צבע</option>
+          <option value="חום">חום</option>
+          <option value="בז'">בז'</option>
+          <option value="כחול">כחול</option>
+        </select>
+        <label for="orderNote">הערות</label>
+        <textarea id="orderNote" class="order-input order-textarea" rows="2" placeholder="שאלה, זמן מועדף…"></textarea>
+        <button type="submit" class="order-btn order-btn-primary" id="orderSubmitBtn">
+          <span class="order-btn-text">שלח הזמנה בוואטסאפ</span>
+          <i class="fab fa-whatsapp" aria-hidden="true"></i>
+        </button>
+        <p class="order-form-status" id="orderFormStatus" aria-live="polite"></p>
+        <p class="order-fine">בלחיצה תועבר/י לוואטסאפ עם פרטי ההזמנה. אין חיוב אוטומטי.</p>
+        <div class="order-trust-row">
+          <span><i class="fas fa-lock"></i> מאובטח</span>
+          <span><i class="fas fa-shield-alt"></i> אחריות יצרן</span>
+        </div>
+      </form>
+    </div>
   </div>
 </div>`;
         document.body.appendChild(overlay);
