@@ -149,6 +149,12 @@
             setStatus('נא להזין מספר נייד ישראלי תקין (05X)', 'error');
             return;
         }
+        if (!color) {
+            setStatus('נא לבחור צבע כורסה', 'error');
+            const colorEl = $('#orderColor');
+            if (colorEl) colorEl.focus();
+            return;
+        }
 
         isSubmitting = true;
         const btn = $('#orderSubmitBtn');
