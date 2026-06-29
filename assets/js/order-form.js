@@ -16,7 +16,7 @@
     ];
 
     const DEFAULT_ORIGIN = { name: 'באר יעקב', lat: 31.9386, lon: 34.8374 };
-    const DEFAULT_DELIVERY = { basePrice: 400, includedKm: 40, extraPer10Km: 100 };
+    const DEFAULT_DELIVERY = { basePrice: 400, includedKm: 40, extraPer10Km: 50 };
 
     let appConfig = null;
     let isSubmitting = false;
