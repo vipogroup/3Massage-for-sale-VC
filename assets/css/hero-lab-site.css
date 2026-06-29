@@ -479,7 +479,7 @@ main .vp-orb {
 }
 
 .s4-list .lp-review-stars {
-    color: var(--gold);
+    color: #cfd7e4;
     font-size: 0.82rem;
     margin-bottom: 8px;
 }
@@ -502,19 +502,41 @@ main .vp-orb {
 }
 
 .s4-review-cta {
+    position: relative;
+    z-index: 3;
     text-align: center;
-    margin-top: 8px;
+    margin: 18px 16px 12px;
+    padding-bottom: 4px;
 }
 
 .s4-review-cta a {
-    color: var(--gold);
-    font-size: 0.82rem;
-    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 10px 22px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.14);
+    border: 1.5px solid rgba(207, 215, 228, 0.65);
+    color: #ffffff;
+    font-size: 0.9rem;
+    font-weight: 800;
     text-decoration: none;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.22);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.s4-review-cta a i {
+    color: #e8eef6;
+    font-size: 0.82rem;
 }
 
 .s4-review-cta a:hover {
-    text-decoration: underline;
+    background: rgba(255, 255, 255, 0.22);
+    border-color: #ffffff;
+    transform: translateY(-1px);
 }
 
 /* Overlays above sticky bar */
