@@ -1,0 +1,212 @@
+/* Hero Lab ↔ site integration (buyers, reviews, order form, video) */
+
+button.vp-cta,
+button.s7-cta,
+button.vp-sticky-btn {
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+button.join-group-btn.is-sold-out {
+    opacity: 0.55;
+    pointer-events: none;
+}
+
+.vp-header .logo-btn {
+    text-decoration: none;
+}
+
+.s2-timer {
+    flex-wrap: wrap;
+    row-gap: 8px;
+}
+
+.s2-t span {
+    font-size: 1.25rem;
+}
+
+@media (max-width: 360px) {
+    .s2-t span { font-size: 1.05rem; }
+    .s2-t-sep { font-size: 1rem; }
+}
+
+.s2-video-wrap {
+    margin-top: 14px;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    background: var(--navy);
+    box-shadow: 0 12px 32px rgba(28, 43, 70, 0.12);
+}
+
+.s2-video-wrap video {
+    width: 100%;
+    display: block;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+}
+
+.s2-video-switch {
+    position: absolute;
+    left: 50%;
+    bottom: 12px;
+    transform: translateX(-50%);
+    border: none;
+    border-radius: 999px;
+    padding: 8px 14px;
+    background: rgba(255, 255, 255, 0.92);
+    color: var(--navy);
+    font-size: 0.78rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.s2-video-wrap.is-full .s2-video-switch {
+    display: none;
+}
+
+/* Buyers list */
+.s-buyers {
+    padding: 0 18px 28px;
+    max-width: var(--max);
+    margin: 0 auto;
+}
+
+.s-buyers-card {
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 18px 16px;
+    backdrop-filter: blur(8px);
+}
+
+.s-buyers-head h3 {
+    font-family: var(--display);
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--navy);
+    margin: 0 0 4px;
+}
+
+.s-buyers-head p {
+    margin: 0 0 12px;
+    font-size: 0.78rem;
+    color: var(--ink-3);
+}
+
+.lp-buyers-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.lp-buyer-row {
+    display: grid;
+    grid-template-columns: 52px 1fr 64px 72px;
+    gap: 8px;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 0.82rem;
+}
+
+.lp-buyer-row:last-child {
+    border-bottom: none;
+}
+
+.lp-buyer-num {
+    font-weight: 700;
+    color: var(--gold);
+}
+
+.lp-buyer-name {
+    font-weight: 600;
+    color: var(--ink);
+}
+
+.lp-buyer-color {
+    font-size: 0.75rem;
+    padding: 3px 8px;
+    border-radius: 999px;
+    text-align: center;
+    background: var(--bg-alt);
+    color: var(--ink-2);
+}
+
+.lp-buyers-note {
+    margin: 10px 0 0;
+    font-size: 0.72rem;
+    color: var(--ink-3);
+    text-align: center;
+}
+
+/* Dynamic reviews in s4 */
+.s4-list .lp-review-card {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 12px;
+}
+
+.s4-list .lp-review-stars {
+    color: var(--gold);
+    font-size: 0.82rem;
+    margin-bottom: 8px;
+}
+
+.s4-list .lp-review-star-off {
+    opacity: 0.35;
+}
+
+.s4-list .lp-review-text {
+    margin: 0 0 10px;
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.88);
+}
+
+.s4-list .lp-review-author {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.s4-review-cta {
+    text-align: center;
+    margin-top: 8px;
+}
+
+.s4-review-cta a {
+    color: var(--gold);
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.s4-review-cta a:hover {
+    text-decoration: underline;
+}
+
+/* Overlays above sticky bar */
+#orderOverlay,
+#shareOverlay,
+#adminOverlay {
+    z-index: 10040;
+}
+
+body.order-open .vp-sticky,
+body.share-open .vp-sticky,
+body.admin-open .vp-sticky {
+    transform: translateX(-50%) translateY(120%);
+}

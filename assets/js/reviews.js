@@ -27,7 +27,24 @@
         }
 
         section.hidden = false;
+        var useHeroCards = list.classList.contains('s4-list');
         list.innerHTML = items.map(function (r) {
+            if (useHeroCards) {
+                var initial = escapeHtml((r.name || '?').charAt(0));
+                return (
+                    '<div class="s4-card lp-review-card">' +
+                    '<div class="s4-card-top">' +
+                    '<div class="s4-avatar">' + initial + '</div>' +
+                    '<div class="s4-meta">' +
+                    '<strong>' + escapeHtml(r.name) + '</strong>' +
+                    '<div class="s4-mini-stars lp-review-stars">' + renderStars(r.stars) + '</div>' +
+                    '</div>' +
+                    '<span class="s4-badge"><i class="fas fa-circle-check"></i> רכישה מאומתת</span>' +
+                    '</div>' +
+                    '<p class="s4-body lp-review-text">"' + escapeHtml(r.text) + '"</p>' +
+                    '</div>'
+                );
+            }
             return (
                 '<article class="lp-review-card">' +
                 '<div class="lp-review-stars" aria-label="' + (r.stars || 5) + ' כוכבים">' + renderStars(r.stars) + '</div>' +

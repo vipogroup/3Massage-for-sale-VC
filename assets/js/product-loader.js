@@ -306,9 +306,15 @@ function updateProductDetails(config) {
         productTitleElements.forEach(el => {
             el.textContent = config.productName;
         });
-        
-        // עדכון כותרת הדף
-        document.title = `VIPO - ${config.productName}`;
+        document.querySelectorAll('.vp-title').forEach(el => {
+            const parts = String(config.productName).split(/\s*-\s*/);
+            if (parts.length > 1) {
+                el.innerHTML = `${parts[0]}<span>${parts.slice(1).join(' - ')}</span>`;
+            } else {
+                el.innerHTML = `${config.productName}<span></span>`;
+            }
+        });
+        document.title = `${config.productName} | VIPO`;
     }
     
     // עדכון תיאור המוצר
@@ -323,7 +329,7 @@ function updateProductDetails(config) {
     const currency = config.currency || '₪';
     if (config.price != null) {
         const formatted = formatPrice(config.price, currency);
-        document.querySelectorAll('.original-price').forEach(el => {
+        document.querySelectorAll('.original-price, .vp-price-was, .vp-sticky-was, .s7-was').forEach(el => {
             el.textContent = formatted;
         });
         document.querySelectorAll('.sticky-cta-price .was').forEach(el => {
@@ -333,7 +339,7 @@ function updateProductDetails(config) {
 
     if (config.discountPrice != null) {
         const formatted = formatPrice(config.discountPrice, currency);
-        document.querySelectorAll('.current-price').forEach(el => {
+        document.querySelectorAll('.current-price, .vp-price-now, .vp-sticky-now, .s7-now').forEach(el => {
             el.textContent = formatted;
         });
         document.querySelectorAll('.sticky-cta-price .now').forEach(el => {
@@ -350,17 +356,22 @@ function updateProductDetails(config) {
             document.querySelectorAll('.discount-badge').forEach(el => {
                 el.textContent = `−${formatPrice(savings, currency)}`;
             });
+            const pct = Math.round((savings / Number(config.price)) * 100);
+            document.querySelectorAll('.vp-badge-save').forEach(el => {
+                el.textContent = `${pct}% הנחה`;
+            });
         }
     }
 
     if (config.priceAfterArrival != null) {
         const after = formatPrice(config.priceAfterArrival, currency);
-        document.querySelectorAll('.lp-price-note strong, .urgency-price-after').forEach(el => {
+        document.querySelectorAll('.lp-price-note strong, .urgency-price-after, .vp-price-note strong').forEach(el => {
             el.textContent = after;
         });
     }
-    
-    // עדכון מלאי / FOMO — orderApi (Google) > stockLive (JSONBin) > config.json
+
+
+    // עדכון מלאי / FOMO
     if (typeof StockApi !== 'undefined') {
         StockApi.init(config, updateStockFomo);
     } else if (typeof StockLive !== 'undefined') {
@@ -382,12 +393,15 @@ function updateProductDetails(config) {
     
     // עדכון מספר טלפון לוואטסאפ
     if (config.contactPhone) {
-        const whatsappLink = document.querySelector('.whatsapp-float a');
-        if (whatsappLink) {
-            // הסרת קידומת +972 אם קיימת והוספה מחדש
-            let phone = config.contactPhone.replace(/^\+?972|^0/, '');
-            whatsappLink.href = `https://wa.me/972${phone}`;
-        }
+        let phone = config.contactPhone.replace(/^\+?972|^0/, '');
+        const waBase = `https://wa.me/972${phone}`;
+        document.querySelectorAll('.whatsapp-float a, .vp-header a[href*="wa.me"], .vp-ft-list a[href*="wa.me"]').forEach(el => {
+            el.href = waBase;
+        });
+        document.querySelectorAll('.vp-ft-list a[href^="tel:"]').forEach(el => {
+            el.href = `tel:+972${phone}`;
+            el.innerHTML = el.innerHTML.replace(/[\d\-]+/, '0' + phone);
+        });
     }
 }
 
@@ -412,6 +426,10 @@ function updateStockFomo(totalUnits, soldUnits) {
     if (bar) {
         bar.style.width = `${pct.toFixed(1)}%`;
     }
+
+    document.querySelectorAll('.s2-progress-fill').forEach(el => {
+        el.style.width = `${pct.toFixed(1)}%`;
+    });
 }
 
 window.updateStockFomo = updateStockFomo;
