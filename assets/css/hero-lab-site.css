@@ -69,6 +69,239 @@ button.join-group-btn.is-sold-out {
     text-transform: uppercase;
 }
 
+/* ── Compact layout: smaller content, header stays full size ── */
+html {
+    font-size: 14px;
+}
+
+body {
+    padding-bottom: 72px;
+}
+
+.vp-header {
+    font-size: 16px;
+}
+
+.vp-header .vp-icon-btn {
+    width: 42px;
+    height: 42px;
+    font-size: 19px;
+}
+
+.vp-header .vp-logo-word {
+    font-size: 16px;
+}
+
+.vp-header .vp-logo-tag {
+    font-size: 8.5px;
+}
+
+.vp-header .vp-logo-rule {
+    width: 22px;
+    height: 2px;
+    margin: 5px auto 4px;
+}
+
+main .vp-stage {
+    aspect-ratio: 16 / 11;
+}
+
+main .vp-copy {
+    padding: 14px 16px 2px;
+}
+
+main .vp-title {
+    font-size: 1.5rem;
+}
+
+main .vp-title span {
+    font-size: 0.74rem;
+    margin-top: 4px;
+}
+
+main .vp-price-now {
+    font-size: 2rem;
+}
+
+main .vp-trust li {
+    padding: 10px 4px;
+    font-size: 0.64rem;
+}
+
+main .vp-trust i {
+    font-size: 1rem;
+}
+
+main .s2-bg {
+    padding: 16px 14px 20px;
+}
+
+main .s2-card {
+    padding: 14px;
+}
+
+main .s2-t span {
+    font-size: 1.2rem;
+}
+
+main .s2-t {
+    min-width: 52px;
+    padding: 8px 0 5px;
+}
+
+main .s2-stat-num {
+    font-size: 1.3rem;
+}
+
+main .s3,
+main .s5,
+main .s6 {
+    padding: 20px 14px;
+}
+
+main .s4 {
+    padding: 38px 14px 42px;
+    margin: 8px 0;
+}
+
+main .sec-card {
+    padding: 22px 16px;
+}
+
+main .sec-card-title {
+    font-size: 1.2rem;
+    margin-bottom: 14px;
+}
+
+main .sec-card-title::after {
+    width: 36px;
+    margin-top: 8px;
+}
+
+main .s3-grid {
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+main .s3-ben {
+    padding: 14px 12px 12px;
+}
+
+main .s3-ben-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+}
+
+main .s8 {
+    padding: 0 14px;
+    margin: 10px 0;
+}
+
+main .s8-inner {
+    padding: 26px 18px 22px;
+}
+
+main .s8-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.25rem;
+    margin-bottom: 12px;
+}
+
+main .s8-title {
+    font-size: 1.15rem;
+}
+
+main .s8-btn {
+    min-height: 44px;
+    padding: 0 22px;
+    font-size: 0.82rem;
+}
+
+main .s7 {
+    padding: 4px 14px 28px;
+}
+
+main .s7-inner {
+    padding: 28px 18px 22px;
+}
+
+main .s7-title {
+    font-size: 1.3rem;
+}
+
+main .s7-now {
+    font-size: 2rem;
+}
+
+main .s7-cta {
+    min-height: 48px;
+    font-size: 0.92rem;
+}
+
+main .vp-eyebrow {
+    margin-bottom: 10px;
+}
+
+main > section + section::before {
+    height: 10px;
+}
+
+main > section + section::after {
+    top: 12px;
+    width: 5px;
+    height: 5px;
+}
+
+main .vp-orb {
+    opacity: 0.45;
+    transform: scale(0.85);
+}
+
+.s-buyers {
+    padding: 0 14px 18px;
+}
+
+.s-buyers-card {
+    padding: 14px;
+}
+
+.s-buyers-head h3 {
+    font-size: 0.95rem;
+}
+
+.lp-buyer-row {
+    padding: 8px 0;
+    font-size: 0.78rem;
+}
+
+.s2-video-wrap video {
+    max-height: 190px;
+}
+
+.vp-footer .vp-ft-top {
+    padding: 24px 18px 16px;
+}
+
+.vp-footer .vp-ft-bottom {
+    padding: 14px 18px 18px;
+}
+
+.vp-sticky {
+    padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
+}
+
+.vp-sticky-now {
+    font-size: 1.22rem;
+}
+
+.vp-sticky-btn {
+    min-height: 46px;
+    font-size: 0.86rem;
+}
+
 .s2-timer {
     flex-wrap: wrap;
     row-gap: 8px;
