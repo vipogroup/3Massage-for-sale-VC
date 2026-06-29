@@ -108,7 +108,13 @@ const StockApi = (function () {
                 city: order.city || '',
                 note: order.note || '',
                 color: order.color || '',
-                product: (appConfig && appConfig.productName) || ''
+                product: (appConfig && appConfig.productName) || '',
+                payment: order.payment || '',
+                deliveryType: order.deliveryType || '',
+                deliveryCost: order.deliveryCost || 0,
+                totalPrice: order.totalPrice || 0,
+                address: order.address || '',
+                distanceKm: order.distanceKm || ''
             })
         });
         const text = await res.text();

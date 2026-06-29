@@ -104,10 +104,9 @@ body.order-open {
 
 .order-price-row {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
     margin: 4px 0 14px;
     padding: 14px 12px;
     border-radius: 14px;
@@ -115,8 +114,36 @@ body.order-open {
     border: 1px solid var(--line, #e3e8ef);
 }
 
+.order-price-breakdown {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.order-price-line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--ink-2, #525c6e);
+}
+
+.order-price-line-total {
+    margin-top: 4px;
+    padding-top: 8px;
+    border-top: 1px solid var(--line, #e3e8ef);
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: var(--navy, #1c2b46);
+}
+
+.order-product-price {
+    font-weight: 700;
+}
+
 .order-price-label {
-    width: 100%;
     text-align: center;
     font-size: 0.72rem;
     font-weight: 700;
@@ -126,16 +153,16 @@ body.order-open {
 
 .order-price-now {
     font-family: var(--display, 'Assistant', sans-serif);
-    font-size: 1.65rem;
+    font-size: 1.35rem;
     font-weight: 900;
     color: var(--navy, #1c2b46);
     line-height: 1;
 }
 
 .order-price-was {
-    font-size: 0.85rem;
+    font-size: 0.72rem;
     color: var(--ink-3, #8b95a6);
-    text-decoration: line-through;
+    text-align: center;
 }
 
 .order-lead {
@@ -295,6 +322,124 @@ body.order-open {
 
 .order-color-swatch.is-on .order-color-swatch-label {
     color: var(--navy, #1c2b46);
+}
+
+.order-choice-field {
+    margin-bottom: 12px;
+}
+
+.order-choice-field.is-error .order-choice-grid,
+.order-choice-field.is-error .order-choice-row {
+    outline: 2px solid #dc2626;
+    outline-offset: 3px;
+    border-radius: 14px;
+}
+
+.order-choice-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+}
+
+.order-choice-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+}
+
+.order-choice-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    min-height: 48px;
+    padding: 10px 8px;
+    border: 2px solid var(--line, #e3e8ef);
+    border-radius: 14px;
+    background: #fff;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--ink-2, #525c6e);
+    transition: border-color 0.18s, box-shadow 0.18s, transform 0.18s, background 0.18s;
+}
+
+.order-choice-btn-wide {
+    min-height: 58px;
+}
+
+.order-choice-title {
+    font-size: 0.82rem;
+    font-weight: 800;
+    color: var(--navy, #1c2b46);
+}
+
+.order-choice-sub {
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: var(--ink-3, #8b95a6);
+}
+
+.order-choice-btn:hover {
+    border-color: rgba(60, 80, 112, 0.35);
+    transform: translateY(-1px);
+}
+
+.order-choice-btn:focus {
+    outline: none;
+    border-color: var(--accent, #3c5070);
+    box-shadow: 0 0 0 3px rgba(60, 80, 112, 0.12);
+}
+
+.order-choice-btn.is-on {
+    border-color: var(--navy, #1c2b46);
+    box-shadow: 0 0 0 3px rgba(28, 43, 70, 0.1);
+    background: rgba(244, 246, 249, 0.65);
+}
+
+.order-choice-btn.is-on .order-choice-title {
+    color: var(--navy, #1c2b46);
+}
+
+.order-delivery-panel {
+    margin: 0 0 12px;
+    padding: 14px 12px 2px;
+    border-radius: 14px;
+    background: rgba(244, 246, 249, 0.55);
+    border: 1px dashed rgba(93, 107, 133, 0.28);
+}
+
+.order-delivery-panel[hidden] {
+    display: none !important;
+}
+
+.order-panel-hint {
+    margin: 0 0 12px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    line-height: 1.45;
+    color: var(--accent, #3c5070);
+    text-align: center;
+}
+
+.order-field-row {
+    display: grid;
+    grid-template-columns: 1fr 88px;
+    gap: 8px;
+}
+
+.order-field-row + .order-field-row {
+    grid-template-columns: 1fr 1fr;
+}
+
+.order-field-col .order-input {
+    margin-bottom: 12px;
+}
+
+.order-field-col-narrow {
+    min-width: 0;
 }
 
 .order-btn {
