@@ -232,15 +232,15 @@
         <input type="text" id="orderName" class="order-input" required autocomplete="name" placeholder="ישראל ישראלי">
         <label for="orderPhone">נייד *</label>
         <input type="tel" id="orderPhone" class="order-input" required autocomplete="tel" inputmode="tel" placeholder="050-0000000">
-        <label for="orderCity">עיר</label>
-        <input type="text" id="orderCity" class="order-input" autocomplete="address-level2" placeholder="תל אביב">
-        <label for="orderColor">צבע כורסה</label>
-        <select id="orderColor" class="order-input">
-          <option value="">בחר צבע</option>
+        <label for="orderColor">צבע כורסה *</label>
+        <select id="orderColor" class="order-input" required>
+          <option value="" disabled selected hidden>בחר צבע</option>
           <option value="חום">חום</option>
           <option value="בז'">בז'</option>
           <option value="כחול">כחול</option>
         </select>
+        <label for="orderCity">עיר</label>
+        <input type="text" id="orderCity" class="order-input" autocomplete="address-level2" placeholder="תל אביב">
         <label for="orderNote">הערות</label>
         <textarea id="orderNote" class="order-input order-textarea" rows="2" placeholder="שאלה, זמן מועדף…"></textarea>
         <button type="submit" class="order-btn order-btn-primary" id="orderSubmitBtn">
