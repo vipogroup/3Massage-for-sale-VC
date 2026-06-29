@@ -7,19 +7,28 @@
         { img: 'assets/images/chair-gray-hires.png', hex: '#7d7d80', label: 'אפור' },
         { img: 'assets/images/chair-black-hires.png', hex: '#1c1c1e', label: 'שחור' }
     ];
-    var ROTATE_MS = 2000;
+    var ROTATE_MS = 3800;
+    var FADE_MS = 650;
     var RESUME_MS = 120000;
 
     function initGallery() {
-        var imgEl = document.getElementById('vpImg');
+        var media = document.querySelector('.vp-stage-media');
+        var slideEls = media ? media.querySelectorAll('.vp-slide') : [];
         var dotsEl = document.getElementById('vpDots');
         var swEl = document.getElementById('vpSwatches');
-        if (!imgEl || !dotsEl || !swEl) return;
+        if (!media || slideEls.length < 2 || !dotsEl || !swEl) return;
 
         var idx = 0;
+        var front = 0;
         var locked = false;
+        var animating = false;
         var timer = null;
         var resumeTimer = null;
+
+        SLIDES.forEach(function (s) {
+            var preload = new Image();
+            preload.src = s.img;
+        });
 
         SLIDES.forEach(function (s, i) {
             var dot = document.createElement('button');
@@ -38,18 +47,48 @@
             swEl.appendChild(sw);
         });
 
-        function go(i) {
-            idx = (i + SLIDES.length) % SLIDES.length;
-            imgEl.classList.add('vp-out');
-            setTimeout(function () {
-                imgEl.src = SLIDES[idx].img;
-                imgEl.classList.remove('vp-out');
-            }, 220);
+        function updateIndicators() {
             Array.prototype.forEach.call(dotsEl.children, function (d, di) {
                 d.classList.toggle('is-on', di === idx);
             });
             Array.prototype.forEach.call(swEl.children, function (s, si) {
                 s.classList.toggle('is-on', si === idx);
+            });
+        }
+
+        function setSlideSrc(el, src) {
+            if (el.getAttribute('src') === src) return Promise.resolve();
+            return new Promise(function (resolve) {
+                function done() { resolve(); }
+                el.onload = done;
+                el.onerror = done;
+                el.src = src;
+                if (el.complete) {
+                    el.onload = null;
+                    if (el.decode) {
+                        el.decode().then(done).catch(done);
+                    } else {
+                        done();
+                    }
+                }
+            });
+        }
+
+        function go(i) {
+            var nextIdx = (i + SLIDES.length) % SLIDES.length;
+            if (animating || nextIdx === idx) return;
+
+            var currentEl = slideEls[front];
+            var nextEl = slideEls[1 - front];
+            animating = true;
+
+            setSlideSrc(nextEl, SLIDES[nextIdx].img).then(function () {
+                nextEl.classList.add('is-active');
+                currentEl.classList.remove('is-active');
+                front = 1 - front;
+                idx = nextIdx;
+                updateIndicators();
+                setTimeout(function () { animating = false; }, FADE_MS);
             });
         }
 
@@ -70,11 +109,11 @@
         function startAuto() {
             clearInterval(timer);
             timer = setInterval(function () {
-                if (!locked) go(idx + 1);
+                if (!locked && !animating) go(idx + 1);
             }, ROTATE_MS);
         }
 
-        go(0);
+        updateIndicators();
         startAuto();
     }
 
