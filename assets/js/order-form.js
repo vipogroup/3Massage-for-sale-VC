@@ -24,6 +24,7 @@
     let distanceCalcStatus = 'idle';
     let distanceCalcTimer = null;
     let distanceCalcRequestId = 0;
+    let distanceIsApproximate = false;
 
     function $(sel) {
         return document.querySelector(sel);
@@ -61,8 +62,22 @@
         return /^5\d{8}$/.test(d);
     }
 
+    function normalizeZip(raw) {
+        let digits = String(raw || '').replace(/\D/g, '');
+        if (!digits) return '';
+        if (digits.length < 7) {
+            digits = digits.padStart(7, '0');
+        }
+        return digits.slice(0, 7);
+    }
+
     function validateZip(raw) {
-        return /^\d{5,7}$/.test(String(raw || '').replace(/\D/g, ''));
+        return /^\d{7}$/.test(normalizeZip(raw));
+    }
+
+    function formatZipDisplay(raw) {
+        const zip = normalizeZip(raw);
+        return zip || '';
     }
 
     function getProductPrice() {
@@ -102,7 +117,7 @@
             street: ($('#orderDelStreet') && $('#orderDelStreet').value.trim()) || '',
             houseNumber: ($('#orderDelHouse') && $('#orderDelHouse').value.trim()) || '',
             apartment: ($('#orderDelApt') && $('#orderDelApt').value.trim()) || '',
-            zip: String(($('#orderDelZip') && $('#orderDelZip').value) || '').replace(/\D/g, '')
+            zip: normalizeZip(($('#orderDelZip') && $('#orderDelZip').value) || '')
         };
     }
 
@@ -133,29 +148,65 @@
         }
         distanceCalcRequestId += 1;
         calculatedDistanceKm = null;
+        distanceIsApproximate = false;
         distanceCalcStatus = 'idle';
         setDistanceStatus('', '');
     }
 
-    async function geocodeAddress(fields) {
-        const params = new URLSearchParams({
+    function sleep(ms) {
+        return new Promise(function (resolve) {
+            setTimeout(resolve, ms);
+        });
+    }
+
+    async function nominatimSearch(params) {
+        const query = new URLSearchParams({
             format: 'json',
             limit: '1',
             countrycodes: 'il',
-            street: fields.street + ' ' + fields.houseNumber,
-            city: fields.city,
-            postalcode: fields.zip
+            'accept-language': 'he'
         });
-        const res = await fetch('https://nominatim.openstreetmap.org/search?' + params.toString(), {
+        Object.keys(params).forEach(function (key) {
+            if (params[key]) query.set(key, params[key]);
+        });
+
+        const res = await fetch('https://nominatim.openstreetmap.org/search?' + query.toString(), {
             headers: { Accept: 'application/json' }
         });
-        if (!res.ok) throw new Error('geocode_failed');
+        if (!res.ok) return null;
         const data = await res.json();
-        if (!Array.isArray(data) || !data.length) throw new Error('address_not_found');
+        if (!Array.isArray(data) || !data.length) return null;
         return {
             lat: Number(data[0].lat),
-            lon: Number(data[0].lon)
+            lon: Number(data[0].lon),
+            label: data[0].display_name || ''
         };
+    }
+
+    async function geocodeAddress(fields) {
+        const zip = normalizeZip(fields.zip);
+        const fullAddress = fields.street + ' ' + fields.houseNumber + ', ' + fields.city + ', ' + zip + ', ישראל';
+        const streetAddress = fields.street + ' ' + fields.houseNumber + ', ' + fields.city + ', ישראל';
+        const zipCity = zip + ', ' + fields.city + ', ישראל';
+
+        let result = await nominatimSearch({ q: fullAddress });
+        if (result) {
+            return { lat: result.lat, lon: result.lon, approximate: false };
+        }
+
+        await sleep(1100);
+        result = await nominatimSearch({ q: streetAddress });
+        if (result) {
+            return { lat: result.lat, lon: result.lon, approximate: false };
+        }
+
+        await sleep(1100);
+        result = await nominatimSearch({ q: zipCity });
+        if (result) {
+            return { lat: result.lat, lon: result.lon, approximate: true };
+        }
+
+        throw new Error('address_not_found');
     }
 
     async function fetchDrivingDistanceKm(origin, destination) {
@@ -185,6 +236,7 @@
         const requestId = ++distanceCalcRequestId;
         distanceCalcStatus = 'loading';
         calculatedDistanceKm = null;
+        distanceIsApproximate = false;
         const originName = getDeliverySettings().origin.name;
         setDistanceStatus('מחשב מרחק נסיעה מ' + originName + '…', 'loading');
         updatePriceSummary();
@@ -196,16 +248,20 @@
             if (requestId !== distanceCalcRequestId) return;
 
             calculatedDistanceKm = km;
+            distanceIsApproximate = !!destination.approximate;
             distanceCalcStatus = 'ready';
             setDistanceStatus(
-                'מרחק נסיעה משוער: ' + formatDistance(km) + ' ק"מ מ' + originName,
+                (distanceIsApproximate
+                    ? 'מרחק משוער לפי מיקוד ועיר: '
+                    : 'מרחק נסיעה משוער: ') +
+                    formatDistance(km) + ' ק"מ מ' + originName,
                 'ready'
             );
         } catch (err) {
             if (requestId !== distanceCalcRequestId) return;
             calculatedDistanceKm = null;
             distanceCalcStatus = 'error';
-            setDistanceStatus('לא הצלחנו לזהות את הכתובת — בדוק/י את הפרטים', 'error');
+            setDistanceStatus('לא הצלחנו לזהות את הכתובת — ודא/י עיר, רחוב ומיקוד 7 ספרות מדואר ישראל', 'error');
         }
 
         updatePriceSummary();
@@ -501,6 +557,14 @@
         if (!panel) return;
         panel.addEventListener('input', scheduleDistanceCalculation);
         panel.addEventListener('change', scheduleDistanceCalculation);
+        const zipEl = $('#orderDelZip');
+        if (zipEl) {
+            zipEl.addEventListener('blur', function () {
+                const normalized = formatZipDisplay(zipEl.value);
+                if (normalized) zipEl.value = normalized;
+                scheduleDistanceCalculation();
+            });
+        }
     }
 
     function collectFormData() {
@@ -580,7 +644,7 @@
                 return false;
             }
             if (!validateZip(fields.zip)) {
-                setStatus('נא להזין מיקוד תקין (5–7 ספרות)', 'error');
+                setStatus('נא להזין מיקוד בן 7 ספרות (כמו בדואר ישראל)', 'error');
                 $('#orderDelZip') && $('#orderDelZip').focus();
                 return false;
             }
@@ -753,8 +817,8 @@
               <input type="text" id="orderDelApt" class="order-input" placeholder="דירה 3">
             </div>
             <div class="order-field-col">
-              <label for="orderDelZip">מיקוד *</label>
-              <input type="text" id="orderDelZip" class="order-input" inputmode="numeric" autocomplete="postal-code" placeholder="1234567" maxlength="7">
+              <label for="orderDelZip">מיקוד * <span class="order-label-note">7 ספרות</span></label>
+              <input type="text" id="orderDelZip" class="order-input" inputmode="numeric" autocomplete="postal-code" placeholder="1234567" maxlength="7" pattern="[0-9]{7}">
             </div>
           </div>
           <a class="order-zip-lookup" href="https://doar.israelpost.co.il/locatezip" target="_blank" rel="noopener noreferrer">

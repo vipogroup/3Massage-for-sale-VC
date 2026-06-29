@@ -222,6 +222,11 @@ body.order-open {
     color: var(--navy, #1c2b46);
 }
 
+.order-label-note {
+    font-weight: 600;
+    color: var(--ink-3, #8b95a6);
+}
+
 .order-input {
     width: 100%;
     box-sizing: border-box;
