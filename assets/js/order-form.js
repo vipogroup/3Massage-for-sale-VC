@@ -262,14 +262,9 @@
     <span class="order-sheet-header-spacer" aria-hidden="true"></span>
   </header>
   <div class="order-sheet-body">
-    <div class="order-price-card">
-      <span class="order-price-label">מחיר מכולה · VIPO</span>
-      <span class="order-price-now current-price">₪2,900</span>
-      <span class="order-price-was original-price">₪12,000</span>
-    </div>
-    <p class="order-lead">מלא/י פרטים — נפתח וואטסאפ עם ההזמנה שלך</p>
-    <p class="order-api-note" id="orderApiNote"></p>
     <div class="order-form-card">
+      <p class="order-lead">מלא/י פרטים — נפתח וואטסאפ עם ההזמנה שלך</p>
+      <p class="order-api-note" id="orderApiNote"></p>
       <form id="orderForm" novalidate>
         <label for="orderName">שם מלא *</label>
         <input type="text" id="orderName" class="order-input" required autocomplete="name" placeholder="ישראל ישראלי">
@@ -290,6 +285,11 @@
         <input type="text" id="orderCity" class="order-input" autocomplete="address-level2" placeholder="תל אביב">
         <label for="orderNote">הערות</label>
         <textarea id="orderNote" class="order-input order-textarea" rows="2" placeholder="שאלה, זמן מועדף…"></textarea>
+        <div class="order-price-row" aria-label="סיכום מחיר">
+          <span class="order-price-label">מחיר מכולה · VIPO</span>
+          <span class="order-price-now current-price">₪2,900</span>
+          <span class="order-price-was original-price">₪12,000</span>
+        </div>
         <button type="submit" class="order-btn order-btn-primary" id="orderSubmitBtn">
           <span class="order-btn-text">שלח הזמנה בוואטסאפ</span>
           <i class="fab fa-whatsapp" aria-hidden="true"></i>
