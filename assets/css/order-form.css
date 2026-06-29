@@ -447,6 +447,34 @@ body.order-open {
     color: #dc2626;
 }
 
+.order-zip-lookup {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    margin: -4px 0 12px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(60, 80, 112, 0.18);
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--accent, #3c5070);
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background 0.18s, border-color 0.18s, transform 0.18s;
+}
+
+.order-zip-lookup:hover {
+    background: #fff;
+    border-color: var(--accent, #3c5070);
+    transform: translateY(-1px);
+}
+
+.order-zip-lookup i {
+    font-size: 0.82rem;
+}
+
 .order-field-row {
     display: grid;
     grid-template-columns: 1fr 88px;

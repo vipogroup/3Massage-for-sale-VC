@@ -757,6 +757,10 @@
               <input type="text" id="orderDelZip" class="order-input" inputmode="numeric" autocomplete="postal-code" placeholder="1234567" maxlength="7">
             </div>
           </div>
+          <a class="order-zip-lookup" href="https://doar.israelpost.co.il/locatezip" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+            איתור מיקוד בדואר ישראל
+          </a>
           <p class="order-distance-status" id="orderDistanceStatus" aria-live="polite"></p>
         </div>
         <label for="orderNote">הערות</label>
