@@ -153,60 +153,12 @@
         setDistanceStatus('', '');
     }
 
-    function sleep(ms) {
-        return new Promise(function (resolve) {
-            setTimeout(resolve, ms);
-        });
-    }
-
-    async function nominatimSearch(params) {
-        const query = new URLSearchParams({
-            format: 'json',
-            limit: '1',
-            countrycodes: 'il',
-            'accept-language': 'he'
-        });
-        Object.keys(params).forEach(function (key) {
-            if (params[key]) query.set(key, params[key]);
-        });
-
-        const res = await fetch('https://nominatim.openstreetmap.org/search?' + query.toString(), {
-            headers: { Accept: 'application/json' }
-        });
-        if (!res.ok) return null;
-        const data = await res.json();
-        if (!Array.isArray(data) || !data.length) return null;
-        return {
-            lat: Number(data[0].lat),
-            lon: Number(data[0].lon),
-            label: data[0].display_name || ''
-        };
-    }
-
     async function geocodeAddress(fields) {
-        const zip = normalizeZip(fields.zip);
-        const fullAddress = fields.street + ' ' + fields.houseNumber + ', ' + fields.city + ', ' + zip + ', ישראל';
-        const streetAddress = fields.street + ' ' + fields.houseNumber + ', ' + fields.city + ', ישראל';
-        const zipCity = zip + ', ' + fields.city + ', ישראל';
-
-        let result = await nominatimSearch({ q: fullAddress });
-        if (result) {
-            return { lat: result.lat, lon: result.lon, approximate: false };
+        if (!global.DeliveryGeocode) {
+            throw new Error('geocoder_missing');
         }
-
-        await sleep(1100);
-        result = await nominatimSearch({ q: streetAddress });
-        if (result) {
-            return { lat: result.lat, lon: result.lon, approximate: false };
-        }
-
-        await sleep(1100);
-        result = await nominatimSearch({ q: zipCity });
-        if (result) {
-            return { lat: result.lat, lon: result.lon, approximate: true };
-        }
-
-        throw new Error('address_not_found');
+        await DeliveryGeocode.init();
+        return DeliveryGeocode.geocodeAddress(fields);
     }
 
     async function fetchDrivingDistanceKm(origin, destination) {
@@ -250,18 +202,23 @@
             calculatedDistanceKm = km;
             distanceIsApproximate = !!destination.approximate;
             distanceCalcStatus = 'ready';
-            setDistanceStatus(
-                (distanceIsApproximate
-                    ? 'מרחק משוער לפי מיקוד ועיר: '
-                    : 'מרחק נסיעה משוער: ') +
-                    formatDistance(km) + ' ק"מ מ' + originName,
-                'ready'
-            );
+
+            let statusMsg = (distanceIsApproximate
+                ? 'מרחק משוער '
+                : 'מרחק נסיעה ') + formatDistance(km) + ' ק"מ מ' + originName;
+
+            if (destination.resolvedCity && destination.resolvedCity !== fields.city) {
+                statusMsg += ' · זוהה יישוב: ' + destination.resolvedCity;
+            } else if (distanceIsApproximate) {
+                statusMsg += ' · לפי מיקוד/יישוב';
+            }
+
+            setDistanceStatus(statusMsg, 'ready');
         } catch (err) {
             if (requestId !== distanceCalcRequestId) return;
             calculatedDistanceKm = null;
             distanceCalcStatus = 'error';
-            setDistanceStatus('לא הצלחנו לזהות את הכתובת — ודא/י עיר, רחוב ומיקוד 7 ספרות מדואר ישראל', 'error');
+            setDistanceStatus('לא הצלחנו לזהות את הכתובת — ודא/י שם יישוב מלא (כמו בדואר ישראל) ומיקוד 7 ספרות', 'error');
         }
 
         updatePriceSummary();
@@ -799,8 +756,8 @@
         </div>
         <div class="order-delivery-panel" id="orderDeliveryPanel" hidden>
           <p class="order-panel-hint" id="orderDeliveryHint"></p>
-          <label for="orderDelCity">עיר *</label>
-          <input type="text" id="orderDelCity" class="order-input" autocomplete="address-level2" placeholder="תל אביב">
+          <label for="orderDelCity">יישוב / עיר * <span class="order-label-note">כמו בדואר ישראל</span></label>
+          <input type="text" id="orderDelCity" class="order-input" autocomplete="address-level2" placeholder="נעלה">
           <div class="order-field-row">
             <div class="order-field-col">
               <label for="orderDelStreet">רחוב *</label>
