@@ -534,6 +534,9 @@ main .vp-orb {
     background: #eef1f5;
 }
 
+.lp-buyer-color.is-cream { background: #f5f0e8; color: #6b5c45; }
+.lp-buyer-color.is-gray { background: #ececec; color: #4a4a4d; }
+.lp-buyer-color.is-black { background: #e8e8ea; color: #1c1c1e; }
 .lp-buyer-color.is-brown { background: #f5ebe0; color: #7c4a1e; }
 .lp-buyer-color.is-beige { background: #f3efe6; color: #6b5c45; }
 .lp-buyer-color.is-blue { background: #e8eef6; color: #1c4a7a; }

@@ -1,5 +1,8 @@
 (function () {
     const COLOR_CLASS = {
+        'שמנת': 'is-cream',
+        'אפור': 'is-gray',
+        'שחור': 'is-black',
         'חום': 'is-brown',
         "בז'": 'is-beige',
         'בז': 'is-beige',

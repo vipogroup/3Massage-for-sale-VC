@@ -3,14 +3,14 @@
  */
 (function () {
     const COLOR_OPTIONS = [
-        { value: 'חום', hex: '#8b5e34' },
-        { value: "בז'", hex: '#d4c4a8' },
-        { value: 'כחול', hex: '#4a6fa5' }
+        { value: 'שמנת', hex: '#efe9df' },
+        { value: 'אפור', hex: '#7d7d80' },
+        { value: 'שחור', hex: '#1c1c1e' }
     ];
 
     const PAYMENT_OPTIONS = [
         { value: 'העברה בנקאית', label: 'העברה בנקאית' },
-        { value: 'אשראי (טלפוני)', label: 'אשראי טלפוני' },
+        { value: 'PayBox', label: 'PayBox' },
         { value: 'Bit', label: 'Bit' },
         { value: 'מזומן במסירה', label: 'מזומן במסירה' }
     ];
