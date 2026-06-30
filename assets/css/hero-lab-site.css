@@ -286,40 +286,37 @@ main .s3-tech-body {
 
 main .s3-feats {
     margin-top: 14px;
-    padding: 8px 4px 10px;
+    padding: 10px 6px 12px;
 }
 
 main .s3-feats-hub {
-    width: min(100%, 322px);
-    height: 300px;
+    width: min(100%, 348px);
+    height: 336px;
 }
-
-main .s3-feats-ring--inner { width: 146px; height: 146px; }
-main .s3-feats-ring--outer { width: 272px; height: 272px; }
 
 main .s3-feats-core {
-    width: 100px;
-    height: 100px;
+    width: 128px;
+    height: 128px;
 }
 
-main .s3-feats-core-num {
-    font-size: 1.3rem;
+main .s3-feats-core-title {
+    font-size: .74rem;
 }
 
 main .s3-feats-node {
-    width: 54px;
-    margin-left: -27px;
-    --radius: calc(64px + var(--ring) * 40px);
+    width: 68px;
+    margin-left: -34px;
+    --radius: calc(84px + var(--ring) * 44px);
 }
 
 main .s3-feats-node i {
-    width: 28px;
-    height: 28px;
-    font-size: .68rem;
+    width: 38px;
+    height: 38px;
+    font-size: .82rem;
 }
 
 main .s3-feats-node span {
-    font-size: .48rem;
+    font-size: .54rem;
 }
 
 main .s3-dims {
