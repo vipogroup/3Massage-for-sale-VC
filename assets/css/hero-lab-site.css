@@ -251,6 +251,25 @@ main .s3-tech-body {
     padding: 12px;
 }
 
+main .s3-feats {
+    margin-top: 16px;
+    padding: 16px 12px 14px;
+}
+
+main .s3-feats-grid {
+    gap: 6px;
+}
+
+main .s3-feats-grid li {
+    padding: 8px;
+    font-size: .66rem;
+}
+
+main .s3-dims {
+    margin-top: 14px;
+    padding: 14px 12px;
+}
+
 main .s8 {
     padding: 0 14px;
     margin: 10px 0;

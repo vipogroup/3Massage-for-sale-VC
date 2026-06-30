@@ -477,6 +477,84 @@ main > section + section::after {
     .s3-tech-card--wide { grid-column: 1 / -1; }
     .s3-tech-card--wide .s3-tech-media img { aspect-ratio: 21 / 9; max-height: 280px; }
 }
+
+.s3-feats {
+    margin-top: 22px; padding: 18px 16px 16px;
+    background: linear-gradient(165deg, rgba(28,43,70,.96), rgba(36,58,94,.94));
+    border-radius: var(--r); color: #fff; text-align: center;
+    border: 1px solid rgba(255,255,255,.08); box-shadow: var(--sh-md);
+}
+.s3-feats-title {
+    font-size: .92rem; font-weight: 800; display: flex; align-items: center;
+    justify-content: center; gap: 10px; margin: 0 0 10px;
+}
+.s3-feats-title i {
+    width: 30px; height: 30px; border-radius: 9px;
+    background: rgba(255,255,255,.12); display: flex; align-items: center;
+    justify-content: center; font-size: .8rem; color: var(--accent-2);
+}
+.s3-feats-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    margin: 0 auto 14px; padding: 8px 14px; border-radius: 999px;
+    background: linear-gradient(135deg, #f7f3ec, #e8dcc8);
+    color: var(--navy); font-size: .78rem; font-weight: 800;
+    box-shadow: 0 4px 14px rgba(0,0,0,.18);
+}
+.s3-feats-badge span {
+    width: 28px; height: 28px; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: var(--navy); color: var(--accent-2); font-size: .82rem;
+}
+.s3-feats-grid {
+    list-style: none; margin: 0; padding: 0;
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px;
+}
+.s3-feats-grid li {
+    display: flex; align-items: center; gap: 8px; padding: 9px 10px;
+    border-radius: 12px; background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.08); text-align: start;
+    font-size: .68rem; font-weight: 600; line-height: 1.35;
+}
+.s3-feats-grid i {
+    width: 26px; height: 26px; border-radius: 8px; flex-shrink: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: rgba(255,255,255,.1); color: var(--accent-2); font-size: .72rem;
+}
+@media (min-width: 640px) {
+    .s3-feats-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+.s3-dims {
+    margin-top: 18px; padding: 18px 16px;
+    background: rgba(255,255,255,.88); border-radius: var(--r);
+    border: 1px solid rgba(93,107,133,.14); box-shadow: var(--sh-sm);
+}
+.s3-dims-title {
+    font-size: .92rem; font-weight: 800; color: var(--navy);
+    display: flex; align-items: center; gap: 10px; margin: 0 0 12px;
+}
+.s3-dims-title i {
+    width: 30px; height: 30px; border-radius: 9px;
+    background: linear-gradient(135deg, var(--navy), var(--navy-2));
+    display: flex; align-items: center; justify-content: center;
+    font-size: .8rem; color: var(--accent-2);
+}
+.s3-dims-grid { display: grid; gap: 12px; }
+.s3-dims-media {
+    border-radius: 12px; overflow: hidden;
+    background: linear-gradient(180deg, #eef4fb 0%, #f7f3ec 100%);
+    border: 1px solid rgba(93,107,133,.1);
+}
+.s3-dims-media img { display: block; width: 100%; height: auto; }
+.s3-dims-table { width: 100%; border-collapse: collapse; }
+.s3-dims-table tr { border-bottom: 1px solid rgba(93,107,133,.14); }
+.s3-dims-table tr:last-child { border-bottom: none; }
+.s3-dims-table td { padding: 10px 6px; font-size: .76rem; vertical-align: top; }
+.s3-dims-table td:first-child { font-weight: 800; color: var(--navy); white-space: nowrap; padding-inline-end: 10px; width: 42%; }
+.s3-dims-table td:last-child { color: var(--ink-2); font-weight: 600; }
+@media (min-width: 640px) {
+    .s3-dims-grid { grid-template-columns: 1.1fr .9fr; align-items: start; }
+}
 /* ══════════════════════════════════════════════
    Section 4 — Reviews  (DARK zone — breaks the white)
 ══════════════════════════════════════════════ */
