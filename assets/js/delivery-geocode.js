@@ -33,8 +33,15 @@
         return row[b.length];
     }
 
-    function loadJson(url) {
-        return fetch(url, { cache: 'force-cache' }).then(function (res) {
+    function dataUrl(file) {
+        const base = (typeof window !== 'undefined' && window.location && window.location.href)
+            ? window.location.href
+            : '';
+        return new URL('assets/data/' + file, base).href;
+    }
+
+    function loadJson(file) {
+        return fetch(dataUrl(file), { cache: 'no-cache' }).then(function (res) {
             if (!res.ok) throw new Error('load_failed');
             return res.json();
         });
@@ -42,13 +49,26 @@
 
     function init(options) {
         if (loadPromise) return loadPromise;
-        const base = (options && options.basePath) || 'assets/data/';
+        const base = (options && options.basePath) || null;
         loadPromise = Promise.all([
-            loadJson(base + 'israel-settlements.json'),
-            loadJson(base + 'zip-general.json').catch(function () { return null; })
+            base
+                ? fetch(base + 'israel-settlements.json', { cache: 'no-cache' }).then(function (res) {
+                    if (!res.ok) throw new Error('load_failed');
+                    return res.json();
+                })
+                : loadJson('israel-settlements.json'),
+            base
+                ? fetch(base + 'zip-general.json', { cache: 'no-cache' }).then(function (res) {
+                    return res.ok ? res.json() : null;
+                }).catch(function () { return null; })
+                : loadJson('zip-general.json').catch(function () { return null; })
         ]).then(function (results) {
             settlements = Array.isArray(results[0]) ? results[0] : [];
             zipIndex = results[1] && typeof results[1] === 'object' ? results[1] : {};
+            return true;
+        }).catch(function () {
+            settlements = [];
+            zipIndex = {};
             return true;
         });
         return loadPromise;
