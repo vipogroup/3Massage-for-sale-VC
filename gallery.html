@@ -50,8 +50,17 @@
                 </div>
                 <h1 class="sg-hero-title">גלריית המפעל — המכולה בדרך</h1>
                 <p class="sg-hero-sub">תמונות וסרטונים מהייצור, ההעמסה והמשלוח — בדיוק כמו שאתם רואים כאן</p>
+                <div class="sg-hero-progress" id="sgHeroProgress" aria-live="polite"></div>
+                <button type="button" class="sg-hero-jump" id="sgJumpCurrent" hidden>
+                    <i class="fas fa-location-arrow"></i>
+                    <span>קפיצה לשלב הנוכחי</span>
+                </button>
             </div>
         </section>
+
+        <nav class="sg-stage-nav-wrap" id="sgStageNavWrap" aria-label="ניווט שלבים" hidden>
+            <div class="sg-stage-nav" id="sgStageNav" role="tablist"></div>
+        </nav>
 
         <section class="sg-track-wrap reveal reveal-delay-1" aria-label="מסלול המכולה">
             <div class="sec-card sg-track-card">
@@ -60,7 +69,19 @@
             </div>
         </section>
 
-        <div id="sgGallery"></div>
+        <div id="sgGallery">
+            <div class="sg-loading" id="sgLoading" aria-busy="true" aria-label="טוען גלריה">
+                <div class="sg-loading-card sec-card">
+                    <div class="sg-skeleton sg-skeleton-title"></div>
+                    <div class="sg-skeleton-grid">
+                        <div class="sg-skeleton sg-skeleton-thumb"></div>
+                        <div class="sg-skeleton sg-skeleton-thumb"></div>
+                        <div class="sg-skeleton sg-skeleton-thumb"></div>
+                        <div class="sg-skeleton sg-skeleton-thumb"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <section class="s7 sg-cta-section reveal">
             <div class="s7-inner">
@@ -122,12 +143,26 @@
         </div>
     </div>
 
-    <div class="s6-lb" id="sgLightbox" hidden>
+    <div class="s6-lb sg-lightbox" id="sgLightbox" hidden>
         <button type="button" class="s6-lb-close" id="sgLightboxClose" aria-label="סגור">
             <i class="fas fa-xmark"></i>
         </button>
-        <img id="sgLightboxImg" src="" alt="">
+        <button type="button" class="sg-lb-nav sg-lb-prev" id="sgLightboxPrev" aria-label="תמונה קודמת">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        <button type="button" class="sg-lb-nav sg-lb-next" id="sgLightboxNext" aria-label="תמונה הבאה">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <div class="sg-lb-body">
+            <img id="sgLightboxImg" src="" alt="">
+            <p class="sg-lb-caption" id="sgLightboxCaption"></p>
+            <p class="sg-lb-counter" id="sgLightboxCounter"></p>
+        </div>
     </div>
+
+    <button type="button" class="sg-top-btn" id="sgTopBtn" hidden aria-label="חזרה למעלה">
+        <i class="fas fa-arrow-up"></i>
+    </button>
 
     <script src="assets/js/shipment-gallery.js"></script>
 </body>
