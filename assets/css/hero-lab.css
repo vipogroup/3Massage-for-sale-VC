@@ -477,6 +477,13 @@ main > section + section::after {
     .s3-tech-card--wide { grid-column: 1 / -1; }
     .s3-tech-card--wide .s3-tech-media img { aspect-ratio: 21 / 9; max-height: 280px; }
 }
+.s3-tech-card--portrait .s3-tech-media img {
+    aspect-ratio: auto; max-height: 360px; object-fit: contain; object-position: center;
+    background: #1a1a1a;
+}
+@media (min-width: 640px) {
+    .s3-tech-card--portrait .s3-tech-media img { max-height: 420px; }
+}
 
 .s3-feats {
     margin-top: 22px; padding: 18px 16px 16px;
