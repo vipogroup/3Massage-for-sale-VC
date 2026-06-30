@@ -43,7 +43,7 @@
     "full": "assets/d2.mp4"
   },
   "buyersList": {
-    "enabled": true,
+    "enabled": false,
     "initialVisible": 5,
     "maxVisible": 25
   },
