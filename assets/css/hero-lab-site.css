@@ -286,24 +286,25 @@ main .s3-tech-body {
 
 main .s3-feats {
     margin-top: 14px;
-    padding: 18px 14px 16px;
+    padding: 16px 12px;
 }
 
-main .s3-feats-h {
-    font-size: 1.05rem;
+main .s3-feats-title {
+    font-size: .86rem;
+    margin-bottom: 12px;
 }
 
-main .s3-feats-sub {
-    font-size: .68rem;
+main .s3-feats-groups {
+    gap: 8px;
 }
 
 main .s3-feats-group-title {
-    font-size: .72rem;
+    font-size: .62rem;
 }
 
 main .s3-feats-list li {
-    font-size: .72rem;
-    padding: 8px 2px;
+    font-size: .62rem;
+    padding: 5px 0;
 }
 
 main .s3-dims {
