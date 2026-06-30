@@ -286,28 +286,24 @@ main .s3-tech-body {
 
 main .s3-feats {
     margin-top: 14px;
-    padding: 14px 12px;
+    padding: 18px 14px 16px;
 }
 
-main .s3-feats-title {
-    font-size: .88rem;
-    margin-bottom: 12px;
+main .s3-feats-h {
+    font-size: 1.05rem;
 }
 
-main .s3-feats-grid {
-    gap: 7px;
-}
-
-main .s3-feats-item {
-    padding: 9px 10px;
+main .s3-feats-sub {
     font-size: .68rem;
-    gap: 8px;
 }
 
-main .s3-feats-icon {
-    width: 34px;
-    height: 34px;
-    font-size: .78rem;
+main .s3-feats-group-title {
+    font-size: .72rem;
+}
+
+main .s3-feats-list li {
+    font-size: .72rem;
+    padding: 8px 2px;
 }
 
 main .s3-dims {
