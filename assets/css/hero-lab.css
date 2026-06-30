@@ -431,6 +431,52 @@ main > section + section::after {
 .s3-specs td { padding: 11px 6px; font-size: .78rem; vertical-align: top; }
 .s3-specs td:first-child { font-weight: 800; color: var(--navy); white-space: nowrap; padding-inline-end: 12px; width: 36%; }
 .s3-specs td:last-child { color: var(--ink-2); font-weight: 500; }
+
+.s3-tech { margin-top: 22px; }
+.s3-tech-title {
+    font-size: .92rem; font-weight: 800; color: var(--navy);
+    display: flex; align-items: center; gap: 10px; margin-bottom: 8px;
+}
+.s3-tech-title i {
+    width: 30px; height: 30px; border-radius: 9px;
+    background: linear-gradient(135deg, var(--navy), var(--navy-2));
+    display: flex; align-items: center; justify-content: center;
+    font-size: .8rem; color: var(--accent-2);
+}
+.s3-tech-lead {
+    font-size: .76rem; color: var(--ink-2); line-height: 1.55;
+    margin: 0 0 16px; max-width: 36em;
+}
+.s3-tech-grid {
+    display: grid; grid-template-columns: 1fr; gap: 12px;
+}
+.s3-tech-card {
+    background: rgba(255,255,255,.88); border-radius: var(--r);
+    border: 1px solid rgba(93,107,133,.14); box-shadow: var(--sh-sm);
+    overflow: hidden; transition: transform .25s, box-shadow .25s;
+}
+.s3-tech-card:hover { transform: translateY(-3px); box-shadow: var(--sh-md); }
+.s3-tech-media {
+    background: linear-gradient(180deg, #eef4fb 0%, #f7f3ec 100%);
+    border-bottom: 1px solid rgba(93,107,133,.1);
+}
+.s3-tech-media img {
+    display: block; width: 100%; height: auto; aspect-ratio: 16 / 9;
+    object-fit: cover; object-position: center;
+}
+.s3-tech-card:not(.s3-tech-card--wide) .s3-tech-media img { aspect-ratio: 4 / 3; }
+.s3-tech-body { padding: 14px 14px 16px; text-align: start; }
+.s3-tech-body h4 {
+    font-size: .84rem; font-weight: 800; color: var(--navy); margin: 0 0 6px;
+}
+.s3-tech-body p {
+    font-size: .72rem; color: var(--ink-2); line-height: 1.55; margin: 0;
+}
+@media (min-width: 640px) {
+    .s3-tech-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .s3-tech-card--wide { grid-column: 1 / -1; }
+    .s3-tech-card--wide .s3-tech-media img { aspect-ratio: 21 / 9; max-height: 280px; }
+}
 /* ══════════════════════════════════════════════
    Section 4 — Reviews  (DARK zone — breaks the white)
 ══════════════════════════════════════════════ */

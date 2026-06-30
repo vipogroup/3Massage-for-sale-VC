@@ -235,6 +235,22 @@ main .s3-ben-icon {
     margin-bottom: 8px;
 }
 
+main .s3-tech {
+    margin-top: 16px;
+}
+
+main .s3-tech-lead {
+    margin-bottom: 12px;
+}
+
+main .s3-tech-grid {
+    gap: 10px;
+}
+
+main .s3-tech-body {
+    padding: 12px;
+}
+
 main .s8 {
     padding: 0 14px;
     margin: 10px 0;
