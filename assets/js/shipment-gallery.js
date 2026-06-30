@@ -208,6 +208,74 @@
         });
     }
 
+    function getVideoPoster(stage, videoIdx) {
+        const posters = stage.videoPosters || stage.posters || [];
+        if (posters[videoIdx]) return posters[videoIdx];
+        const images = stage.images || [];
+        if (images[videoIdx]) return images[videoIdx];
+        if (images.length) return images[Math.min(videoIdx, images.length - 1)];
+        return '';
+    }
+
+    function renderVideoPreview(stage, src, idx) {
+        const poster = getVideoPoster(stage, idx);
+        const label = stage.label + ' · סרטון ' + (idx + 1);
+        const posterHtml = poster
+            ? '<img class="sg-video-poster" src="' + poster + '" alt="" loading="lazy">'
+            : '<div class="sg-video-poster-fallback" aria-hidden="true"><i class="fas fa-film"></i></div>';
+
+        return (
+            '<button type="button" class="sg-video-preview" data-video-src="' + src + '" data-video-label="' + label + '" aria-label="הפעל ' + label + '">' +
+            posterHtml +
+            '<span class="sg-video-play" aria-hidden="true"><i class="fas fa-play"></i></span>' +
+            '<span class="sg-video-label">סרטון ' + (idx + 1) + '</span>' +
+            '</button>'
+        );
+    }
+
+    function bindVideoPreviews(root) {
+        (root || document).querySelectorAll('.sg-video-preview').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                openVideoModal(btn.dataset.videoSrc || '', btn.dataset.videoLabel || 'סרטון');
+            });
+        });
+    }
+
+    function openVideoModal(src, label) {
+        const modal = $('#sgVideoModal');
+        const player = $('#sgVideoPlayer');
+        const caption = $('#sgVideoCaption');
+        if (!modal || !player || !src) return;
+
+        player.src = src;
+        player.currentTime = 0;
+        if (caption) caption.textContent = label || '';
+        modal.hidden = false;
+        document.body.classList.add('video-open');
+        document.body.style.overflow = 'hidden';
+
+        const playAttempt = player.play();
+        if (playAttempt && playAttempt.catch) {
+            playAttempt.catch(function () { /* autoplay blocked until user taps controls */ });
+        }
+    }
+
+    function closeVideoModal() {
+        const modal = $('#sgVideoModal');
+        const player = $('#sgVideoPlayer');
+        if (!modal) return;
+        if (player) {
+            player.pause();
+            player.removeAttribute('src');
+            player.load();
+        }
+        modal.hidden = true;
+        document.body.classList.remove('video-open');
+        if (!$('#sgLightbox') || $('#sgLightbox').hidden) {
+            document.body.style.overflow = '';
+        }
+    }
+
     function buildLightboxList(stages, currentId) {
         const list = [];
         const currentIdx = stageIndex(currentId);
@@ -232,16 +300,17 @@
             const counts = stageMediaCount(stage);
             if (i > currentIdx && !counts.total) return '';
 
-            const videoItems = (stage.videos || []).map(function (src, idx) {
-                return (
-                    '<div class="sg-video-card">' +
-                    '<span class="sg-video-label">סרטון ' + (idx + 1) + '</span>' +
-                    '<video controls playsinline preload="metadata" src="' + src + '" aria-label="סרטון ' + (idx + 1) + '"></video>' +
-                    '</div>'
-                );
+            const videos = stage.videos || [];
+            const videoItems = videos.map(function (src, idx) {
+                return renderVideoPreview(stage, src, idx);
             }).join('');
 
-            const videoBlock = videoItems ? '<div class="sg-videos">' + videoItems + '</div>' : '';
+            const videoBlock = videoItems
+                ? '<div class="sg-videos">' +
+                (videos.length > 1 ? '<p class="sg-video-hint">לחצ/י על תצוגה מקדימה להפעלת הסרטון</p>' : '') +
+                videoItems +
+                '</div>'
+                : '';
 
             const images = stage.images || [];
             const hiddenFrom = images.length > PREVIEW_COUNT ? PREVIEW_COUNT : images.length;
@@ -306,6 +375,8 @@
                 openLightbox(Number.isFinite(idx) ? idx : 0);
             });
         });
+
+        bindVideoPreviews(wrap);
 
         initReveal();
         initScrollSpy(stages);
@@ -417,12 +488,26 @@
             });
         }
 
+        const videoClose = $('#sgVideoClose');
+        const videoModal = $('#sgVideoModal');
+        if (videoClose) videoClose.addEventListener('click', closeVideoModal);
+        if (videoModal) {
+            videoModal.addEventListener('click', function (e) {
+                if (e.target === videoModal) closeVideoModal();
+            });
+        }
+
         initTopButton();
         initLightboxGestures();
         init();
     });
 
     document.addEventListener('keydown', function (e) {
+        const videoModal = $('#sgVideoModal');
+        if (videoModal && !videoModal.hidden) {
+            if (e.key === 'Escape') closeVideoModal();
+            return;
+        }
         const lb = $('#sgLightbox');
         if (!lb || lb.hidden) return;
         if (e.key === 'Escape') closeLightbox();
