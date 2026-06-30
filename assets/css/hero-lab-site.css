@@ -285,24 +285,41 @@ main .s3-tech-body {
 }
 
 main .s3-feats {
-    margin-top: 16px;
-    padding: 16px 14px 14px;
+    margin-top: 14px;
+    padding: 8px 4px 10px;
 }
 
-main .s3-feats-grid {
-    gap: 7px;
+main .s3-feats-hub {
+    width: min(100%, 322px);
+    height: 300px;
 }
 
-main .s3-feats-grid li {
-    padding: 10px 11px;
-    font-size: .7rem;
-    min-height: 46px;
+main .s3-feats-ring--inner { width: 146px; height: 146px; }
+main .s3-feats-ring--outer { width: 272px; height: 272px; }
+
+main .s3-feats-core {
+    width: 100px;
+    height: 100px;
 }
 
-main .s3-feats-grid i {
-    width: 32px;
-    height: 32px;
-    font-size: .78rem;
+main .s3-feats-core-num {
+    font-size: 1.3rem;
+}
+
+main .s3-feats-node {
+    width: 54px;
+    margin-left: -27px;
+    --radius: calc(64px + var(--ring) * 40px);
+}
+
+main .s3-feats-node i {
+    width: 28px;
+    height: 28px;
+    font-size: .68rem;
+}
+
+main .s3-feats-node span {
+    font-size: .48rem;
 }
 
 main .s3-dims {
