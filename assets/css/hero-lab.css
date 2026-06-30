@@ -279,6 +279,24 @@ main > section + section::after {
 .vp-cta:hover { transform: translateY(-2px); box-shadow: 0 16px 40px rgba(28,43,70,.32); }
 .vp-cta i { font-size: 1.2rem; }
 .vp-cta-note { margin-top: 10px; text-align: center; font-size: .72rem; color: var(--ink-3); display:flex; align-items:center; justify-content:center; gap:6px; }
+
+.vp-deal-stack {
+    border-radius: var(--r-lg); overflow: hidden;
+    background: rgba(255,255,255,.82);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(93,107,133,.18);
+    box-shadow: var(--sh-md);
+}
+.vp-deal-stack .vp-trust {
+    margin-bottom: 0; border: none; border-radius: 0; box-shadow: none;
+    background: transparent;
+    border-bottom: 1px solid rgba(93,107,133,.14);
+}
+.vp-deal-stack .s2-card {
+    border: none; border-radius: 0; box-shadow: none;
+    background: transparent; padding-top: 14px;
+}
+.vp-deal-stack .s2-card:hover { transform: none; box-shadow: none; }
 /* ══════════════════════════════════════════════
    Section 2 — Offer (glass cards on tinted zone)
 ══════════════════════════════════════════════ */

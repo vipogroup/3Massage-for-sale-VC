@@ -148,7 +148,7 @@ main .vp-stage {
 }
 
 main .vp-copy {
-    padding: 14px 16px 2px;
+    padding: 14px 16px 10px;
 }
 
 main .vp-title {
@@ -174,7 +174,15 @@ main .vp-trust i {
 }
 
 main .s2-bg {
-    padding: 16px 14px 20px;
+    padding: 8px 14px 20px;
+}
+
+main .vp-deal-stack {
+    margin-top: 4px;
+}
+
+main .vp-deal-stack .s2-card {
+    padding: 12px 14px 14px;
 }
 
 main .s2-card {
