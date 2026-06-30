@@ -153,25 +153,42 @@
         setDistanceStatus('', '');
     }
 
+    function haversineKm(origin, destination) {
+        const R = 6371;
+        const toRad = function (deg) { return deg * Math.PI / 180; };
+        const dLat = toRad(destination.lat - origin.lat);
+        const dLon = toRad(destination.lon - origin.lon);
+        const lat1 = toRad(origin.lat);
+        const lat2 = toRad(destination.lat);
+        const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    }
+
     async function geocodeAddress(fields) {
-        if (!global.DeliveryGeocode) {
+        if (!window.DeliveryGeocode) {
             throw new Error('geocoder_missing');
         }
-        await DeliveryGeocode.init();
-        return DeliveryGeocode.geocodeAddress(fields);
+        await window.DeliveryGeocode.init();
+        return window.DeliveryGeocode.geocodeAddress(fields);
     }
 
     async function fetchDrivingDistanceKm(origin, destination) {
         const coords = origin.lon + ',' + origin.lat + ';' + destination.lon + ',' + destination.lat;
         const url = 'https://router.project-osrm.org/route/v1/driving/' +
             coords + '?overview=false&alternatives=false';
-        const res = await fetch(url, { headers: { Accept: 'application/json' } });
-        if (!res.ok) throw new Error('route_failed');
-        const data = await res.json();
-        if (data.code !== 'Ok' || !data.routes || !data.routes.length) {
-            throw new Error('route_not_found');
+        try {
+            const res = await fetch(url, { headers: { Accept: 'application/json' } });
+            if (!res.ok) throw new Error('route_failed');
+            const data = await res.json();
+            if (data.code === 'Ok' && data.routes && data.routes.length) {
+                return { km: data.routes[0].distance / 1000, approximate: false };
+            }
+        } catch (err) {
+            // fall through to straight-line estimate
         }
-        return data.routes[0].distance / 1000;
+        const straight = haversineKm(origin, destination);
+        return { km: straight * 1.3, approximate: true };
     }
 
     async function calculateDeliveryDistance() {
@@ -196,16 +213,16 @@
         try {
             const origin = getDeliverySettings().origin;
             const destination = await geocodeAddress(fields);
-            const km = await fetchDrivingDistanceKm(origin, destination);
+            const route = await fetchDrivingDistanceKm(origin, destination);
             if (requestId !== distanceCalcRequestId) return;
 
-            calculatedDistanceKm = km;
-            distanceIsApproximate = !!destination.approximate;
+            calculatedDistanceKm = route.km;
+            distanceIsApproximate = !!destination.approximate || !!route.approximate;
             distanceCalcStatus = 'ready';
 
             let statusMsg = (distanceIsApproximate
                 ? 'מרחק משוער '
-                : 'מרחק נסיעה ') + formatDistance(km) + ' ק"מ מ' + originName;
+                : 'מרחק נסיעה ') + formatDistance(route.km) + ' ק"מ מ' + originName;
 
             if (destination.resolvedCity && destination.resolvedCity !== fields.city) {
                 statusMsg += ' · זוהה יישוב: ' + destination.resolvedCity;
@@ -218,7 +235,13 @@
             if (requestId !== distanceCalcRequestId) return;
             calculatedDistanceKm = null;
             distanceCalcStatus = 'error';
-            setDistanceStatus('לא הצלחנו לזהות את הכתובת — ודא/י שם יישוב מלא (כמו בדואר ישראל) ומיקוד 7 ספרות', 'error');
+            if (err && err.message === 'geocoder_missing') {
+                setDistanceStatus('שגיאת טעינה — רעננ/י את הדף ונס/י שוב', 'error');
+            } else if (err && err.message === 'address_not_found') {
+                setDistanceStatus('לא נמצא יישוב למיקוד — ודא/י שם יישוב ומיקוד 7 ספרות מדואר ישראל', 'error');
+            } else {
+                setDistanceStatus('לא הצלחנו לחשב מרחק — נס/י שוב או פנו אלינו בוואטסאפ', 'error');
+            }
         }
 
         updatePriceSummary();
