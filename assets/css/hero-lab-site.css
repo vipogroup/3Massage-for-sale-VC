@@ -261,16 +261,23 @@ main .s3-tech-body {
 
 main .s3-feats {
     margin-top: 16px;
-    padding: 16px 12px 14px;
+    padding: 16px 14px 14px;
 }
 
 main .s3-feats-grid {
-    gap: 6px;
+    gap: 7px;
 }
 
 main .s3-feats-grid li {
-    padding: 8px;
-    font-size: .66rem;
+    padding: 10px 11px;
+    font-size: .7rem;
+    min-height: 46px;
+}
+
+main .s3-feats-grid i {
+    width: 32px;
+    height: 32px;
+    font-size: .78rem;
 }
 
 main .s3-dims {
