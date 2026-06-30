@@ -209,8 +209,33 @@ main .s6 {
 }
 
 main .s4 {
-    padding: 38px 14px 42px;
-    margin: 8px 0;
+    padding: 24px 14px 28px;
+    margin: 6px 0;
+}
+
+main .s4-title {
+    font-size: 1.05rem;
+    margin-bottom: 6px;
+}
+
+main .s4-rating-row {
+    margin-bottom: 10px;
+}
+
+main .s4-avg {
+    font-size: 1.05rem;
+}
+
+main .s4-badge span.s4-badge-txt {
+    display: none;
+}
+
+main .s4-card {
+    padding: 10px 11px;
+}
+
+main .s4-card-top {
+    margin-bottom: 5px;
 }
 
 main .sec-card {
@@ -596,15 +621,15 @@ main .vp-orb {
 .s4-list .lp-review-card {
     background: rgba(255, 255, 255, 0.06);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
-    padding: 16px;
-    margin-bottom: 12px;
+    border-radius: 12px;
+    padding: 0;
+    margin-bottom: 0;
 }
 
 .s4-list .lp-review-stars {
     color: #cfd7e4;
-    font-size: 0.82rem;
-    margin-bottom: 8px;
+    font-size: 0.52rem;
+    margin-bottom: 0;
 }
 
 .s4-list .lp-review-star-off {
@@ -612,14 +637,18 @@ main .vp-orb {
 }
 
 .s4-list .lp-review-text {
-    margin: 0 0 10px;
-    font-size: 0.88rem;
-    line-height: 1.55;
-    color: rgba(255, 255, 255, 0.88);
+    margin: 0;
+    font-size: 0.72rem;
+    line-height: 1.45;
+    color: rgba(255, 255, 255, 0.82);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .s4-list .lp-review-author {
-    font-size: 0.78rem;
+    font-size: 0.72rem;
     font-weight: 700;
     color: rgba(255, 255, 255, 0.65);
 }
@@ -628,25 +657,25 @@ main .vp-orb {
     position: relative;
     z-index: 3;
     text-align: center;
-    margin: 18px 16px 12px;
-    padding-bottom: 4px;
+    margin: 10px 0 4px;
+    padding-bottom: 0;
 }
 
 .s4-review-cta a {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    min-height: 44px;
-    padding: 10px 22px;
+    gap: 6px;
+    min-height: 36px;
+    padding: 7px 16px;
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.14);
-    border: 1.5px solid rgba(207, 215, 228, 0.65);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(207, 215, 228, 0.45);
     color: #ffffff;
-    font-size: 0.9rem;
-    font-weight: 800;
+    font-size: 0.74rem;
+    font-weight: 700;
     text-decoration: none;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.22);
+    box-shadow: none;
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
 }
